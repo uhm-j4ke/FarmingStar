@@ -1,6 +1,6 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. Version 0.2.0 adds the autumn pixel-art overhaul, journal and expanded atlas. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md) for changes, bug fixes and validation.
+An original, offline, top-down farming and kitchen game. Version 0.3.0 adds Hearth & Acre, land ownership, furnished homes, seasonal forecasts, illustrated maps and save history. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md) for changes, bug fixes and validation.
 
 ## Play
 
@@ -17,7 +17,7 @@ Open the local server in your browser. File and HTTP origins have separate saves
 ## First harvest
 
 1. Create a farmer (new farms begin in autumn). Open Bag → Journal / Log Book for starter quests. Walk south of the farmhouse to the brown field.
-2. Select the hoe. Click an adjacent tile (or face it and press Space / Use tool).
+2. Select the hoe. Face an adjacent tile, then click anywhere in the world or press Space / Use tool. The cursor never chooses a tool target.
 3. Select carrot seeds and plant on that tile. Select the watering can and water it.
 4. Enter the house through the front door with E / Talk–Enter. Stand beside the bed and interact to sleep.
 5. Water and sleep again. Harvest the mature carrot by using any equipped item on it.
@@ -31,7 +31,7 @@ Refill the can at the southeast pond. Collect free daily wild carrots with the s
 
 ## Controls
 
-- WASD / arrows: walk; click adjacent tile or Space: equipped item.
+- WASD / arrows: walk; face a tile, then click anywhere or press Space: equipped item (timed impact).
 - E: interact with a door, counter, villager, bed, chest or station.
 - 1–9: hotbar; I: inventory; M: map; Escape: pause / close.
 - Mobile: joystick, contextual interaction, Use tool, touch hotbar and menus.
@@ -46,7 +46,7 @@ Menus pause time. An outdoor day lasts about eight minutes. Seasons last 14 days
 - Ten seasonal crop definitions, single and repeat harvests, watering capacity/refill, rain, four tool tiers, wood/stone gathering.
 - Inventory, equipment hotbar, chest transfers, seasonal seed shop, ingredient shop, direct sales and validated transactions.
 - Nine physical placeable station types and twelve recipes; interactive three-action timing activities, gentle mode, performance coin bonuses.
-- Three adult villagers, daily talk/gift friendship, optional companion designation, repeatable soup delivery.
+- Four adult villagers, daily talk/gift friendship, optional companion designation, repeatable soup delivery.
 - Basic fishing for perch, market stocking/removal/collection, probabilistic daytime sales and sleep-time reports.
 - Pannable/zoomable atlas, minimap, discovered-area travel, building landmarks, player/facing marker and walkable waypoint routes. Town has winding water, two bridges and eastbank gardens.
 - Day/night tint, seasonal foliage, rain, wind, leaves, original pixel font/art/icons and generated music/effects. Three versioned localStorage save slots; migration preserves legacy data and corrupt slots remain isolated.
@@ -55,7 +55,7 @@ Menus pause time. An outdoor day lasts about eight minutes. Seasons last 14 days
 
 The initial release intentionally simplifies later phases. All twelve recipes are visible from the start; no recipe unlock tree yet. Cooking stations share a timing mechanic rather than bespoke dragging, stirring, pizza preparation or oven temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. Food has a performance coin bonus rather than persistent quality stacks.
 
-NPC movement follows lightweight collision-aware outdoor routes with pauses, not a full building schedule. Fishing has one species and no delayed bite, bait or improved rods. Market pricing is fixed with a modest premium; there are no price sliders, preference weights or stall upgrades. The atlas includes selectable building entrances and routes over walkable tiles; travel is available within discovered areas. No farm expansion, station upgrades, fertiliser, full dialogue trees, festivals, livestock, or APK.
+NPC movement follows lightweight collision-aware outdoor routes with pauses, not a full building schedule. Fishing has one species and no delayed bite, bait or improved rods. Market pricing is fixed with a modest premium; there are no price sliders, preference weights or stall upgrades. The atlas includes selectable building entrances and routes over walkable tiles; travel is available within discovered areas. No station upgrade tiers, fertiliser, festivals, livestock, APK or IPA yet. Land and farmhouse expansion are implemented in 0.3.0.
 
 Next: test on physical Android devices and refine balance and saving across Android file handlers, then add bespoke cooking minigames, pizza/cake chains, recipe discovery, persistent quality, richer NPC routines and fishing. Later add responsive audio ambience, wildlife and equipment/farm expansion. Target 60 FPS has not been benchmarked on Android hardware.
 
@@ -73,3 +73,17 @@ npm test
 `CHROMIUM_PATH` can select a system Chromium binary (defaults to `/usr/bin/chromium`). Browser execution must be permitted by the host sandbox. Tests launch an ephemeral local server and check character creation, keyboard movement, farming over two days, shop purchases/sales, failed transactions, storage, cooking, equipment placement/collision, save restoration, operation with network disabled, mobile layouts and corrupt-save recovery. Update checks also cover the pixel UI, editable inputs, native touch hotbar/joystick/map gestures, camera zoom targeting, journal rewards, map routes, multi-slot saving, migration and invalid-position relocation. Screenshots are generated under `tests/` and ignored. Tests use controlled state hooks for repeatable scenarios; manual end-to-end play and physical Android tests are still needed.
 
 The embedded font is generated from original grid patterns by `tools/pixel_font.py` (development-only Python dependency: fonttools). Regeneration is optional; the playable HTML already contains the font.
+
+## Hearth & Acre and home building
+
+Visit the estate agency north of the town lane (08:00–18:00) to preview parcels, select their initial use, redevelop land or extend the farmhouse eastward. Purchased land remains yours after saving. Existing fields, machines, furniture and storage survive upgrades.
+
+At home or on your farm, use **Build** for Furniture Shop, Owned Furniture and Build Mode. Buy into furniture storage, choose Place/Move, tap a target floor tile or face it and choose Preview, rotate if useful, then Confirm. Escape/Cancel preserves the original item. Removed chests keep their contents. Outdoor furnishings/machines require an owned parcel. TV interaction shows the saved daily weather and tomorrow’s consistent forecast.
+
+## Saves and history
+
+Load Game → a slot’s **...** menu opens Rename, Delete and Autosave History. Four rolling restore points are made at roughly 60 seconds of active play; menus/inactive tabs pause the interval. Current progress saves separately at important actions. Confirm before restoring; one pre-restore safety copy permits Undo last restore. Restore points are isolated by farm. Browser storage is not a permanent backup; export/import is planned.
+
+The minimap and atlas share actual world terrain and original illustrated woodland/roof assets. Tap the map for the atlas; use the **?** button for the compact icon legend. The reference image inspired density and overhead styling, not copied geography.
+
+**Permanent roadmap:** animal farming in a future update; offline Android APK only on explicit request; iPad IPA with minimum iOS 15 support only on explicit request, subject to suitable build/signing tools. No APK or IPA is generated in this release.

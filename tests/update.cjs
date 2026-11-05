@@ -3,7 +3,8 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  const server=require('node:http').createServer((q,r)=>{r.setHeader('Content-Type','text/html');r.end(fs.readFileSync(path.join(__dirname,'../index.html')))});await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
  const context=await browser.newContext({viewport:{width:1280,height:800}}),page=await context.newPage(),errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith('http://127.0.0.1:'))requests.push(r.url())});
- const url='http://127.0.0.1:'+server.address().port;await page.goto(url);await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(250);
+ const url='http://127.0.0.1:'+server.address().port;await page.addInitScript(()=>{window.testUse=(x,y)=>{const f=FarmingStar,g=f.state;if(f.placement){f.placeStation(x,y);return}g.x=x*24+12;g.y=(y-1)*24+12;g.dir=2;f.use();f.stepAction(.6);if(f.activity?.type==='fishwait')f.update(5)}});
+ await page.goto(url);await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(250);
  await page.screenshot({path:path.join(__dirname,'title.png')});
  const art=await page.locator('#titleScene').screenshot();await page.waitForTimeout(250);const art2=await page.locator('#titleScene').screenshot();assert.notDeepEqual(art,art2,'title scene animates');
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('#controls').selectOption('desktop');await page.getByRole('button',{name:'Save settings'}).click();assert.ok(await page.locator('#titleScene').isVisible(),'title settings return to title');
@@ -16,14 +17,14 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  for(const zoom of [3,4,5]){
   await page.evaluate(z=>{const f=FarmingStar;f.state.settings.zoom=z;window.dispatchEvent(new Event('resize'));f.travel('farm',8,11);f.state.selected='hoe';delete f.state.plots['8,12']},zoom);await page.waitForTimeout(650);
   const pos=await page.evaluate(()=>{const f=FarmingStar,c=f.camera;return {x:(8*24+12-Math.floor(c.x))/c.vw*innerWidth,y:(12*24+12-Math.floor(c.y))/c.vh*innerHeight}});
-  await page.mouse.click(pos.x,pos.y);assert.ok(await page.evaluate(()=>!!FarmingStar.state.plots['8,12']),`pointer target at ${zoom}x`);
+  await page.mouse.click(pos.x,pos.y);await page.waitForTimeout(250);assert.ok(await page.evaluate(()=>!!FarmingStar.state.plots['8,12']),`pointer target at ${zoom}x`);
  }
  // Journal rewards once, and merely opening the book never completes tasks.
- await page.evaluate(()=>{FarmingStar.state.settings.zoom=4;window.dispatchEvent(new Event('resize'));FarmingStar.save()});
+ await page.evaluate(()=>{FarmingStar.state.settings.zoom=4;window.dispatchEvent(new Event('resize'));FarmingStar.save(true)});
  const coins=await page.evaluate(()=>FarmingStar.state.coins);assert.equal(await page.evaluate(()=>FarmingStar.transact({carrot:-1},{carrot:1})),false,'negative inputs cannot hide behind matching output keys');
  await page.getByRole('button',{name:'Bag [I]',exact:true}).click();await page.getByRole('button',{name:'Journal / Log Book',exact:true}).click();assert.ok(await page.getByText('Pages already written').isVisible());await page.screenshot({path:path.join(__dirname,'journal.png')});await page.locator('[data-act="close"]').click();
  assert.equal(await page.evaluate(()=>FarmingStar.state.coins),coins);
- await page.evaluate(()=>{for(let i=0;i<4;i++)FarmingStar.save()});assert.equal(await page.evaluate(()=>FarmingStar.state.coins),coins,'journal rewards cannot repeat');
+ await page.evaluate(()=>{for(let i=0;i<4;i++)FarmingStar.save(true)});assert.equal(await page.evaluate(()=>FarmingStar.state.coins),coins,'journal rewards cannot repeat');
  // Every requested landmark has a real collision-free route, including both bridges.
  const routes=await page.evaluate(()=>{const f=FarmingStar;return f.destinations.filter(d=>d.area==='town').map(d=>{const r=f.route('town',{x:2,y:11},d);return {name:d.name,len:r.length,valid:r.every(p=>!f.blocked('town',p.x,p.y))}})});
  for(const r of routes){assert.ok(r.len>0,r.name+' reachable');assert.ok(r.valid,r.name+' uses walkable tiles')}
@@ -48,11 +49,11 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  // Multiple slots: starting a second farm preserves the first; deleting asks first.
  await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();const first=await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.slot.1'));
  await page.getByRole('button',{name:'Start a new farm'}).click();await page.locator('#name').fill('Second');await page.getByRole('button',{name:'Make this place home'}).click();assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.slot.1')),first);
- await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();await page.getByRole('button',{name:'Load Game',exact:true}).click();await page.locator('[data-deleteslot="1"]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.slot.1')),first,'delete waits for confirmation');await page.getByRole('button',{name:'Cancel',exact:true}).click();await page.locator('[data-loadslot="1"]').click();assert.notEqual(await page.evaluate(()=>FarmingStar.state.profile.name),'Second');
+ await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();await page.getByRole('button',{name:'Load Game',exact:true}).click();await page.locator('[data-slotoptions="1"]').click();await page.locator('[data-deleteslot="1"]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.slot.1')),first,'delete waits for confirmation');await page.getByRole('button',{name:'Cancel',exact:true}).click();await page.locator('[data-loadslot="1"]').click();assert.notEqual(await page.evaluate(()=>FarmingStar.state.profile.name),'Second');
  // Legacy migration on a fresh browser origin state preserves original bytes and date.
  await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();const legacy=await page.evaluate(()=>{const old=FarmingStar.defaults();old.version=1;old.day=7;old.profile.name='Legacy';old.coins=321;delete old.events;delete old.journal;const raw=JSON.stringify(old);localStorage.clear();localStorage.setItem('farmingstar.moss-ember.v1',raw);return raw});await page.reload();await page.getByRole('button',{name:'Continue your farm'}).click();assert.equal(await page.evaluate(()=>FarmingStar.state.day),7);assert.equal(await page.evaluate(()=>FarmingStar.state.coins),321);assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.v1')),legacy);
  // Invalid new geometry positions are relocated on load.
- await page.evaluate(()=>{const g=FarmingStar.state;g.area='town';g.x=34*24+12;g.y=3*24+12;FarmingStar.save()});await page.reload();await page.getByRole('button',{name:'Continue your farm'}).click();assert.ok(await page.evaluate(()=>FarmingStar.walkable(FarmingStar.state.x,FarmingStar.state.y)));
+ await page.evaluate(()=>{const g=FarmingStar.state;g.area='town';g.x=34*24+12;g.y=3*24+12;FarmingStar.save(true)});await page.reload();await page.getByRole('button',{name:'Continue your farm'}).click();assert.ok(await page.evaluate(()=>FarmingStar.walkable(FarmingStar.state.x,FarmingStar.state.y)));
 
  // Browser-generated touch events verify horizontal hotbar swiping and joystick input.
  const tc=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});const tp=await tc.newPage();tp.on('pageerror',e=>errors.push(e.message));await tp.goto(url);await tp.getByRole('button',{name:'Begin your story'}).tap();await tp.getByRole('button',{name:'Make this place home'}).tap();await tp.waitForTimeout(700);

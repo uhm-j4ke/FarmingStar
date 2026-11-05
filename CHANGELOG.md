@@ -1,3 +1,44 @@
+# 0.3.0 — Hearth & Acre
+
+The world-expansion specification is retained in [docs/WORLD-EXPANSION-SPEC.md](docs/WORLD-EXPANSION-SPEC.md). The subsequent map reference guided the illustrated overhead design, not its geography or assets.
+
+## Completed
+
+- **Character and tools:** Stable integer head/eye coordinates independent of body breathing and walk frames. Distinct front/back/profile poses, distance-driven walking and retained facing. Tools use the facing tile regardless of pointer position, with a timed impact, cooldown, movement lock, directional swing/can tilt/rod line and particles. Upgraded hoe and watering strips extend forward and stop at obstacles. Switching tools during a swing cannot change the pending action. Fishing adds a short bite wait and cancel option before the retained timing game.
+- **World:** Farm grows to 56×40 tiles, town to 60×48. Estate agency, three connected villager homes with interiors/gardens, denser mixed woodland and bushes, explorable connecting lanes, existing shops/river/bridges preserved. Night routes lead villagers toward their home entrances. Decorative woodland trees can be chopped for wood; clearings persist.
+- **Estate:** Hearth & Acre opens 08:00–18:00, with estate agent Edda. Four fenced parcels cost 240/420/650/900 coins. Preview the exact footprint, confirm purchase and choose agriculture/storage/building/garden. Redevelopment costs 75c and preserves crops, furnishings and stored items. Layouts supply prepared rows, a chest or garden furnishings; every owned parcel remains usable for later farming or furnishing.
+- **Home:** Four levels, costing 350/750/1400c after the starter cottage. Expansions add floor width to the east without moving doors, furniture, stored items or stations. Roof/details change with level. New homes include bed, television, counter, table, chair, chest, plant and the existing cooking board/stove. TV forecasts match saved daily weather.
+- **Build & Furnish:** Buy into separate furniture storage, preview valid/invalid placement, rotate, confirm, cancel, move, or store. Bed/door access and reachable interaction space are checked. Removed chests retain their identity and contents; equipment can be stored/replaced. Owned parcels support outdoor furnishings and cooking stations. Legacy equipment is preserved; starter furniture that would overlap it goes into owned storage.
+- **Illustrated maps:** Shared high-resolution terrain cache for minimap and atlas, miniature leafy crowns rather than square tree markers, woodland clusters, grassy/flower textures, shaded banks and rippled water, planked bridges, tiled top-down roofs, gardens, hedges and parcel boundaries. Map clearings, crops, home roof level and furniture reflect saved world data. Shared pixel destination icons, expandable legend, heading arrow, waypoints, drag/zoom/recenter and discovered-area travel remain. Artwork is original and no external assets are used.
+- **Weather:** Daily deterministic seasonal probabilities for sunny, partly cloudy, overcast, rain, heavy rain and winter-only snow. Today/tomorrow forecasts persist. Both rain types water outdoor plots, with precipitation/darkening and smooth generated rain/river ambience. Snow has particles and roof/ground treatment.
+- **Conversations:** Bottom panel, matching original portraits, typewriter text, generated bleeps and appropriate short greeting responses. Game controls hide, pause stays accessible, and the HUD restores on close. Seasonal decorative popup leaves have finite lifetimes and respect reduced motion.
+- **Platforms:** Phone camera requests about 12% wider views, quantised to whole physical pixels at the device's pixel density; exact change depends on density and selected zoom. Safe-area positioning, tablet minimap/control layouts and the compact phone hotbar are preserved.
+- **Saving:** Version 3 migration accepts existing v1/v2 farms without resetting progression. Current state and up to four autosave restore points are separate per slot. Autosaves use 60 seconds of active gameplay, defer history writes until activities are safely complete, and pause with menus/inactive tabs. Important changes also save. Nearby writes coalesce. Slot `...` menu provides history, rename and delete. Restoring requires confirmation and retains one undo copy in addition to the four-point history. Failed writes give a warning; localStorage writes are atomic per key. Browser/OS deletion of storage remains outside the game's control.
+
+## Bug fixes and evidence
+
+- Faces previously shared breathing offsets and front-shaped side poses; the new integer head anchor and profile renderer are checked for stable eye pixel positions in all directions and walk frames.
+- Upgraded tools previously applied strips across the facing axis. Tests now verify forward strips, wall blocking, delayed impacts, duplicate-trigger rejection and captured tool identity.
+- Existing positions that conflict with denser geometry are relocated to a walkable tile on load; owned items and crop state remain intact.
+- Furnishing collision and validation share footprints. Placement cannot block the door, overlap objects or isolate required interaction access. Cancellation leaves the original object intact.
+- Outdoor equipment originally failed home-only save bounds during integration; validation now uses its actual area.
+- An opaque loading fade could freeze behind a popup. Visual transitions now finish independently while gameplay time pauses.
+- Current-state writes, history rollover, restore confirmation, failure recovery and per-slot isolation are tested independently.
+
+## Validation and remaining limits
+
+`npm test` runs the existing gameplay/touch suites plus `tests/expansion.cjs`. Checks include farming over days, shops, cooking, storage, fishing, save migration, isolated slots, front-target actions, stable eye pixels, land transactions, house upgrades, furniture/chest preservation, invalid placement, forecast consistency, rain watering, NPC dialogue controls, every landmark's reachability, four-point history, restore confirmation, write failure/recovery, map density/cache invalidation and high-DPI phone/tablet layouts. Screenshots are produced under `tests/` and ignored by Git.
+
+Browser tests use controlled hooks for repeatable scenarios plus real pointer/touch input for UI. They do not replace extended manual playtesting or physical Android/iPad performance measurements. No claim of measured 60 FPS on physical devices is made. Managed Chromium blocks file URLs; the single file has no external requests and is tested through local HTTP with offline gameplay checks.
+
+NPCs have lightweight outdoor routines and home-front-door night destinations, not a full simulation of entering/leaving homes. New home interiors share a common furnishing vocabulary. Chair/bench use supplies a short rest message rather than a seated character pose. Tool particles use a compact shared rendering system, not elaborate per-tool sprite sheets. Furniture rotation uses footprint/layout changes, with symmetric pieces naturally unchanged. Snow coverage is visual rather than a persistent depth simulation. The map illustrates this game's actual two areas rather than adding the reference image's mountains, coast, railway or island.
+
+**Next:** Physical Android/iPad playtesting, longer progression/balance tests, richer household/NPC schedules and additional animation/art variation.
+
+**Future roadmap:** animal farming remains a future update. Build a fully offline Android APK only when explicitly requested. Build an iPad IPA targeting iOS 15+ only when explicitly requested and with suitable iOS build/signing tools. Neither package is produced here. Save export/import remains a future reliability enhancement.
+
+---
+
 # 0.2.0 — The autumn pages
 
 ## Visuals and usability
