@@ -1,3 +1,9 @@
+# Typography refresh
+
+Restored a heavier original pixel-grid font across all menus, HUD labels, editable fields, buttons and canvas lettering. The embedded font contains thicker glyphs; serif fallback styling has been removed. All six browser regression suites pass, including mobile layout checks.
+
+---
+
 # 0.4.0 — Bramblewood & village life
 
 ## Completed and modified

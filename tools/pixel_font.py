@@ -1,11 +1,11 @@
-"""Generate our original 5x7 grid font and embed it in the single HTML file.
+"""Generate our original heavy pixel grid font and embed it in the single HTML file.
 Development-only dependency: fonttools. The game does not load external fonts.
 """
 from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from io import BytesIO
 import base64,re,pathlib
-# Seven rows, five columns; lowercase shares the small-cap glyph design.
+# Seven-row small caps; original outlines are thickened on the pixel grid below.
 rows={
 'A':'01110/11011/10001/11111/10001/10001/10001','B':'11110/10001/10001/11110/10001/10001/11110','C':'01111/11000/10000/10000/10000/11000/01111','D':'11100/10010/10001/10001/10001/10010/11100','E':'11111/10000/10000/11110/10000/10000/11111','F':'11111/10000/10000/11110/10000/10000/10000','G':'01111/11000/10000/10111/10001/11001/01110','H':'10001/10001/10001/11111/10001/10001/10001','I':'111/010/010/010/010/010/111','J':'00111/00010/00010/00010/10010/11010/01100','K':'10001/10010/10100/11000/10100/10010/10001','L':'10000/10000/10000/10000/10000/10000/11111','M':'10001/11011/11111/10101/10001/10001/10001','N':'10001/11001/11001/10101/10011/10011/10001','O':'01110/11011/10001/10001/10001/11011/01110','P':'11110/10001/10001/11110/10000/10000/10000','Q':'01110/10001/10001/10001/10101/10010/01101','R':'11110/10001/10001/11110/10100/10010/10001','S':'01111/10000/10000/01110/00001/00001/11110','T':'11111/00100/00100/00100/00100/00100/00100','U':'10001/10001/10001/10001/10001/11011/01110','V':'10001/10001/10001/10001/01010/01010/00100','W':'10001/10001/10001/10101/11111/11011/10001','X':'10001/01010/01010/00100/01010/01010/10001','Y':'10001/10001/01010/00100/00100/00100/00100','Z':'11111/00001/00010/00100/01000/10000/11111',
 '0':'01110/11011/10011/10101/11001/11011/01110','1':'010/110/010/010/010/010/111','2':'11110/00001/00001/01110/10000/10000/11111','3':'11110/00001/00001/01110/00001/00001/11110','4':'10010/10010/10010/11111/00010/00010/00010','5':'11111/10000/10000/11110/00001/00001/11110','6':'01111/10000/10000/11110/10001/10001/01110','7':'11111/00001/00010/00100/01000/01000/01000','8':'01110/10001/10001/01110/10001/10001/01110','9':'01110/10001/10001/01111/00001/00001/11110',
@@ -15,13 +15,13 @@ for c in list(rows):
 for c,src in {'’':"'",'‘':"'",'“':'"','”':'"','–':'-','—':'-','…':'.'}.items():rows[c]=rows[src]
 order=['.notdef']+['g'+str(ord(c)) for c in rows];glyphs={};metrics={};cmap={}
 for c,pat in [('',rows['?'])]+list(rows.items()):
- name='g'+str(ord(c)) if c else '.notdef';pen=TTGlyphPen(None);lines=pat.split('/');width=max(map(len,lines))
+ name='g'+str(ord(c)) if c else '.notdef';pen=TTGlyphPen(None);lines=[''.join('1' if (x<len(row) and row[x]=='1') or (x>0 and row[x-1]=='1') else '0' for x in range(len(row)+1)) for row in pat.split('/')];width=max(map(len,lines))
  for y,row in enumerate(lines):
   for x,v in enumerate(row):
    if v=='1':
     a=x*100;b=(6-y)*100;pen.moveTo((a,b));pen.lineTo((a,b+100));pen.lineTo((a+100,b+100));pen.lineTo((a+100,b));pen.closePath()
  glyphs[name]=pen.glyph();metrics[name]=((width+1)*100,0)
  if c:cmap[ord(c)]=name
-fb=FontBuilder(800,isTTF=True);fb.setupGlyphOrder(order);fb.setupCharacterMap(cmap);fb.setupGlyf(glyphs);fb.setupHorizontalMetrics(metrics);fb.setupHorizontalHeader(ascent=750,descent=-150);fb.setupNameTable({'familyName':'Ember Grid','styleName':'Regular','uniqueFontIdentifier':'FarmingStarEmberGrid2','fullName':'Ember Grid','psName':'EmberGrid'});fb.setupOS2(sTypoAscender=750,sTypoDescender=-150,usWinAscent=750,usWinDescent=150);fb.setupPost();fb.setupMaxp();buf=BytesIO();fb.save(buf)
-p=pathlib.Path(__file__).resolve().parents[1]/'index.html';s=p.read_text();css="@font-face{font-family:Ember;src:url(data:font/ttf;base64,"+base64.b64encode(buf.getvalue()).decode()+") format('truetype');font-weight:100 900;font-display:swap}"
+fb=FontBuilder(800,isTTF=True);fb.setupGlyphOrder(order);fb.setupCharacterMap(cmap);fb.setupGlyf(glyphs);fb.setupHorizontalMetrics(metrics);fb.setupHorizontalHeader(ascent=750,descent=-150);fb.setupNameTable({'familyName':'Ember Grid Heavy','styleName':'Bold','uniqueFontIdentifier':'FarmingStarEmberGridHeavy4','fullName':'Ember Grid Heavy Bold','psName':'EmberGridHeavy-Bold'});fb.setupOS2(sTypoAscender=750,sTypoDescender=-150,usWinAscent=750,usWinDescent=150);fb.font['OS/2'].usWeightClass=700;fb.font['OS/2'].fsSelection=0x20;fb.font['head'].macStyle=1;fb.setupPost();fb.setupMaxp();buf=BytesIO();fb.save(buf)
+p=pathlib.Path(__file__).resolve().parents[1]/'index.html';s=p.read_text();css="@font-face{font-family:Ember;src:url(data:font/ttf;base64,"+base64.b64encode(buf.getvalue()).decode()+") format('truetype');font-weight:700;font-style:normal;font-display:block}"
 s=re.sub(r'/\* EMBER FONT \*/.*?/\* END FONT \*/','/* EMBER FONT */'+css+'/* END FONT */',s,flags=re.S) if '/* EMBER FONT */' in s else s.replace('<style>','<style>\n/* EMBER FONT */'+css+'/* END FONT */',1);p.write_text(s)
