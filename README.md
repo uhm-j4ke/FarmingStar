@@ -1,6 +1,6 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. Version 0.4.0 adds compact furnished shops, unified NPC routines, a slot backpack, fishing progression and Bramblewood exploration. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md) for changes, bug fixes and validation.
+An original, offline, top-down farming and kitchen game. Version 0.4.1 is a stability candidate repairing the independent QA report’s nine defects plus a legacy migration coin replay. Compact furnished shops, NPC routines, slot backpacks, fishing and Bramblewood exploration remain available. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md), the [repair handoff](bug%20reports/REPAIR_CHANGELOG.md) and the [issue ledger](bug%20reports/FIX_STATUS.md) for fixes, exact reproduction checks and remaining validation.
 
 ## Play
 
@@ -43,29 +43,27 @@ The latest art refresh adds carved menu frames, seasonal background leaves, deta
 
 ## Implemented
 
-- Connected farm and town, four town interiors, farmhouse and pantry, solid buildings, doors and equipment; camera and depth-sorted original pixel characters.
+- Connected farm and town, five compact town interiors, farmhouse and pantry, solid buildings, doors and equipment; camera and depth-sorted original pixel characters.
 - Custom name, skin/hair/eye/clothing colours, hairstyles, two outfits and accessories; appearance can be edited later.
 - Ten seasonal crop definitions, single and repeat harvests, watering capacity/refill, rain, four tool tiers, wood/stone gathering.
 - Inventory, equipment hotbar, chest transfers, seasonal seed shop, ingredient shop, direct sales and validated transactions.
-- Nine physical placeable station types and twelve recipes; interactive three-action timing activities, gentle mode, performance coin bonuses.
-- Four adult villagers, daily talk/gift friendship, optional companion designation, repeatable soup delivery.
-- Basic fishing for perch, market stocking/removal/collection, probabilistic daytime sales and sleep-time reports.
+- Nine physical placeable station types and twenty recipes; three-action timing activities, gentle mode, quality and craft bonuses. Interrupted cooking resumes its saved ingredient reservation.
+- Four adult villagers with indoor/outdoor routines, daily talk/gift friendship, optional companion designation and community deliveries.
+- Three fishing rod tiers and five fish, market stocking/removal/collection, quality-aware daytime sales and end-of-day reports.
 - Pannable/zoomable atlas, minimap, discovered-area travel, building landmarks, player/facing marker and walkable waypoint routes. Town has winding water, two bridges and eastbank gardens.
 - Day/night tint, seasonal foliage, rain, wind, leaves, original pixel font/art/icons and generated music/effects. Three versioned localStorage save slots; migration preserves legacy data and corrupt slots remain isolated.
 
 ## Scope and next milestones
 
-The initial release intentionally simplifies later phases. All twelve recipes are visible from the start; no recipe unlock tree yet. Cooking stations share a timing mechanic rather than bespoke dragging, stirring, pizza preparation or oven temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. Food has a performance coin bonus rather than persistent quality stacks.
+Cooking stations use timing activities rather than bespoke dragging, stirring, topping placement or temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. NPC schedules and off-screen resolution remain lightweight. The market uses price presets and modest seasonal demand rather than a detailed preference simulation. Native packages, livestock and save export/import remain future work.
 
-NPC movement follows lightweight collision-aware outdoor routes with pauses, not a full building schedule. Fishing has one species and no delayed bite, bait or improved rods. Market pricing is fixed with a modest premium; there are no price sliders, preference weights or stall upgrades. The atlas includes selectable building entrances and routes over walkable tiles; travel is available within discovered areas. No station upgrade tiers, fertiliser, festivals, livestock, APK or IPA yet. Land and farmhouse expansion are implemented in 0.3.0.
-
-Next: test on physical Android devices and refine balance and saving across Android file handlers, then add bespoke cooking minigames, pizza/cake chains, recipe discovery, persistent quality, richer NPC routines and fishing. Later add responsive audio ambience, wildlife and equipment/farm expansion. Target 60 FPS has not been benchmarked on Android hardware.
+The next milestone is independent retesting and physical-device validation of the stability candidate. Browser emulation and synthetic lifecycle tests do not establish Android/iPad storage durability or hardware performance. No new content is planned during this repair phase.
 
 **Future roadmap:** animal farming remains planned, including livestock care and animal products; none is implemented now. **APK reminder:** a fully offline Android WebView APK is a future milestone after browser stability, including persistent saves, back-button handling and an original icon.
 
 ## Browser regression tests
 
-The game has no runtime dependencies. Development checks require Node.js, Playwright and Chromium:
+The game has no runtime dependencies. `npm test` runs the original seven browser suites plus the independent-report regression suite; `npm run test:stability -- --record=recheck` writes a named result file under `bug reports/verification/`. Development checks require Node.js, Playwright and Chromium:
 
 ```sh
 npm ci
@@ -103,3 +101,13 @@ Buy a basic rod (45c), equip it, face suitable water and cast. Hold Space/the re
 Android landscape is preferred: joystick left, hotbar centre, interaction/tool controls right. Portrait remains available with a rotation suggestion; orientation locking is attempted where the browser supports it.
 
 The next phase is stability. See [QA-HANDOVER.md](docs/QA-HANDOVER.md) for canonical state, transaction rules, clock/NPC logic, test hooks, limitations and priorities.
+
+## Stability candidate (0.4.1)
+
+Cooking writes its ingredient reservation before the minigame starts and resumes it after reload. If storage cannot accept the reservation, ingredients stay in the bag. If completion cannot save, no output/reward is granted and **Finish & save** retries the reserved recipe. Saves created by old interrupted cooks contain no recovery record, so already-lost ingredients cannot be reconstructed.
+
+Farm replacement starts play only after the new primary save succeeds. Restore points and undo are checked against farm identity; failed cleanup cannot bring the old farmer into the new lineage. Invalid nested saves are rejected without replacing live progress. Invalid history/undo bytes are copied to companion `.unreadable` recovery keys before overwrite; backup failures retain the original bytes.
+
+Staffed hall deliveries and project donations operate 08:00–22:00. The public board/calendar and accepting/cancelling requests remain available after hours. Solid placement cannot overlap the farmer, including at confirmation after moving. Failed energy/capacity tool actions consume neither energy nor obstacle damage. Market payouts use the exact sold stack’s grade, and inventory merges retain surviving equipment selection.
+
+The imported independent reports are unchanged in `bug reports/`; their external scripts and traces were not attached. See the [repair changelog](bug%20reports/REPAIR_CHANGELOG.md) for coverage and recovery limits. Existing schema 1–4 saves remain supported; no unrelated gameplay systems were added.

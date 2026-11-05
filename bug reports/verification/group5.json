@@ -1,0 +1,30 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "rows": [
+    {
+      "id": "QA-006 Mira follows visible town-to-forest exit",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-008 normal hall UI refuses staffed carrot delivery at 22:00",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-006 observed area edges both ways, indoor connections and mid-route reload",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-006 actual player walking uses all four shared outdoor thresholds",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-008 all staffed hand-ins at opening/closing boundaries, public board remains usable",
+      "group": "town",
+      "status": "PASS"
+    }
+  ]
+}

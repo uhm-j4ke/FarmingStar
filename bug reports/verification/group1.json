@@ -1,0 +1,30 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "rows": [
+    {
+      "id": "QA-001 actual reload during cooking conserves ingredients/result",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 null collection rejected before harvest can partially grant",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 nine station families, three ingredient grades, four reload points",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 reservation/completion quota failures, retry and reload are conservative",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 deep malformed primary candidates are detached and leave bytes/live state intact",
+      "group": "save",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "htmlSha256": "3a0988494ad285374b20c0ce25488d6e08484b558cf9cf2ba77fbbd7ce49b585",
+  "rows": [
+    {
+      "id": "QA-010 legacy migration preserves coins instead of replaying historical milestones",
+      "group": "migration",
+      "status": "PASS"
+    }
+  ]
+}

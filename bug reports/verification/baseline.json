@@ -1,0 +1,59 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "rows": [
+    {
+      "id": "QA-001 actual reload during cooking conserves ingredients/result",
+      "group": "save",
+      "status": "FAIL",
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    },
+    {
+      "id": "QA-002 price and consume the same market stack (26 + 18 = 44)",
+      "group": "economy",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    first: {\n      earnings: 26,\n      remaining: [\n+       2\n-       0\n      ]\n    },\n    remaining: 0,\n+   total: 52\n-   total: 44\n  }\n"
+    },
+    {
+      "id": "QA-003 actual replacement creates a new farm history lineage",
+      "group": "lineage",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   history: [\n+     'Old farm QA'\n+   ],\n-   history: [],\n    name: 'New farm QA',\n+   undo: '{\"version\":4,\"bagTier\":4,\"worldSeed\":38271,\"gathered\":{},\"discoveries\":{},\"specialisations\":{},\"recipeUnlocks\":{\"flour\":true,\"dough\":true,\"bread\":true,\"chopped\":true,\"fries\":true,\"sauce\":true,\"soup\":true,\"jam\":true,\"roasted\":true,\"ground\":true,\"cup\":true,\"meal\":true},\"stationLevels\":{},\"energy\":100,\"containerSlots\":{\"chest\":[{\"id\":\"yeast\",\"n\":2,\"q\":0},{\"id\":\"salt\",\"n\":2,\"q\":0},{\"id\":\"water\",\"n\":5,\"q\":0},{\"id\":\"oil\",\"n\":2,\"q\":0},null],\"market\":[]},\"projects\":{},\"activeRequests\":[],\"festivalProgress\":{},\"marketPrice\":1,\"shippingProcessedDay\":0,\"shippingReport\":null,\"requestDone\":{},\"festivalDone\":{},\"achievements\":{},\"rodTier\":0,\"skills\":{\"farming\":0,\"fishing\":0,\"cooking\":0,\"foraging\":0,\"crafting\":0},\"npcState\":[{\"area\":\"grocery\",\"x\":11,\"y\":4,\"dir\":2,\"activity\":\"working\"},{\"area\":\"town\",\"x\":17,\"y\":27,\"dir\":2,\"activity\":\"socialising\"},{\"area\":\"hut\",\"x\":9,\"y\":4,\"dir\":2,\"activity\":\"working\"},{\"area\":\"town\",\"x\":19,\"y\":27,\"dir\":2,\"activity\":\"socialising\"}],\"collections\":{\"crops\":{},\"fish\":{},\"cooking\":{},\"crafting\":{},\"forage\":{}},\"clearedScenery\":[],\"homeLevel\":1,\"parcels\":{},\"furniture\":[{\"uid\":\"bed\",\"id\":\"bed\",\"area\":\"home\",\"x\":3,\"y\":4,\"r\":0},{\"uid\":\"tv\",\"id\":\"tv\",\"area\":\"home\",\"x\":11,\"y\":4,\"r\":0},{\"uid\":\"counter\",\"id\":\"counter\",\"area\":\"home\",\"x\":5,\"y\":3,\"r\":0},{\"uid\":\"table\",\"id\":\"table\",\"area\":\"home\",\"x\":12,\"y\":8,\"r\":0},{\"uid\":\"chair\",\"id\":\"chair\",\"area\":\"home\",\"x\":14,\"y\":8,\"r\":0},{\"uid\":\"chest\",\"id\":\"chest\",\"area\":\"home\",\"x\":15,\"y\":4,\"r\":0},{\"uid\":\"fern\",\"id\":\"plant\",\"area\":\"home\",\"x\":3,\"y\":10,\"r\":0}],\"ownedFurniture\":{},\"stowedFurniture\":[],\"furnitureChests\":{},\"forecast\":{\"29\":\"Sunny\",\"30\":\"Partly cloudy\"},\"weatherSeed\":817637,\"saveName\":\"\",\"profile\":{\"name\":\"Old farm QA\",\"skin\":\"#dba77b\",\"hair\":\"#674234\",\"shirt\":\"#c77f50\",\"eyes\":\"#334950\",\"style\":\"crop\",\"outfit\":\"overalls\",\"accessory\":\"none\"},\"area\":\"farm\",\"x\":204,\"y\":228,\"dir\":2,\"day\":29,\"time\":480,\"weather\":\"Sunny\",\"coins\":120,\"inv\":{},\"chest\":{\"yeast\":2,\"salt\":2,\"water\":5,\"oil\":2},\"plots\":{},\"cleared\":[],\"stations\":[{\"id\":\"board\",\"x\":5,\"y\":4},{\"id\":\"stove\",\"x\":8,\"y\":4}],\"tier\":0,\"watering\":20,\"selected\":\"hand\",\"discovered\":[\"farm\"],\"friends\":{},\"talked\":{},\"gifted\":{},\"quest\":0,\"stall\":false,\"stock\":{},\"earnings\":0,\"sold\":0,\"events\":{},\"journal\":{\"completed\":{}},\"settings\":{\"zoom\":4,\"reduced\":true,\"mobile\":false,\"music\":0,\"sfx\":0.35,\"master\":0.6,\"easy\":false,\"energy\":false,\"uiScale\":1,\"dialogueSpeed\":35,\"highlight\":true},\"playtime\":0,\"bagSlots\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"equippedSlot\":0,\"savedAt\":1793905480237}'\n-   undo: null\n  }\n"
+    },
+    {
+      "id": "QA-004 null collection rejected before harvest can partially grant",
+      "group": "save",
+      "status": "FAIL",
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ {\n+   achievements: {},\n+   activeRequests: [],\n+   area: 'farm',\n+   bagSlots: [\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null,\n+     null\n+   ],\n+   bagTier: 4,\n+   chest: {\n+     oil: 2,\n+     salt: 2,\n+     water: 5,\n+     yeast: 2\n+   },\n+   cleared: [],\n+   clearedScenery: [],\n+   coins: 120,\n+   collections: {\n+     cooking: {},\n+     crafting: {},\n+     crops: null,\n+     fish: {},\n+     forage: {}\n+   },\n+   containerSlots: {\n+     chest: [\n+       {\n+         id: 'yeast',\n+         n: 2,\n+         q: 0\n+       },\n+       {\n+         id: 'salt',\n+         n: 2,\n+         q: 0\n+       },\n+       {\n+         id: 'water',\n+         n: 5,\n+         q: 0\n+       },\n+       {\n+         id: 'oil',\n+         n: 2,\n+         q: 0\n+       },\n+       null\n+     ],\n+     market: []\n+   },\n+   day: 29,\n+   dir: 2,\n+   discovered: [\n+     'farm'\n+   ],\n+   discoveries: {},\n+   earnings: 0,\n+   energy: 100,\n+   equippedSlot: 0,\n+   events: {},\n+   festivalDone: {},\n+   festivalProgress: {},\n+   forecast: {\n+     '29': 'Sunny',\n+     '30': 'Sunny'\n+   },\n+   friends: {},\n+   furniture: [\n+     {\n+       area: 'home',\n+       id: 'bed',\n+       r: 0,\n+       uid: 'bed',\n+       x: 3,\n+       y: 4\n+     },\n+     {\n+       area: 'home',\n+       id: 'tv',\n+       r: 0,\n+       uid: 'tv',\n+       x: 11,\n+       y: 4\n+     },\n+     {\n+       area: 'home',\n+       id: 'counter',\n+       r: 0,\n+       uid: 'counter',\n+       x: 5,\n+       y: 3\n+     },\n+     {\n+       area: 'home',\n+       id: 'table',\n+       r: 0,\n+       uid: 'table',\n+       x: 12,\n+       y: 8\n+     },\n+     {\n+       area: 'home',\n+       id: 'chair',\n+       r: 0,\n+       uid: 'chair',\n+       x: 14,\n+       y: 8\n+     },\n+     {\n+       area: 'home',\n+       id: 'chest',\n+       r: 0,\n+       uid: 'chest',\n+       x: 15,\n+       y: 4\n+     },\n+     {\n+       area: 'home',\n+       id: 'plant',\n+       r: 0,\n+       uid: 'fern',\n+       x: 3,\n+       y: 10\n+     }\n+   ],\n+   furnitureChests: {},\n+   gathered: {},\n+   gifted: {},\n+   homeLevel: 1,\n+   inv: {},\n+   journal: {\n+     completed: {}\n+   },\n+   marketPrice: 1,\n+   npcState: [\n+     {\n+       activity: 'working',\n+       area: 'grocery',\n+       dir: 2,\n+       x: 11,\n+       y: 4\n+     },\n+     {\n+       activity: 'socialising',\n+       area: 'town',\n+       dir: 2,\n+       x: 17,\n+       y: 27\n+     },\n+     {\n+       activity: 'working',\n+       area: 'hut',\n+       dir: 2,\n+       x: 9,\n+       y: 4\n+     },\n+     {\n+       activity: 'socialising',\n+       area: 'town',\n+       dir: 2,\n+       x: 19,\n+       y: 27\n+     }\n+   ],\n+   ownedFurniture: {},\n+   parcels: {},\n+   playtime: 0,\n+   plots: {},\n+   profile: {\n+     accessory: 'none',\n+     eyes: '#334950',\n+     hair: '#674234',\n+     name: 'Aster',\n+     outfit: 'overalls',\n+     shirt: '#c77f50',\n+     skin: '#dba77b',\n+     style: 'crop'\n+   },\n+   projects: {},\n+   quest: 0,\n+   recipeUnlocks: {\n+     bread: true,\n+     chopped: true,\n+     cup: true,\n+     dough: true,\n+     flour: true,\n+     fries: true,\n+     ground: true,\n+     jam: true,\n+     meal: true,\n+     roasted: true,\n+     sauce: true,\n+     soup: true\n+   },\n+   requestDone: {},\n+   rodTier: 0,\n+   saveName: '',\n+   savedAt: 1793905480732,\n+   selected: 'hand',\n+   settings: {\n+     dialogueSpeed: 35,\n+     easy: false,\n+     energy: false,\n+     highlight: true,\n+     master: 0.6,\n+     mobile: false,\n+     music: 0,\n+     reduced: true,\n+     sfx: 0.35,\n+     uiScale: 1,\n+     zoom: 4\n+   },\n+   shippingProcessedDay: 0,\n+   shippingReport: null,\n+   skills: {\n+     cooking: 0,\n+     crafting: 0,\n+     farming: 0,\n+     fishing: 0,\n+     foraging: 0\n+   },\n+   sold: 0,\n+   specialisations: {},\n+   stall: false,\n+   stationLevels: {},\n+   stations: [\n+     {\n+       id: 'board',\n+       x: 5,\n+       y: 4\n+     },\n+     {\n+       id: 'stove',\n+       x: 8,\n+       y: 4\n+     }\n+   ],\n+   stock: {},\n+   stowedFurniture: [],\n+   talked: {},\n+   tier: 0,\n+   time: 480,\n+   version: 4,\n+   watering: 20,\n+   weather: 'Sunny',\n+   weatherSeed: 362076,\n+   worldSeed: 38271,\n+   x: 204,\n+   y: 228\n+ }\n- null\n"
+    },
+    {
+      "id": "QA-005 actual bag merge retains equipped destination",
+      "group": "economy",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   equipped: 0,\n+   item: 'hand',\n-   equipped: 1,\n-   item: 'carrotSeed',\n    n: 7\n  }\n"
+    },
+    {
+      "id": "QA-006 Mira follows visible town-to-forest exit",
+      "group": "town",
+      "status": "FAIL",
+      "error": "Expected values to be strictly equal:\n\n'town' !== 'forest'\n"
+    },
+    {
+      "id": "QA-007 ten exhausted swings do not advance obstacle damage",
+      "group": "actions",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    energy: 0,\n+   failedHits: 10,\n+   hits: 11,\n+   wood: 3\n-   failedHits: 0,\n-   hits: 1,\n-   wood: 0\n  }\n"
+    },
+    {
+      "id": "QA-008 normal hall UI refuses staffed carrot delivery at 22:00",
+      "group": "town",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   carrot: 0,\n+   coins: 155,\n+   done: true\n-   carrot: 1,\n-   coins: 120,\n-   done: false\n  }\n"
+    },
+    {
+      "id": "QA-009 actual placement cannot entrap farmer in solid table",
+      "group": "actions",
+      "status": "FAIL",
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(await p.locator('#confirmPlacement').isDisabled())\n"
+    }
+  ]
+}

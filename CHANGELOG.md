@@ -1,3 +1,22 @@
+# 0.4.1 — independent QA stability repairs
+
+All nine reported failures were reproduced against `d3af752`, repaired at their state/transaction boundaries and retested. A tenth legacy migration defect was confirmed and repaired. The detailed [repair changelog](bug%20reports/REPAIR_CHANGELOG.md), [fixed/unresolved ledger](bug%20reports/FIX_STATUS.md) and recorded [verification results](bug%20reports/verification/final.json) support independent rechecking.
+
+- **QA-001 (P1):** cooking reservations, timing and quality survive reload; result/rewards commit together. Reservation/completion storage failures roll back safely and permit retry.
+- **QA-002 (P1):** market price and removal use one exact canonical quality stack. Excellent + Standard carrots now pay 44c rather than 52c.
+- **QA-003:** farm identity isolates primary/history/undo. Replacement writes the new primary before clearing old companions. Failed replacement preserves old data; cleanup failure cannot restore the old lineage.
+- **QA-004:** detached deep validation rejects malformed nested state before play. Invalid primary bytes remain untouched; invalid history/undo are preserved before overwrite, including failure handling for recovery-copy writes.
+- **QA-005:** equipped selection follows the surviving stack on full merges, stays with the source on partial merges and remains correct for swaps.
+- **QA-006:** NPCs route through a shared outdoor/door graph instead of treating the forest as a missing town building. Player crossings and waypoint exits use the same graph.
+- **QA-007:** energy/capacity checks precede obstacle damage. Invalid swings spend nothing and cannot preload free damage; valid clearing grants one yield.
+- **QA-008:** carrot, soup, accepted-request and project hand-ins consistently enforce 08:00–22:00 staffed hours. Public hall/board access remains available.
+- **QA-009:** blocking furniture/stations reject the farmer’s collision footprint, including a fresh check at confirmation. Rejected moves retain objects, contents and coins.
+- **QA-010 (new):** pre-schema-4 historical milestones do not replay coin payouts during migration. Current achievements retain their once-only rewards.
+
+Schema remains 4 with versions 1–4 accepted. No content expansion, assets, dependencies or native packaging were added. The original seven browser suites remain unchanged; `tests/stability.cjs` adds reconstructed failure cases and boundary/fault matrices. Physical devices, alternate engines, long natural sessions and audible output remain unverified. This is a candidate for independent QA, not a stable-release certification.
+
+---
+
 # Bedtime & pixel-art refresh
 
 - Bedside interaction now offers a short sleeping scene, restores energy, wakes at 08:00 and saves once. Turning in early remains available. Sleeping after natural midnight no longer skips a second date or grows crops twice. Bed access is required; repeated input is ignored during the transition and save failures remain visible.

@@ -1,0 +1,152 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "htmlSha256": "3bc34d2eb41e24fd71e4ce81d26a1330cbcca3713d35191f08bc2f9b1ef4cd7b",
+  "rows": [
+    {
+      "id": "QA-001 actual reload during cooking conserves ingredients/result",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-002 price and consume the same market stack (26 + 18 = 44)",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-003 actual replacement creates a new farm history lineage",
+      "group": "lineage",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-003 replacement key failures, all slots, old history/undo and unreadable primaries",
+      "group": "lineage",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 invalid history/undo bytes preserved before overwrite, including backup quota",
+      "group": "lineage",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-003 legacy lineage, own undo and failed restore retain primary bytes",
+      "group": "lineage",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 null collection rejected before harvest can partially grant",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-010 legacy migration preserves coins instead of replaying historical milestones",
+      "group": "migration",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 nine station families, three ingredient grades, four reload points",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 reservation/completion quota failures, retry and reload are conservative",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 deep malformed primary candidates are detached and leave bytes/live state intact",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001/004 malformed pending reservations rejected and legacy schemas 1-4 remain readable",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 inherited catalogue names cannot pass as crops, stations or furnishings",
+      "group": "save",
+      "status": "FAIL",
+      "error": "page.evaluate: Error: inherited catalogue entry accepted owned __proto__\n    at eval (eval at evaluate (:290:30), <anonymous>:1:514)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "id": "QA-001 simulated tab visibility pauses activity and preserves the durable reservation",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 every recipe completes once with exact input debit and full-bag start is rejected",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-005 actual bag merge retains equipped destination",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-002 all grade orders, price presets, seasonal demand and reload between sales",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-005 full/partial merges, both equipped ends, grades, swaps and real drag",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "Activity guard rejects stale or programmatic HUD dispatch",
+      "group": "activity",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-006 Mira follows visible town-to-forest exit",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-007 ten exhausted swings do not advance obstacle damage",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-008 normal hall UI refuses staffed carrot delivery at 22:00",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-006 observed area edges both ways, indoor connections and mid-route reload",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-006 actual player walking uses all four shared outdoor thresholds",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-008 all staffed hand-ins at opening/closing boundaries, public board remains usable",
+      "group": "town",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 actual placement cannot entrap farmer in solid table",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-007 axe/pick all tiers: energy, capacity and paid-hit conservation",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 rotated footprints, collision-edge overlap, moved chest and confirmation recheck",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 bought station cannot cover player or charge for rejected placement",
+      "group": "actions",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "htmlSha256": "194f34c1e24c0e42d40366b0f8f5bdea6004c67ac7d201995a605003d118e907",
+  "rows": [
+    {
+      "id": "QA-010 legacy migration preserves coins instead of replaying historical milestones",
+      "group": "migration",
+      "status": "FAIL",
+      "error": "Expected values to be strictly equal:\n\n326 !== 321\n"
+    }
+  ]
+}

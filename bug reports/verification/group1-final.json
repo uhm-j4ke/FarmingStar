@@ -1,0 +1,51 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "htmlSha256": "f6d905c812f7b5edc578e72301dec9d83e6b8001b78c4a96168cdbdc8d2c368c",
+  "rows": [
+    {
+      "id": "QA-001 actual reload during cooking conserves ingredients/result",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 null collection rejected before harvest can partially grant",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 nine station families, three ingredient grades, four reload points",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 reservation/completion quota failures, retry and reload are conservative",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 deep malformed primary candidates are detached and leave bytes/live state intact",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001/004 malformed pending reservations rejected and legacy schemas 1-4 remain readable",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-004 inherited catalogue names cannot pass as crops, stations or furnishings",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 simulated tab visibility pauses activity and preserves the durable reservation",
+      "group": "save",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-001 every recipe completes once with exact input debit and full-bag start is rejected",
+      "group": "save",
+      "status": "PASS"
+    }
+  ]
+}

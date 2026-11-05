@@ -1,0 +1,25 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "rows": [
+    {
+      "id": "QA-002 price and consume the same market stack (26 + 18 = 44)",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-005 actual bag merge retains equipped destination",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-002 all grade orders, price presets, seasonal demand and reload between sales",
+      "group": "economy",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-005 full/partial merges, both equipped ends, grades, swaps and real drag",
+      "group": "economy",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "source": "d3af7526950637f243727b90c3c0f6b784ac02f5",
+  "rows": [
+    {
+      "id": "QA-007 ten exhausted swings do not advance obstacle damage",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 actual placement cannot entrap farmer in solid table",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-007 axe/pick all tiers: energy, capacity and paid-hit conservation",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 rotated footprints, collision-edge overlap, moved chest and confirmation recheck",
+      "group": "actions",
+      "status": "PASS"
+    },
+    {
+      "id": "QA-009 bought station cannot cover player or charge for rejected placement",
+      "group": "actions",
+      "status": "PASS"
+    }
+  ]
+}
