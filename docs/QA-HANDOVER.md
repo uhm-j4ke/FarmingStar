@@ -51,7 +51,7 @@ npm ci --ignore-scripts --no-audit --no-fund
 npm test
 ```
 
-The six scripts are `immersion.cjs`, `systems.cjs`, `smoke.cjs`, `update.cjs`, `expansion.cjs`, and `compatibility.cjs`. They start ephemeral local servers and close them afterward. `CHROMIUM_PATH` defaults to `/usr/bin/chromium`. Host policy must permit browser launch; do not modify managed browser policy. Managed Chromium blocks file URLs, so direct file launch remains a manual check on unrestricted browsers.
+The seven scripts are `immersion.cjs`, `systems.cjs`, `smoke.cjs`, `update.cjs`, `expansion.cjs`, `compatibility.cjs`, and `bedtime.cjs`. They start ephemeral local servers and close them afterward. `CHROMIUM_PATH` defaults to `/usr/bin/chromium`. Host policy must permit browser launch; do not modify managed browser policy. Managed Chromium blocks file URLs, so direct file launch remains a manual check on unrestricted browsers.
 
 Tests combine actual pointer/touch/keyboard interactions with controlled state scenarios. Browser errors and external requests are checked. Screenshots under `tests/*.png` are ignored local review artifacts. Checks cover core farming/shop/cooking/building gameplay, bounded slots, drag/touch swapping, full-bag rollback, quality storage, rod tiers/activity/catch sale, off-screen/visible NPC state, terrain/resource stability, forest/quarry access, skills/crafting, project geometry, requests/festivals, navigation cancellation/arrival, slot migration/overflow, autosave rollover/restore, input colours, eye stability and mobile/tablet layout.
 
@@ -78,3 +78,11 @@ Known simplifications: there is no seated bench/chair pose; resting uses a short
 Stop major expansion here: use this handover for systematic stability work.
 
 **Future only:** animal farming; fully offline Android APK on explicit request; iPad IPA targeting iOS 15+ on explicit request with suitable build/signing facilities. Neither package is generated in this update.
+
+## Bedtime and art follow-up
+
+`interactFurniture` → `sleepPrompt` → `sleepInBed` requires proximity to a physical farmhouse bed. It commits the save once before a short runtime-only `resting` scene. Repeated buttons and closing the modal are blocked during that scene; hidden tabs pause it. Sleep before midnight uses `nextDay()`. Sleep at 00:00–05:59 restores energy and sets 08:00 on the same date, since natural midnight already advanced crops/shipping. Daytime early sleep remains available. `nextDay` remains unchanged for controlled calendar fixtures. Storage failures are shown rather than reporting a successful save.
+
+Rendering keeps logical coordinates but doubles the world backing canvas. `micro` snaps extra details to half units; existing `rect`, physics and pointer conversion retain their original grid. Icons are 32×32 canvases for a 16-unit design. Action caches include the tool tier. Nine station types have distinct art. Furniture dimensions, shop prop layouts, character eye anchors and all saved data retain their original meaning.
+
+`menuAmbience` is one recycled background canvas with 32 deterministic seasonal particles, capped at 30 updates per second. It sits behind the sheet, ignores pointer input and clears in reduced motion. No new timers or external assets are used. `bedtime.cjs` exercises real bedside keyboard/touch interaction, one-shot growth/save, after-midnight wake, reload, all four menu palettes, reduced motion and phone landscape message visibility. Screenshots `art-home.png`, `art-grocery.png`, `art-buildings.png`, `seasonal-menu.png` and `bedtime-mobile.png` support local visual review. Hardware performance is still a manual follow-up.

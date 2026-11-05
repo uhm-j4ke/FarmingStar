@@ -1,3 +1,14 @@
+# Bedtime & pixel-art refresh
+
+- Bedside interaction now offers a short sleeping scene, restores energy, wakes at 08:00 and saves once. Turning in early remains available. Sleeping after natural midnight no longer skips a second date or grows crops twice. Bed access is required; repeated input is ignored during the transition and save failures remain visible.
+- Original carved button frames, inset parchment panels and subtle pixel textures give menus more depth while retaining the heavy embedded pixel font and compact phone hotbar. Continuous seasonal leaves fall behind menus; reduced motion disables them.
+- Reworked beds, tables, chairs, benches, cabinets, shelves, chests, lamps and planters. Shop stock includes jars, bottles, books and supplies, with detailed forge/workbench fixtures. All nine kitchen station types have distinct artwork.
+- Added roof shingles, stone footings, door trim, shutters and flower boxes to buildings. Tools have metal bevels, bindings and tier colours; crops, ingredients and meals have more distinct icons. Character hair, clothing, pockets and accessories gain finer pixel details. Existing object footprints, movement coordinates and saves remain compatible.
+- World rendering uses a two-pixel backing grid per logical unit for half-unit art accents; camera framing and collision scale remain unchanged. All assets remain generated or embedded in the single offline HTML file.
+- Validation: seven browser suites, including actual bedside keyboard/touch interaction, midnight/date/crop advancement, save reload, seasonal palettes and reduced motion. Desktop and phone landscape screenshots were reviewed. Physical-device performance remains unmeasured.
+
+---
+
 # Typography refresh
 
 Restored a heavier original pixel-grid font across all menus, HUD labels, editable fields, buttons and canvas lettering. The embedded font contains thicker glyphs; serif fallback styling has been removed. All six browser regression suites pass, including mobile layout checks.

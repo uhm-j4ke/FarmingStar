@@ -37,7 +37,9 @@ Refill the can at the southeast pond. Collect free daily wild carrots with the s
 - Mobile: joystick, contextual interaction, Use tool, touch hotbar and menus.
 - Settings switches control modes, camera zoom, reduced motion, gentle activities, music, effects and master volume. Phone hotbar: swipe horizontally for more tools and seeds; tap to equip. The item name appears briefly after selection.
 
-Menus pause time. One real second equals thirty game seconds: a complete natural day lasts 48 real minutes. Sleeping still advances to the following morning. Seasons last 14 days. Watered crops grow on sleeping; rain waters all plots. Unsupported-season crops wither at season boundaries. Save failures produce an explicit warning.
+Menus pause time. One real second equals thirty game seconds: a complete natural day lasts 48 real minutes. Stand beside your farmhouse bed and press E / tap Talk–Enter to sleep until 08:00. Turning in early is available. After midnight, sleeping wakes you on the current date because the daily crop/shipping update has already happened. Seasons last 14 days. Watered crops grow when the date advances; rain waters all plots. Unsupported-season crops wither at season boundaries. Save failures produce an explicit warning.
+
+The latest art refresh adds carved menu frames, seasonal background leaves, detailed original furniture, shop fittings, buildings, tools, food icons and character accents. The bold pixel font remains embedded. Reduced Motion disables falling leaves. All artwork stays offline in `index.html`; no asset fetches or save migration are needed.
 
 ## Implemented
 
