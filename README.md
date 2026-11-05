@@ -1,10 +1,10 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. This is a playable first release, not the complete master specification.
+An original, offline, top-down farming and kitchen game. Version 0.2.0 adds the autumn pixel-art overhaul, journal and expanded atlas. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md) for changes, bug fixes and validation.
 
 ## Play
 
-Download/open `index.html` in a modern browser. The entire game, procedural pixel artwork, styles and generated music are in that file; no network, build, account, asset download, or package installation is needed. Keep the same browser and file/location for your saved farm. Browser storage restrictions or clearing site data can remove saves. Android file opening varies by browser/file manager; a local web server is another option.
+Download/open `index.html` in a modern browser. The entire game, procedural pixel artwork, styles and generated music are in that file; no network, build, account, asset download, or package installation is needed. Keep the same browser and file/location for your three save slots. Existing single saves migrate automatically; the original legacy data remains as a backup. Browser storage restrictions or clearing site data can remove saves. Android file opening varies by browser/file manager; a local web server is another option.
 
 For development, from this checkout:
 
@@ -16,7 +16,7 @@ Open the local server in your browser. File and HTTP origins have separate saves
 
 ## First harvest
 
-1. Create a farmer. Walk south of the farmhouse to the brown field.
+1. Create a farmer (new farms begin in autumn). Open Bag → Journal / Log Book for starter quests. Walk south of the farmhouse to the brown field.
 2. Select the hoe. Click an adjacent tile (or face it and press Space / Use tool).
 3. Select carrot seeds and plant on that tile. Select the watering can and water it.
 4. Enter the house through the front door with E / Talk–Enter. Stand beside the bed and interact to sleep.
@@ -35,7 +35,7 @@ Refill the can at the southeast pond. Collect free daily wild carrots with the s
 - E: interact with a door, counter, villager, bed, chest or station.
 - 1–9: hotbar; I: inventory; M: map; Escape: pause / close.
 - Mobile: joystick, contextual interaction, Use tool, touch hotbar and menus.
-- Settings switches control modes and adjusts music, effects and master volume.
+- Settings switches control modes, camera zoom, reduced motion, gentle activities, music, effects and master volume. Phone hotbar: swipe horizontally for more tools and seeds; tap to equip. The item name appears briefly after selection.
 
 Menus pause time. An outdoor day lasts about eight minutes. Seasons last 14 days. Watered crops grow on sleeping; rain waters all plots. Unsupported-season crops wither at season boundaries. Save failures produce an explicit warning.
 
@@ -48,16 +48,16 @@ Menus pause time. An outdoor day lasts about eight minutes. Seasons last 14 days
 - Nine physical placeable station types and twelve recipes; interactive three-action timing activities, gentle mode, performance coin bonuses.
 - Three adult villagers, daily talk/gift friendship, optional companion designation, repeatable soup delivery.
 - Basic fishing for perch, market stocking/removal/collection, probabilistic daytime sales and sleep-time reports.
-- Full-area map, discovery, farm/town travel, simple directional waypoint and minimap.
-- Day/night tint, rain visuals, procedural looping melody/effects, autosave and versioned localStorage; malformed saves preserve their original contents.
+- Pannable/zoomable atlas, minimap, discovered-area travel, building landmarks, player/facing marker and walkable waypoint routes. Town has winding water, two bridges and eastbank gardens.
+- Day/night tint, seasonal foliage, rain, wind, leaves, original pixel font/art/icons and generated music/effects. Three versioned localStorage save slots; migration preserves legacy data and corrupt slots remain isolated.
 
 ## Scope and next milestones
 
 The initial release intentionally simplifies later phases. All twelve recipes are visible from the start; no recipe unlock tree yet. Cooking stations share a timing mechanic rather than bespoke dragging, stirring, pizza preparation or oven temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. Food has a performance coin bonus rather than persistent quality stacks.
 
-NPC movement is simple ambient movement, not a full pathfinding schedule or building routine. Fishing has one species and no delayed bite, bait or improved rods. Market pricing is fixed with a modest premium; there are no price sliders, preference weights or stall upgrades. Maps have two area destinations and textual building directions; no per-building fast travel or routed path highlighting. No farm expansion, station upgrades, fertiliser, full dialogue trees, festivals, livestock, or APK.
+NPC movement follows lightweight collision-aware outdoor routes with pauses, not a full building schedule. Fishing has one species and no delayed bite, bait or improved rods. Market pricing is fixed with a modest premium; there are no price sliders, preference weights or stall upgrades. The atlas includes selectable building entrances and routes over walkable tiles; travel is available within discovered areas. No farm expansion, station upgrades, fertiliser, full dialogue trees, festivals, livestock, or APK.
 
-Next: broaden regression coverage and test on physical Android devices, refine touch ergonomics and saving across Android file handlers, then add bespoke cooking minigames, pizza/cake chains, recipe discovery, persistent quality, richer NPC routines and fishing. Later add responsive audio ambience, wildlife and equipment/farm expansion. Target 60 FPS has not been benchmarked on Android hardware.
+Next: test on physical Android devices and refine balance and saving across Android file handlers, then add bespoke cooking minigames, pizza/cake chains, recipe discovery, persistent quality, richer NPC routines and fishing. Later add responsive audio ambience, wildlife and equipment/farm expansion. Target 60 FPS has not been benchmarked on Android hardware.
 
 **Future roadmap:** animal farming remains planned, including livestock care and animal products; none is implemented now. **APK reminder:** a fully offline Android WebView APK is a future milestone after browser stability, including persistent saves, back-button handling and an original icon.
 
@@ -70,4 +70,6 @@ npm ci
 npm test
 ```
 
-`CHROMIUM_PATH` can select a system Chromium binary (defaults to `/usr/bin/chromium`). Browser execution must be permitted by the host sandbox. Tests launch an ephemeral local server and check character creation, keyboard movement, farming over two days, shop purchases/sales, failed transactions, storage, cooking, equipment placement/collision, save restoration, operation with network disabled, mobile layouts and corrupt-save recovery. Screenshots are generated under `tests/` and ignored. Tests use controlled state hooks for repeatable scenarios; manual end-to-end play and physical Android tests are still needed.
+`CHROMIUM_PATH` can select a system Chromium binary (defaults to `/usr/bin/chromium`). Browser execution must be permitted by the host sandbox. Tests launch an ephemeral local server and check character creation, keyboard movement, farming over two days, shop purchases/sales, failed transactions, storage, cooking, equipment placement/collision, save restoration, operation with network disabled, mobile layouts and corrupt-save recovery. Update checks also cover the pixel UI, editable inputs, native touch hotbar/joystick/map gestures, camera zoom targeting, journal rewards, map routes, multi-slot saving, migration and invalid-position relocation. Screenshots are generated under `tests/` and ignored. Tests use controlled state hooks for repeatable scenarios; manual end-to-end play and physical Android tests are still needed.
+
+The embedded font is generated from original grid patterns by `tools/pixel_font.py` (development-only Python dependency: fonttools). Regeneration is optional; the playable HTML already contains the font.

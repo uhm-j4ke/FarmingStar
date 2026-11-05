@@ -31,7 +31,7 @@ const path = require('node:path');
   return {beforeCoins:g.coins,harvest:g.inv.carrot};
  });
  await page.locator('[data-sell="carrot"]').click();
- assert.equal(await page.evaluate(()=>FarmingStar.state.coins),loop.beforeCoins+16);
+ assert.equal(await page.evaluate(()=>FarmingStar.state.coins),loop.beforeCoins+16+5);
  const beforeSeeds=await page.evaluate(()=>FarmingStar.state.inv.carrotSeed);
  await page.locator('[data-buy="carrotSeed"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),beforeSeeds+1);
  await page.locator('[data-act="close"]').click();
@@ -64,7 +64,7 @@ const path = require('node:path');
  assert.deepEqual(overlaps,[],'mobile landscape controls');
  await page.waitForTimeout(150);assert.deepEqual(errors,[],'browser errors');assert.deepEqual(requests,[],'external requests');
  // Corrupt saves recover with an explicit message, without deletion.
- await context.setOffline(false);await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();await page.evaluate(()=>localStorage.setItem('farmingstar.moss-ember.v1','broken'));await page.reload();assert.ok(await page.getByRole('button',{name:'Begin your story'}).isVisible());assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.v1')),'broken');
+ await context.setOffline(false);await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Save & title screen'}).click();await page.evaluate(()=>localStorage.setItem('farmingstar.moss-ember.slot.1','broken'));await page.reload();assert.ok(await page.getByRole('button',{name:'Begin your story'}).isVisible());assert.equal(await page.evaluate(()=>localStorage.getItem('farmingstar.moss-ember.slot.1')),'broken');
  console.log('PASS: creation, movement, farming, shop transactions, storage, cooking, placement, save/load, offline, mobile layout, corrupt save recovery.');
  await browser.close();server.close();
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -1,8 +1,13 @@
 {
   "name": "farmingstar-moss-and-ember",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Self-contained offline farming and cooking game; dependencies are development-only.",
-  "scripts": { "test": "node tests/smoke.cjs", "start": "python3 -m http.server 8000 --bind 127.0.0.1" },
-  "devDependencies": { "playwright": "1.58.2" }
+  "scripts": {
+    "test": "node tests/smoke.cjs && node tests/update.cjs",
+    "start": "python3 -m http.server 8000 --bind 127.0.0.1"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2"
+  }
 }
