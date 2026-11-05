@@ -20,7 +20,7 @@ const path = require('node:path');
  const x=await page.evaluate(()=>FarmingStar.state.x);await page.keyboard.down('d');await page.waitForTimeout(200);await page.keyboard.up('d');
  assert.ok(await page.evaluate(x=>FarmingStar.state.x>x,x));
  const loop=await page.evaluate(()=>{
-  const f=FarmingStar,g=f.state;g.weather='Sunny';
+  const f=FarmingStar,g=f.state;g.bagTier=1;g.bagSlots.push(...Array(10).fill(null));g.weather='Sunny';
   f.travel('farm',7,11);g.selected='hoe';window.testUse(7,12);if(!g.plots['7,12'])throw Error('hoe');
   g.selected='carrotSeed';const before=g.inv.carrotSeed;window.testUse(7,12);if(g.inv.carrotSeed!==before-1)throw Error('seed debit');
   g.selected='can';window.testUse(7,12);if(!g.plots['7,12'].water)throw Error('watering');
@@ -28,27 +28,27 @@ const path = require('node:path');
   f.travel('farm',7,11);g.selected='hand';window.testUse(7,12);if(g.inv.carrot!==1)throw Error('harvest');
   const inv=JSON.stringify(g.inv),coins=g.coins;if(f.transact({pumpkin:999},{bread:1},99999))throw Error('invalid purchase accepted');if(JSON.stringify(g.inv)!==inv||g.coins!==coins)throw Error('failed purchase mutated inventory');
   // Exercise actual shop door and counter.
-  f.travel('town',7,8);f.interact();if(g.area!=='grocery')throw Error('door transition');g.x=10*24+12;g.y=8*24+12;f.interact();
-  return {beforeCoins:g.coins,harvest:g.inv.carrot};
+  f.travel('town',7,8);f.interact();if(g.area!=='grocery')throw Error('door transition');g.time=660;const service=f.interiors[g.area].service;g.x=service.x*24+12;g.y=service.y*24+12;g.dir=0;f.interact();
+  return {beforeCoins:g.coins,harvest:g.inv.carrot,sale:Math.floor(16*[1,1.2,1.45][g.bagSlots.find(v=>v?.id==='carrot').q||0])};
  });
- await page.locator('[data-sell="carrot"]').click();
- assert.equal(await page.evaluate(()=>FarmingStar.state.coins),loop.beforeCoins+16+5);
+ const saleSlot=await page.evaluate(()=>FarmingStar.state.bagSlots.findIndex(v=>v?.id==='carrot'));await page.locator('[data-sellslot="'+saleSlot+'"]').click();
+ assert.equal(await page.evaluate(()=>FarmingStar.state.coins),loop.beforeCoins+loop.sale+5);
  const beforeSeeds=await page.evaluate(()=>FarmingStar.state.inv.carrotSeed);
  await page.locator('[data-buy="carrotSeed"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),beforeSeeds+1);
  await page.locator('[data-act="close"]').click();
  await page.evaluate(()=>{const f=FarmingStar,g=f.state;f.travel('farm',14,9);f.interact()});
  const seedCount=await page.evaluate(()=>FarmingStar.state.inv.carrotSeed);
- await page.locator('[data-store="carrotSeed"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),seedCount-1);
- await page.locator('[data-take="carrotSeed"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),seedCount);
+ const seedSlot=await page.evaluate(()=>FarmingStar.state.bagSlots.findIndex(v=>v?.id==='carrotSeed'));await page.locator('[data-bagindex="'+seedSlot+'"]').click();await page.locator('[data-bagstore="1"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),seedCount-1);
+ await page.locator('[data-bagtake="carrotSeed"][data-amount="1"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrotSeed),seedCount);
  await page.locator('[data-act="close"]').click();
  // Installed stations require proximity, debit inputs once, and yield exactly one output.
  await page.evaluate(()=>{const f=FarmingStar,g=f.state;f.travel('home',5,5);g.inv.potato=2;f.beginCook('chopped');if(g.inv.potato!==1||!f.activity)throw Error('recipe transaction');f.timing(true);if(g.inv.chopped!==1)throw Error('recipe output');f.save(true)});
  // Shop placement is an actual object with collision and no debit until placed.
- await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.coins=500;f.travel('town',18,8);f.interact();g.x=10*24+12;g.y=8*24+12;f.interact()});
+ await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.coins=500;g.time=660;f.travel('town',18,8);f.interact();g.time=660;const service=f.interiors[g.area].service;g.x=service.x*24+12;g.y=service.y*24+12;g.dir=0;f.interact()});
  await page.locator('[data-machine="mill"]').click();
  await page.evaluate(()=>{const f=FarmingStar,g=f.state;const c=g.coins;window.testUse(10,9);if(g.coins!==c-90||!g.stations.some(s=>s.id==='mill'))throw Error('station placement');if(f.walkable(10*24+12,9*24+12))throw Error('station collision');f.save(true)});
  // Weather, season turnover, household exit destination and fishing output.
- await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.returnTo={area:'town',x:18,y:8};f.nextDay();if(g.returnTo.area!=='farm')throw Error('sleep exit destination');g.day=14;g.plots['7,12']={crop:'carrot',age:1,water:true};f.nextDay();if(g.plots['7,12'].crop)throw Error('season withering');f.travel('town',31,22);g.rod=true;g.selected='rod';window.testUse(32,22);if(!f.activity)throw Error('fishing start');f.timing(true);if(g.inv.fish!==1)throw Error('fishing output');f.travel('farm',8,10);g.inv.carrotSeed=3;f.save(true)});
+ await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.returnTo={area:'town',x:18,y:8};f.nextDay();if(g.returnTo.area!=='farm')throw Error('sleep exit destination');g.day=14;g.plots['7,12']={crop:'carrot',age:1,water:true};f.nextDay();if(g.plots['7,12'].crop)throw Error('season withering');f.travel('town',31,22);g.rod=true;g.rodTier=1;g.inv.rod=1;g.selected='rod';window.testUse(32,22);if(!f.activity)throw Error('fishing start');f.timing(true);if(!Object.values(g.collections.fish).some(n=>n>0))throw Error('fishing output');f.travel('farm',8,10);g.inv.carrotSeed=3;f.save(true)});
  // Save and restore all meaningful state, including area and position.
  const saved=await page.evaluate(()=>{FarmingStar.save(true);return JSON.stringify(FarmingStar.state)});
  await page.reload();await page.getByRole('button',{name:'Continue your farm'}).click();

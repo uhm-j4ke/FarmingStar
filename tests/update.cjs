@@ -22,7 +22,7 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  // Journal rewards once, and merely opening the book never completes tasks.
  await page.evaluate(()=>{FarmingStar.state.settings.zoom=4;window.dispatchEvent(new Event('resize'));FarmingStar.save(true)});
  const coins=await page.evaluate(()=>FarmingStar.state.coins);assert.equal(await page.evaluate(()=>FarmingStar.transact({carrot:-1},{carrot:1})),false,'negative inputs cannot hide behind matching output keys');
- await page.getByRole('button',{name:'Bag [I]',exact:true}).click();await page.getByRole('button',{name:'Journal / Log Book',exact:true}).click();assert.ok(await page.getByText('Pages already written').isVisible());await page.screenshot({path:path.join(__dirname,'journal.png')});await page.locator('[data-act="close"]').click();
+ await page.getByRole('button',{name:'Bag [I]',exact:true}).click();await page.getByRole('button',{name:'Journal',exact:true}).click();assert.ok(await page.getByText('Pages already written').isVisible());await page.screenshot({path:path.join(__dirname,'journal.png')});await page.locator('[data-act="close"]').click();
  assert.equal(await page.evaluate(()=>FarmingStar.state.coins),coins);
  await page.evaluate(()=>{for(let i=0;i<4;i++)FarmingStar.save(true)});assert.equal(await page.evaluate(()=>FarmingStar.state.coins),coins,'journal rewards cannot repeat');
  // Every requested landmark has a real collision-free route, including both bridges.
@@ -39,7 +39,7 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  await page.screenshot({path:path.join(__dirname,'atlas.png')});await page.locator('[data-destination="garden"]').click();await page.getByRole('button',{name:'Set Waypoint',exact:true}).click();assert.equal(await page.evaluate(()=>FarmingStar.state.waypoint),'garden');
  await page.locator('#mini').click();await page.locator('[data-destination="garden"]').click();await page.getByRole('button',{name:'Travel',exact:true}).click();assert.equal(await page.evaluate(()=>Math.floor(FarmingStar.state.x/24)),45);
  // Intro community request consumes exactly one carrot and pays once.
- await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.inv.carrot=2;f.travel('town',11,20);f.interact();g.x=10*24+12;g.y=8*24+12;f.interact()});const before=await page.evaluate(()=>({c:FarmingStar.state.coins,n:FarmingStar.state.inv.carrot}));await page.locator('[data-act="introdelivery"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrot),before.n-1);assert.equal(await page.evaluate(()=>FarmingStar.state.coins),before.c+35);assert.ok(await page.locator('[data-act="introdelivery"]').isDisabled());
+ await page.evaluate(()=>{const f=FarmingStar,g=f.state;g.inv.carrot=2;f.travel('town',11,20);f.interact();g.time=660;const service=f.interiors[g.area].service;g.x=service.x*24+12;g.y=service.y*24+12;g.dir=0;f.interact()});const before=await page.evaluate(()=>({c:FarmingStar.state.coins,n:FarmingStar.state.inv.carrot}));await page.locator('[data-act="introdelivery"]').click();assert.equal(await page.evaluate(()=>FarmingStar.state.inv.carrot),before.n-1);assert.equal(await page.evaluate(()=>FarmingStar.state.coins),before.c+35);assert.ok(await page.locator('[data-act="introdelivery"]').isDisabled());
  await page.locator('[data-act="close"]').click();
  // Responsive touch layout; native touch gestures are checked separately below.
  await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Settings & controls'}).click();await page.locator('#controls').selectOption('mobile');await page.getByRole('button',{name:'Save settings'}).click();
@@ -63,7 +63,7 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  for(let i=1;i<=8;i++)await touch.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[point(bar.x+bar.width-20-i*20,bar.y+22)]});
  await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await tp.waitForTimeout(250);
  assert.ok(await tp.locator('#hotbar').evaluate(b=>b.scrollLeft>0),'phone hotbar swipes to more tools');
- await tp.locator('[data-equip="carrotSeed"]').tap();assert.equal(await tp.evaluate(()=>FarmingStar.state.selected),'carrotSeed');await tp.waitForTimeout(1800);assert.equal(await tp.locator('#itemLabel').isVisible(),false,'item name retracts');
+ const seedIndex=await tp.evaluate(()=>FarmingStar.state.bagSlots.findIndex(v=>v?.id==='carrotSeed'));await tp.locator('[data-hotindex="'+seedIndex+'"]').tap();assert.equal(await tp.evaluate(()=>FarmingStar.state.selected),'carrotSeed');await tp.waitForTimeout(1800);assert.equal(await tp.locator('#itemLabel').isVisible(),false,'item name retracts');
  const joy=await tp.locator('#joy').boundingBox(),beforeX=await tp.evaluate(()=>FarmingStar.state.x);
  await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point(joy.x+joy.width*.85,joy.y+joy.height/2)]});await tp.waitForTimeout(350);await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});assert.ok(await tp.evaluate(x=>FarmingStar.state.x>x,beforeX),'touch joystick moves farmer');
  await tp.locator('#mini').tap();await tp.getByRole('button',{name:'Zoom map in',exact:true}).tap();const ab=await tp.locator('#atlas').boundingBox();

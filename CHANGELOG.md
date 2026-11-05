@@ -1,3 +1,39 @@
+# 0.4.0 — Bramblewood & village life
+
+## Completed and modified
+
+- One contextual resolver drives both bottom-right/mobile prompts and the actual action. Floating machine labels are removed. Doors, shelves, counters, villagers, pond, well and furnishings share targeting; Tab cycles candidates.
+- Compact grocery, smith, estate office, tackle hut and hall layouts use authoritative furnishing collision. Original exterior footprints remain. Shelves display varied goods; forge, tools, files, blueprints, nets, rods, crates and community furnishings distinguish businesses.
+- Canonical 10-slot starter backpack; first row is the hotbar. Four upgrades add ten slots each, to fifty. Drag/touch swaps, stack merging/splitting, sorting, item details, quality badges, bulk chest transfers and full-bag checks are integrated. Legacy inventories expand safely or preserve overflow. Furnishings stay in their own storage.
+- Unified NPC work/home/social/weather/festival plans simulate off screen and move through valid doors/routes on screen. Grove and quarry are reachable. Clock progression is one real second per thirty game seconds, including natural midnight rollover. Grocery closes 23:00; smith/estate/hut 21:00; staffed hall 22:00. Occupants can leave after closing.
+- Three purchasable rod tiers, five fish definitions, a casting wait and a hold/release catching-zone activity. Fish availability follows area, time, season and rain preference. Catching awards skill/collection progress; catches sell or substitute into fish recipes. Gentle mode remains available.
+- Five ten-level skills and specialisations, crafting recipes, renewable foraging/quarry resources, seasonal forest nodes and a supply-cache discovery. Crafted furnishings use the existing build system. Clay and ore are renewable quarry outputs.
+- Fertiliser and three product grades affect harvest value and cooking. Quality persists in storage and shipping. Eight additional recipes add pizza, cakes, tea, stew and tarts, with skill/discovery/cookbook/project/festival unlocks. Original recipes stay available. Cooking minigames remain; equipment upgrades improve consistency.
+- Shipping crate, once-per-day payout/report, modest seasonal market demand and price presets, four material-donation projects with actual crossing/well/stall/lighting benefits, daily accepted requests, gift preferences and four optional seasonal activities. Collections and once-only milestone rewards extend the existing journal.
+- Stable varied grass/path textures, less regular garden flowers, a shaped refill pond, scattered woodland, decorative wildlife/forest audio and landscape-first touch placement. Portrait fallback, tablet layout, safe areas, reduced motion, dialogue speed, interface size, highlights and optional energy are preserved or added.
+- Version 4 migrations preserve existing progression and the four-point autosave history. No build or external runtime asset is needed.
+
+## Fixes found during integration
+
+- A superseded NPC update function was overriding the new scheduler; duplicate-function audit and schedule tests caught it.
+- A forest-size edit hit an optional-chaining expression in the door helper. The forest now has explicit 44×36 bounds, a proper entry, reachable destinations and dedicated traversal tests.
+- Waiting-phase time could be applied immediately to a new fishing activity after a large update delta; phases now hand over without double-applying elapsed time.
+- Full output-quality stacks could leave cooking/fishing unable to complete; all possible output grades are capacity-checked before starting.
+- Clearing a waypoint inside the atlas could leave stale enabled travel buttons. Selection, markers, routes and action availability now clear together; selecting another destination re-enables them.
+- Quality would have been lost through quantity-only storage. Containers now use the same stack shape as the backpack, with computed legacy quantity views.
+- Legacy overflow retrieval now recovers one stack at a time, so inventories above maximum carrying capacity remain recoverable.
+- Tests now use the intentional slot UI and compact service coordinates while retaining previous gameplay assertions.
+
+## Validation and handover
+
+All six browser suites pass. They check new systems plus retained farming, shop sales, cooking, storage, estate upgrades, character/input rendering, touch controls, saves and offline operation. Physical Android/iPad testing and extended economy/season balance playthroughs remain outstanding. No physical-device frame-rate guarantee is made.
+
+The full technical handover, state invariants, transaction functions, schedules, test interfaces, save format and known simplifications are in [docs/QA-HANDOVER.md](docs/QA-HANDOVER.md). The new specification is retained in [docs/IMMERSION-PROGRESSION-SPEC.md](docs/IMMERSION-PROGRESSION-SPEC.md). This release ends the major-feature pass; next work should focus on stability and systematic regression/performance testing.
+
+**Future only:** animal farming; offline Android APK on explicit request; iPad IPA for iOS 15+ on explicit request with appropriate build/signing facilities. Neither application package is produced.
+
+---
+
 # 0.3.0 — Hearth & Acre
 
 The world-expansion specification is retained in [docs/WORLD-EXPANSION-SPEC.md](docs/WORLD-EXPANSION-SPEC.md). The subsequent map reference guided the illustrated overhead design, not its geography or assets.
