@@ -1,7 +1,18 @@
-name: Alpha 0.4.0 native candidates
+name: Alpha 0.4.0 desktop candidates
 on:
   push:
     branches: [release/v0.4.0-alpha]
+    paths:
+      - index.html
+      - package.json
+      - package-lock.json
+      - electron-builder.cjs
+      - .gitattributes
+      - desktop/**
+      - assets/**
+      - tests/**
+      - tools/**
+      - .github/workflows/alpha-packages.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,8 +32,14 @@ jobs:
           cache: npm
       - run: node tools/reset_ci_evidence.cjs
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
+      - name: Use runner Chrome or install a test browser
+        run: |
+          if [ -x /usr/bin/google-chrome ]; then
+            printf 'CHROMIUM_PATH=/usr/bin/google-chrome\n' >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+            node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
+          fi
       - run: npm test
       - run: npm run test:portable
       - run: npm run test:packaging
@@ -35,50 +52,10 @@ jobs:
           name: shared-evidence
           path: release/evidence/
 
-  android:
-    needs: shared
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: '24.22.1'
-          cache: npm
-      - run: node tools/reset_ci_evidence.cjs
-      - run: npm ci
-      - name: Select runner JDK 21
-        run: node -e "const fs=require('fs'),jdk=process.env.JAVA_HOME_21_X64;if(!jdk)throw Error('Runner JDK 21 missing');fs.appendFileSync(process.env.GITHUB_ENV,'JAVA_HOME='+jdk+'\n')"
-      - run: npm run build:android:test
-      - name: Enable this runner's KVM device
-        run: |
-          test -c /dev/kvm
-          sudo chown "$USER" /dev/kvm
-          sudo chmod u+rw /dev/kvm
-      - uses: ReactiveCircus/android-emulator-runner@4c44018e59b437e86cdfc41da381398f93ed8808
-        with:
-          api-level: 35
-          arch: x86_64
-          target: default
-          disable-animations: true
-          emulator-options: -no-window -no-snapshot -gpu swiftshader -noaudio -no-boot-anim -camera-back none -camera-front none
-          script: |
-            android/gradlew -p android --no-daemon :app:connectedDebugAndroidTest
-            ANDROID_SERIAL=emulator-5554 ANDROID_API=35 ANDROID_ACCELERATION=KVM FARMINGSTAR_ANDROID_FILES=1 node tools/android_runtime.cjs
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
-        with:
-          name: android-test-candidate
-          path: |
-            artifacts/*-Android-TEST.apk
-            release/evidence/android-runtime.json
-            android/app/build/reports/androidTests/
-            android/app/build/outputs/androidTest-results/
-
   macos-build:
     needs: shared
     if: ${{ !cancelled() && needs.shared.result == 'success' }}
-    runs-on: macos-15
+    runs-on: macos-15-intel
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -136,7 +113,7 @@ jobs:
           path: release/evidence/desktop-darwin.*
 
   windows:
-    needs: [shared, macos-build, macos-runtime]
+    needs: [shared, macos-build]
     if: ${{ !cancelled() && needs.shared.result == 'success' }}
     runs-on: windows-2022
     timeout-minutes: 25
@@ -183,6 +160,8 @@ jobs:
             release/evidence/windows-portable.txt
             release/evidence/windows-integrity.json
 
-# Desktop focus: macOS starts after shared checks; Windows follows the macOS attempt.
+# Desktop-only while the user tests Android. No Android build or device job runs here.
+# Universal packaging starts on Intel; both Mac architecture checks remain.
+# Windows follows the Mac package build without waiting for a queued ARM runtime slot.
 # Candidate builds are retained even when another platform is blocked.
 # This workflow never creates or publishes a GitHub release. Release remains the final reviewed step.
