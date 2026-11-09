@@ -6,7 +6,7 @@ Game changes are confined to `index.html`. This tracker is documentation request
 
 ## Current work
 
-- Review the revised full-page journal navigation, attached edge tabs and consistent rounded button layers. Recipe ingredients retain their facing page; journal navigation uses a spare page when available.
+- Tab/button treatment and tool poses are approved. The requested final refinements are implemented: the journal button panel starts below the top-right button; side profiles are slimmer, with a smaller nose and forward-facing mirrored feet. Targeted checks pass.
 - The yellow-paper, centre-crease, leather-outline and stepped-corner design is now shared across the menus; retain the satchel handle and obtain feedback on the latest pictures.
 - Build the dedicated overhead furnishing editor and its mouse/touch/controller interactions.
 - Continue integration testing and repair confirmed failures before completion.
@@ -75,6 +75,12 @@ User-selected phone behaviour: **A by default, optional C in Settings**.
 
 For each set of visual options, wait for the user's response before continuing that specific design task. Continue independent gameplay, bug fixes and tests meanwhile. Silence is not approval.
 
+## Latest visual refinement
+
+- Journal navigation panel lifted beneath the top-right Close button; the left page and page-turn controls keep their positions.
+- Side body/face narrowed and nose reduced. Side-view legs now stride horizontally and shoes point in the facing direction; right/left feet mirror across six walk frames.
+- Book/storage, tool/audio and new `tests/profile.cjs` checks pass after these changes. The earlier full eight-suite pass remains the broader checkpoint.
+
 ## Repeatable checks
 
 Run `npm test` and `node tests/portable.cjs` for the established regression suite. Expansion checks are available as:
@@ -86,6 +92,7 @@ node tests/animals.cjs
 node tests/activities.cjs
 node tests/book-storage.cjs
 node tests/phone-layouts.cjs
+node tests/profile.cjs
 ```
 
 Browser tests need installed Playwright and Chromium (`CHROMIUM_PATH` can override the browser path). Each test uses a fresh disposable origin. Generated images are under the ignored `tests/artifacts/1.0/` directory. No player save files are used.
