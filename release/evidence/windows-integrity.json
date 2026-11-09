@@ -1,0 +1,51 @@
+{
+  "recordedAt": "2026-11-09T12:14:05.571Z",
+  "version": "0.4.0",
+  "payload": {
+    "file": "artifacts/desktop/win-unpacked/FarmingStar.exe",
+    "bytes": 250013184,
+    "sha256": "15a235981aa00f4662ef8fb94831d2d8b732b0ca0fe608a96eb0f9927269c342",
+    "machine": "0x8664",
+    "versions": [
+      {
+        "CompanyName": "FarmingStar",
+        "FileDescription": "FarmingStar",
+        "FileVersion": "0.4.0",
+        "InternalName": "FarmingStar",
+        "LegalCopyright": "Copyright © 2026 FarmingStar",
+        "OriginalFilename": "",
+        "ProductName": "FarmingStar",
+        "ProductVersion": "0.4.0.0",
+        "SquirrelAwareVersion": "1"
+      }
+    ],
+    "matchingIconImages": 7,
+    "signing": "unsigned (certificate table absent)"
+  },
+  "portable": {
+    "file": "artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe",
+    "bytes": 111748902,
+    "sha256": "99b9550a09613953a2717ef3ca1e0614cf57fcf174170c221033ea4d22104921",
+    "machine": "0x14c",
+    "versions": [
+      {
+        "CompanyName": "FarmingStar",
+        "FileDescription": "An offline pixel-art farming, cooking and village-life game.",
+        "FileVersion": "0.4.0",
+        "LegalCopyright": "Copyright © 2026 FarmingStar",
+        "ProductName": "FarmingStar",
+        "ProductVersion": "0.4.0"
+      }
+    ],
+    "matchingIconImages": 7,
+    "signing": "unsigned (certificate table absent)"
+  },
+  "embedded": {
+    "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
+    "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
+    "desktop/store.cjs": "aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074",
+    "dist/web/index.html": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724"
+  },
+  "architecture": "AMD64 game payload; NSIS portable bootstrapper may be x86",
+  "runtime": "UNVERIFIED until the actual Windows native job passes"
+}

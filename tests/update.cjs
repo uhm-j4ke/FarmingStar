@@ -1,4 +1,4 @@
-const {chromium}=require('playwright');const assert=require('node:assert/strict');const path=require('node:path');const fs=require('node:fs');
+const {chromium}=require('./browser.cjs');const assert=require('node:assert/strict');const path=require('node:path');const fs=require('node:fs');
 (async()=>{
  const server=require('node:http').createServer((q,r)=>{r.setHeader('Content-Type','text/html');r.end(fs.readFileSync(path.join(__dirname,'../index.html')))});await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});

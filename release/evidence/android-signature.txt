@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=FarmingStar Alpha Test, O=FarmingStar, C=GB
+Signer #1 certificate SHA-256 digest: d3ccf9d959877986a95a6d0226219e7e7b333a3769653707562d561963259d35
+Signer #1 certificate SHA-1 digest: 8539f3e83bd385212d67e08aafc411caa78be581
+Signer #1 certificate MD5 digest: 7f415331332e4611d1d70c3a0a9d81e8
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 2048
+Signer #1 public key SHA-256 digest: 3bf79470d800022f63d5f50dd4eda4b74e7d21f0920e06a5214721c80d03fbd0
+Signer #1 public key SHA-1 digest: 09bee9093f918229364d4d0898f56097dd751cfe
+Signer #1 public key MD5 digest: fdc445928df1be9ce79dfbcaf7a426bd

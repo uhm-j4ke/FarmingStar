@@ -1,5 +1,5 @@
 // Development-only browser checks. The game itself has no dependencies.
-const { chromium } = require('playwright');
+const { chromium } = require('./browser.cjs');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 (async () => {

@@ -1,0 +1,11 @@
+{
+  "commit": "d164f84ba1eeb6c3e2e123e6a97e9864c13ed48f",
+  "branch": "main",
+  "paths": [
+    "betas/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+    "betas/README.md",
+    "betas/SHA256SUMS.txt"
+  ],
+  "folder": "https://github.com/uhm-j4ke/FarmingStar/tree/main/betas",
+  "download": "https://github.com/uhm-j4ke/FarmingStar/raw/refs/heads/main/betas/FarmingStar-Alpha-0.4.0-Android-TEST.apk"
+}

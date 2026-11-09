@@ -1,0 +1,5 @@
+PASS: desktop save and related import records survive store recreation
+PASS: invalid key/member/type and oversized write reject the entire desktop transaction
+PASS: simulated rename failure retains complete old desktop data and cleans its own temporary file
+PASS: malformed native desktop store is retained and cannot be overwritten
+PASS: bounded file access and atomic portable export preserve unrelated sibling files

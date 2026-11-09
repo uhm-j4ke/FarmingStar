@@ -1,0 +1,18 @@
+{
+  "gameName": "FarmingStar",
+  "productName": "FarmingStar",
+  "subtitle": "Moss & Ember",
+  "version": "0.4.0",
+  "androidVersionCode": 400,
+  "tag": "v0.4.0-alpha",
+  "releaseName": "Alpha 0.4.0",
+  "prerelease": true,
+  "applicationId": "io.github.uhmj4ke.farmingstar",
+  "startingCommit": "98baeace979ae0bb8dce0012efde1e780585ae49",
+  "startingHtmlSha256": "3bc34d2eb41e24fd71e4ce81d26a1330cbcca3713d35191f08bc2f9b1ef4cd7b",
+  "platformOrder": [
+    "android",
+    "macos",
+    "windows"
+  ]
+}

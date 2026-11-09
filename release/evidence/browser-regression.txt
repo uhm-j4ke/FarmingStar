@@ -1,0 +1,40 @@
+
+> farmingstar-moss-and-ember@0.4.0 test
+> node tests/immersion.cjs && node tests/systems.cjs && node tests/smoke.cjs && node tests/update.cjs && node tests/expansion.cjs && node tests/compatibility.cjs && node tests/bedtime.cjs && node tests/stability.cjs
+
+PASS: canonical slots, shared hotbar, upgrade persistence, contextual target identity, waypoint clearing, compact counters, hours and unified clock.
+PASS: inventory-full atomicity, compact shops, offscreen/visible schedules, purchased fishing, skills/crafting, forest/quarry renewal, quality storage, shipping, projects, recipes, festivals, waypoint completion and save history.
+PASS: creation, movement, farming, shop transactions, storage, cooking, placement, save/load, offline, mobile layout, corrupt save recovery.
+PASS: pixel UI, title animation, editable inputs, zoom targeting, journal rewards, routes, atlas controls, request, mobile layouts, independent saves, migration and relocation.
+PASS: directional impacts, stable facial pixels, agency transactions, expansion preservation, furnishing/chest storage, forecast, dialogue isolation, landmarks, rolling history/restore and high-DPI phone/tablet layouts.
+PASS: v3 migration/overflow, slot validation, desktop drag, touch swaps, midnight timing, landscape/tablet/portrait layout, clear navigation and mobile fishing.
+PASS: bedside interaction, night and after-midnight sleep, one-shot save/crop advancement, reduced-motion menu leaves and mobile bedtime.
+PASS: QA-001 actual reload during cooking conserves ingredients/result
+PASS: QA-002 price and consume the same market stack (26 + 18 = 44)
+PASS: QA-003 actual replacement creates a new farm history lineage
+PASS: QA-003 replacement key failures, all slots, old history/undo and unreadable primaries
+PASS: QA-004 invalid history/undo bytes preserved before overwrite, including backup quota
+PASS: QA-003 legacy lineage, own undo and failed restore retain primary bytes
+PASS: QA-004 null collection rejected before harvest can partially grant
+PASS: QA-010 legacy migration preserves coins instead of replaying historical milestones
+PASS: QA-001 nine station families, three ingredient grades, four reload points
+PASS: QA-001 reservation/completion quota failures, retry and reload are conservative
+PASS: QA-004 deep malformed primary candidates are detached and leave bytes/live state intact
+PASS: QA-001/004 malformed pending reservations rejected and legacy schemas 1-4 remain readable
+PASS: QA-004 inherited catalogue names cannot pass as crops, stations or furnishings
+PASS: QA-001 simulated tab visibility pauses activity and preserves the durable reservation
+PASS: QA-001 every recipe completes once with exact input debit and full-bag start is rejected
+PASS: QA-005 actual bag merge retains equipped destination
+PASS: QA-002 all grade orders, price presets, seasonal demand and reload between sales
+PASS: QA-005 full/partial merges, both equipped ends, grades, swaps and real drag
+PASS: Activity guard rejects stale or programmatic HUD dispatch
+PASS: QA-006 Mira follows visible town-to-forest exit
+PASS: QA-007 ten exhausted swings do not advance obstacle damage
+PASS: QA-008 normal hall UI refuses staffed carrot delivery at 22:00
+PASS: QA-006 observed area edges both ways, indoor connections and mid-route reload
+PASS: QA-006 actual player walking uses all four shared outdoor thresholds
+PASS: QA-008 all staffed hand-ins at opening/closing boundaries, public board remains usable
+PASS: QA-009 actual placement cannot entrap farmer in solid table
+PASS: QA-007 axe/pick all tiers: energy, capacity and paid-hit conservation
+PASS: QA-009 rotated footprints, collision-edge overlap, moved chest and confirmation recheck
+PASS: QA-009 bought station cannot cover player or charge for rejected placement

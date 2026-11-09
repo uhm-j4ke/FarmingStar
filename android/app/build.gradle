@@ -1,0 +1,41 @@
+plugins { id 'com.android.application' }
+def releaseConfig = new groovy.json.JsonSlurper().parse(rootProject.file('../release/release-config.json'))
+def signingPath = System.getenv('FARMINGSTAR_KEYSTORE')
+android {
+    namespace releaseConfig.applicationId
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+    defaultConfig {
+        applicationId releaseConfig.applicationId
+        minSdk 26
+        targetSdk 36
+        versionCode releaseConfig.androidVersionCode
+        versionName releaseConfig.version
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    buildFeatures { buildConfig true }
+    signingConfigs {
+        debug { storeFile rootProject.file('../.local-signing/android-debug.keystore') }
+        if (signingPath) {
+            release {
+                storeFile file(signingPath)
+                storePassword System.getenv('FARMINGSTAR_STORE_PASSWORD')
+                keyAlias System.getenv('FARMINGSTAR_KEY_ALIAS')
+                keyPassword System.getenv('FARMINGSTAR_KEY_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        debug { applicationIdSuffix '.test'; resValue 'string', 'app_name', 'FarmingStar Alpha (Test)' }
+        release { minifyEnabled false; if (signingPath) signingConfig signingConfigs.release }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    lint { abortOnError true }
+}
+dependencies {
+    implementation 'androidx.activity:activity:1.10.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+}
+
+dependencyLocking { lockAllConfigurations() }

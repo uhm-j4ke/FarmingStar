@@ -1,0 +1,11 @@
+PASS: DESKTOP-EMBEDDED-SOURCE-VERSION {"version":"0.4.0","packaged":false,"hashes":{"desktop/main.cjs":"70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee","desktop/preload.cjs":"6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d","desktop/store.cjs":"aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074","dist/web/index.html":"1e77cb782d7ff4060b520c8b1f0d4fd3796492e7835b6d5a3de81c0865da1bbb"}}
+PASS: DESKTOP-OFFLINE-STARTUP-ISOLATION {"node":"undefined","process":"undefined","diagnostics":"undefined","host":"function","csp":true}
+PASS: DESKTOP-INPUT-SAVE-LIFECYCLE {"beforeX":204,"afterX":230.71720000002537,"farmId":"06c69571-e5ab-4b57-9e33-2abaccf415a1"}
+PASS: DESKTOP-BAG-HOTBAR {}
+PASS: DESKTOP-WEBAUDIO {"synthesis":true,"audibleOutput":"unverified"}
+PASS: DESKTOP-RESIZE {"size":[1000,650],"viewportBefore":{"width":700,"height":393},"viewportAfter":{"width":1000,"height":623},"fullscreen":"not asserted on headless backend"}
+PASS: DESKTOP-NATIVE-EXPORT {"format":"FarmingStar.Save"}
+PASS: DESKTOP-NATIVE-IMPORT {"coins":444,"history":4,"semantics":"full replacement, repeated without duplication"}
+PASS: DESKTOP-FORCED-EXIT-RELAUNCH {"farmId":"06c69571-e5ab-4b57-9e33-2abaccf415a1","coins":444}
+PASS: DESKTOP-JS-ASSET-ERRORS {"errors":0,"externalRequests":0}
+PASS: DESKTOP-REPEATED-CLOSE-WAITS-FOR-SAVE-ACK {}

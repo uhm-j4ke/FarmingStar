@@ -1,0 +1,20 @@
+{
+  "sentBuild": "FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+  "sha256": "bcbf91377592f171ecca3afae5cab99f985b764364b93bcf541d03ffef635f06",
+  "bytes": 2558327,
+  "userTesting": "Physical phone test volunteered; results pending",
+  "note": "Preserved separately so later rebuilt candidates do not change which APK was handed to the tester.",
+  "initialWorkspaceDownloadUnavailable": true,
+  "githubHandoff": {
+    "commit": "d164f84ba1eeb6c3e2e123e6a97e9864c13ed48f",
+    "branch": "main",
+    "paths": [
+      "betas/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+      "betas/README.md",
+      "betas/SHA256SUMS.txt"
+    ],
+    "folder": "https://github.com/uhm-j4ke/FarmingStar/tree/main/betas",
+    "download": "https://github.com/uhm-j4ke/FarmingStar/raw/refs/heads/main/betas/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+    "sha256": "4d9ba60843c76a9966283c38bfa8ae0a73f182a0a7794460dd655aa735e6ab38"
+  }
+}

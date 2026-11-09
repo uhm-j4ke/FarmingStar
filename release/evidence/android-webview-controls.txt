@@ -1,0 +1,4 @@
+11-05 21:26:43.965  1536  1536 E chromium: [ERROR:aw_browser_terminator.cc(154)] Renderer process (1732) crash detected (code 5).
+11-05 21:26:44.008  1536  1536 F chromium: [FATAL:crashpad_client_linux.cc(745)] Render process (1732)'s crash wasn't handled by all associated  webviews, triggering application crash.
+11-05 21:30:24.493  2549  2549 E chromium: [ERROR:aw_browser_terminator.cc(154)] Renderer process (2688) crash detected (code 5).
+11-05 21:30:24.619  2549  2549 F chromium: [FATAL:crashpad_client_linux.cc(745)] Render process (2688)'s crash wasn't handled by all associated  webviews, triggering application crash.

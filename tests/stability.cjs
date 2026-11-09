@@ -1,5 +1,5 @@
 // Independent-QA reproduction regressions. Fresh disposable origins; never player profiles.
-const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {chromium}=require('./browser.cjs'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const wanted=process.argv.find(v=>v.startsWith('--group='))?.slice(8),record=process.argv.find(v=>v.startsWith('--record='))?.slice(9),rows=[];
 (async()=>{
  const server=require('node:http').createServer((q,r)=>{r.setHeader('Content-Type','text/html');r.end(fs.readFileSync(process.env.GAME_HTML||path.join(__dirname,'../index.html')))});await new Promise(r=>server.listen(0,'127.0.0.1',r));

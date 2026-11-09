@@ -1,0 +1,16 @@
+{
+  "environment": "API 36 x86_64; WebView 133.0.6943.137; software CPU/GPU, no KVM",
+  "status": "BLOCKED",
+  "passedChecks": [
+    "Wi-Fi disabled; APK has no INTERNET permission"
+  ],
+  "unverified": [
+    "title/game startup",
+    "touch controls",
+    "audio",
+    "save/relaunch",
+    "document picker"
+  ],
+  "reason": "FarmingStar and the independent minimal WebView control both terminate in native WebView. UI harness stopped after the target process died before title rendering. No game UI assertion marked passed.",
+  "nativeInstrumentation": "System killed runner for startup ANR before any test result. Retry separately without control/game processes."
+}

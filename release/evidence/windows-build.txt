@@ -1,0 +1,26 @@
+
+> farmingstar-moss-and-ember@0.4.0 build:windows
+> npm run prepare:web && electron-builder --config electron-builder.cjs --win --x64 --publish never
+
+
+> farmingstar-moss-and-ember@0.4.0 prepare:web
+> node tools/prepare_web.cjs
+
+Production HTML prepared: offline assets, hashed script policy, no diagnostic state API.
+  • electron-builder  version=26.18.0 os=6.18.57
+  • loaded configuration  file=/workspace/FarmingStar/electron-builder.cjs
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=win32 arch=x64 electron=45.2.3 appOutDir=artifacts/desktop/win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/workspace/FarmingStar/artifacts/desktop/win-unpacked
+  • searching for node modules  pm=npm searchDir=/workspace/FarmingStar
+  • no node modules found in collection, trying next search directory  pm=npm searchDir=/workspace/FarmingStar
+  • searching for node modules  pm=traversal searchDir=/workspace/FarmingStar
+  • using manual traversal of node_modules to build dependency tree
+  • no node modules found in collection, trying next search directory  pm=traversal searchDir=/workspace/FarmingStar
+  • no node modules returned while searching directories  searchDirectories=[""]
+  • updating asar integrity executable resource  executablePath=artifacts/desktop/win-unpacked/FarmingStar.exe
+  • no code signing certificate configured, signing is skipped  path=artifacts/desktop/win-unpacked/FarmingStar.exe
+  • building        target=portable file=artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe archs=x64
+  • no code signing certificate configured, signing is skipped  path=/tmp/t-RP0gGD/elevate-staging-1/resources/elevate.exe
+  • no code signing certificate configured, signing is skipped  path=artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe

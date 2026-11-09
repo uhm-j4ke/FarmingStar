@@ -1,0 +1,18 @@
+11-05 21:26:41.879  1732  1776 F DEBUG   : Cmdline: com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0
+11-05 21:26:41.880  1732  1776 F DEBUG   : pid: 1732, tid: 1776, name: CrRendererMain  >>> com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0 <<<
+11-05 21:26:41.910  1732  1776 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:26:57.670  2381  2381 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.test
+11-05 21:26:57.672  2381  2381 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (1732)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-05 21:26:57.700  2381  2381 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:30:21.390  2688  2737 F DEBUG   : Cmdline: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
+11-05 21:30:21.393  2688  2737 F DEBUG   : pid: 2688, tid: 2737, name: CrRendererMain  >>> com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0 <<<
+11-05 21:30:21.401  2688  2737 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:30:47.305  3326  3326 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.test
+11-05 21:30:47.324  3326  3326 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (2688)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-05 21:30:47.367  3326  3326 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:38:15.725  4947  5002 F DEBUG   : Cmdline: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
+11-05 21:38:15.725  4947  5002 F DEBUG   : pid: 4947, tid: 5002, name: CrRendererMain  >>> com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0 <<<
+11-05 21:38:15.779  4947  5002 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:38:31.828  5482  5482 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.probe
+11-05 21:38:31.829  5482  5482 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (4947)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-05 21:38:31.851  5482  5482 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)

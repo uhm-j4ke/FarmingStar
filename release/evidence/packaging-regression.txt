@@ -1,0 +1,6 @@
+
+> farmingstar-moss-and-ember@0.4.0 test:packaging
+> node tools/prepare_web.cjs && node tests/packaging.cjs
+
+Production HTML prepared: offline assets, hashed script policy, no diagnostic state API.
+PASS: production HTML startup, CSP/offline assets, absent mutation hooks, save/reload, native lifecycle/back, native-storage contract and failed-write protection.

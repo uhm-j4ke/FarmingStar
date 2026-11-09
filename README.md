@@ -1,6 +1,6 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. Version 0.4.1 is a stability candidate repairing the independent QA report’s nine defects plus a legacy migration coin replay. Compact furnished shops, NPC routines, slot backpacks, fishing and Bramblewood exploration remain available. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md), the [repair handoff](bug%20reports/REPAIR_CHANGELOG.md) and the [issue ledger](bug%20reports/FIX_STATUS.md) for fixes, exact reproduction checks and remaining validation.
+An original, offline, top-down farming and kitchen game. This release branch packages **Alpha 0.4.0** with native Android and desktop wrappers, portable saves and the original forest portrait icon. The prior 0.4.1 stability repairs are retained; the public package version follows the requested Alpha 0.4.0 release metadata. Compact furnished shops, NPC routines, slot backpacks, fishing and Bramblewood exploration remain available. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md), the [repair handoff](bug%20reports/REPAIR_CHANGELOG.md) and the [issue ledger](bug%20reports/FIX_STATUS.md) for fixes, exact reproduction checks and remaining validation.
 
 ## Play
 
@@ -111,3 +111,8 @@ Farm replacement starts play only after the new primary save succeeds. Restore p
 Staffed hall deliveries and project donations operate 08:00–22:00. The public board/calendar and accepting/cancelling requests remain available after hours. Solid placement cannot overlap the farmer, including at confirmation after moving. Failed energy/capacity tool actions consume neither energy nor obstacle damage. Market payouts use the exact sold stack’s grade, and inventory merges retain surviving equipment selection.
 
 The imported independent reports are unchanged in `bug reports/`; their external scripts and traces were not attached. See the [repair changelog](bug%20reports/REPAIR_CHANGELOG.md) for coverage and recovery limits. Existing schema 1–4 saves remain supported; no unrelated gameplay systems were added.
+
+
+## Native alpha packaging
+
+See [build instructions](BUILD_INSTRUCTIONS.md), [test results](RELEASE_TEST_REPORT.md), [release issue log](RELEASE_BUG_LOG.md) and [artifact manifest](RELEASE_MANIFEST.md). Current native packages are candidates until their platform gates pass. The GitHub workflow builds macOS Universal 2 on a Mac, tests the same DMG on Intel and Apple Silicon, then builds/tests Windows x64. It does not publish a release. Controller support and animal farming remain in [the future roadmap](ROADMAP.md).

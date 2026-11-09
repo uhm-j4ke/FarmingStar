@@ -1,0 +1,7 @@
+--------- beginning of main
+11-09 11:10:46.007  1322  1322 E DEBUG   : failed to read process info: failed to open /proc/1068: No such file or directory
+11-09 11:12:54.067  1784  1784 I WebViewFactory: Loading com.android.webview version 133.0.6943.137 (code 694313707)
+11-09 11:12:57.759  1784  1847 E chromium: [1109/111257.696735:ERROR:variations_seed_loader.cc(39)] Seed missing signature.
+11-09 11:12:57.931  1784  1847 I chromium: [1109/111257.820505:INFO:variations_seed_loader.cc(67)] Failed to open file for reading.: No such file or directory (2)
+11-09 11:13:02.947  1784  1871 W chromium: [WARNING:dns_config_service_android.cc(81)] Failed to read DnsConfig.
+11-09 11:13:36.054  2060  2060 E DEBUG   : failed to read process info: failed to open /proc/1530: No such file or directory

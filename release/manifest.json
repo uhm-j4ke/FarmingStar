@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-11-09T12:22:52.731Z",
+  "release": "Alpha 0.4.0",
+  "tag": "v0.4.0-alpha",
+  "channel": "Alpha",
+  "releaseReady": false,
+  "publication": "No GitHub release created or published",
+  "sources": {
+    "index.html": "5d7c34a68ba4427c8f5ee2e4f2cd5d41ba304bd56d67807cbdad4221146647a5",
+    "dist/web/index.html": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724",
+    "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
+    "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
+    "desktop/store.cjs": "aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074"
+  },
+  "artifacts": [
+    {
+      "relative": "artifacts/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+      "platform": "Android",
+      "architecture": "Java bytecode; no ABI-specific game libraries",
+      "signing": "test-signed; release signing unavailable",
+      "runtime": "Blocked on cloud emulators; physical phone feedback pending",
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 2558519,
+      "sha256": "4d9ba60843c76a9966283c38bfa8ae0a73f182a0a7794460dd655aa735e6ab38",
+      "build": "built"
+    },
+    {
+      "relative": "artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe",
+      "platform": "Windows",
+      "architecture": "AMD64 game payload; x86 NSIS bootstrapper",
+      "signing": "unsigned",
+      "runtime": "Windows execution pending; shared packaged Linux runtime passed",
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 111748902,
+      "sha256": "99b9550a09613953a2717ef3ca1e0614cf57fcf174170c221033ea4d22104921",
+      "build": "built"
+    },
+    {
+      "relative": "artifacts/desktop/FarmingStar-Alpha-0.4.0-macOS-Universal.dmg",
+      "platform": "macOS",
+      "architecture": "Universal 2 requested",
+      "signing": "ad-hoc planned; Developer ID/notarisation unavailable",
+      "runtime": "Native Mac build and execution required",
+      "version": "0.4.0",
+      "exists": false,
+      "build": "blocked/unavailable"
+    },
+    {
+      "relative": "artifacts/FarmingStar-Alpha-0.4.0.html",
+      "platform": "Standalone HTML",
+      "architecture": "browser",
+      "signing": "not applicable",
+      "runtime": "Production browser suite passed",
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 282657,
+      "sha256": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724",
+      "build": "built"
+    }
+  ]
+}

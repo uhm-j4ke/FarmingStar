@@ -1,0 +1,22 @@
+11-05 21:26:41.856  1732  1776 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-05 21:26:41.879  1732  1776 F DEBUG   : Cmdline: com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0
+11-05 21:26:41.880  1732  1776 F DEBUG   : pid: 1732, tid: 1776, name: CrRendererMain  >>> com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0 <<<
+11-05 21:26:41.880  1732  1776 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr --------
+11-05 21:26:41.910  1732  1776 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:26:44.016  1536  1536 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 1536 (armingstar.test), pid 1536 (armingstar.test)
+11-05 21:26:57.657  2381  2381 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-05 21:26:57.670  2381  2381 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.test
+11-05 21:26:57.671  2381  2381 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+11-05 21:26:57.672  2381  2381 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (1732)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-05 21:26:57.700  2381  2381 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:30:21.361  2688  2737 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-05 21:30:21.390  2688  2737 F DEBUG   : Cmdline: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
+11-05 21:30:21.393  2688  2737 F DEBUG   : pid: 2688, tid: 2737, name: CrRendererMain  >>> com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0 <<<
+11-05 21:30:21.398  2688  2737 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr --------
+11-05 21:30:21.401  2688  2737 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-05 21:30:24.621  2549  2549 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 2549 (armingstar.test), pid 2549 (armingstar.test)
+11-05 21:30:47.269  3326  3326 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-05 21:30:47.305  3326  3326 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.test
+11-05 21:30:47.323  3326  3326 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+11-05 21:30:47.324  3326  3326 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (2688)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-05 21:30:47.367  3326  3326 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)

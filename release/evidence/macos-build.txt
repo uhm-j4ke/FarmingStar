@@ -1,0 +1,41 @@
+
+> farmingstar-moss-and-ember@0.4.0 build:macos
+> npm run prepare:web && electron-builder --config electron-builder.cjs --mac --universal --publish never
+
+
+> farmingstar-moss-and-ember@0.4.0 prepare:web
+> node tools/prepare_web.cjs
+
+Production HTML prepared: offline assets, hashed script policy, no diagnostic state API.
+  • electron-builder  version=26.18.0 os=6.18.57
+  • loaded configuration  file=/workspace/FarmingStar/electron-builder.cjs
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=darwin arch=x64 electron=45.2.3 appOutDir=artifacts/desktop/mac-universal-x64-temp
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/workspace/FarmingStar/artifacts/desktop/mac-universal-x64-temp
+  • searching for node modules  pm=npm searchDir=/workspace/FarmingStar
+  • no node modules found in collection, trying next search directory  pm=npm searchDir=/workspace/FarmingStar
+  • searching for node modules  pm=traversal searchDir=/workspace/FarmingStar
+  • using manual traversal of node_modules to build dependency tree
+  • no node modules found in collection, trying next search directory  pm=traversal searchDir=/workspace/FarmingStar
+  • no node modules returned while searching directories  searchDirectories=[""]
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=darwin arch=arm64 electron=45.2.3 appOutDir=artifacts/desktop/mac-universal-arm64-temp
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/workspace/FarmingStar/artifacts/desktop/mac-universal-arm64-temp
+  • searching for node modules  pm=npm searchDir=/workspace/FarmingStar
+  • no node modules found in collection, trying next search directory  pm=npm searchDir=/workspace/FarmingStar
+  • searching for node modules  pm=traversal searchDir=/workspace/FarmingStar
+  • using manual traversal of node_modules to build dependency tree
+  • no node modules found in collection, trying next search directory  pm=traversal searchDir=/workspace/FarmingStar
+  • no node modules returned while searching directories  searchDirectories=[""]
+  • packaging       platform=darwin arch=universal electron=45.2.3 appOutDir=artifacts/desktop/mac-universal
+  ⨯ @electron/universal is only supported on darwin platforms  failedTask=build stackTrace=Error: @electron/universal is only supported on darwin platforms
+    at makeUniversalApp (/workspace/FarmingStar/node_modules/@electron/universal/src/index.ts:83:11)
+    at MacPackager.doUniversalPack (/workspace/FarmingStar/node_modules/app-builder-lib/src/macPackager.ts:252:13)
+    at MacPackager.packMacTargets (/workspace/FarmingStar/node_modules/app-builder-lib/src/macPackager.ts:370:7)
+    at MacPackager.pack (/workspace/FarmingStar/node_modules/app-builder-lib/src/macPackager.ts:304:7)
+    at Packager.doBuild (/workspace/FarmingStar/node_modules/app-builder-lib/src/packager.ts:539:11)
+    at executeFinally (/workspace/FarmingStar/node_modules/builder-util/src/promise.ts:12:14)
+    at Packager.build (/workspace/FarmingStar/node_modules/app-builder-lib/src/packager.ts:459:31)
+    at executeFinally (/workspace/FarmingStar/node_modules/builder-util/src/promise.ts:12:14)

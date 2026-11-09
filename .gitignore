@@ -1,3 +1,12 @@
 node_modules/
 tests/*.png
 *.log
+
+dist/
+artifacts/
+.local-signing/
+android/.gradle/
+android/local.properties
+android/**/build/
+android/app/src/main/assets/web/
+release/evidence/*.png

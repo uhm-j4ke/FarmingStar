@@ -1,0 +1,42 @@
+--------- beginning of crash
+11-09 11:10:03.811  1068  1226 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1226 (bt_stack_manage), pid 1068 (droid.bluetooth)
+11-09 11:13:15.922  1530  1938 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1938 (bt_stack_manage), pid 1530 (droid.bluetooth)
+11-09 11:13:33.232  1784  1784 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 1784 (rmingstar.probe), pid 1784 (rmingstar.probe)
+11-09 11:13:59.071  2067  2067 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-09 11:13:59.080  2067  2067 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:16/BE2A.250530.026.D1/13818094:userdebug/test-keys'
+11-09 11:13:59.081  2067  2067 F DEBUG   : Revision: '0'
+11-09 11:13:59.081  2067  2067 F DEBUG   : ABI: 'x86_64'
+11-09 11:13:59.081  2067  2067 F DEBUG   : Timestamp: 2026-11-09 11:13:44.369524837+0000
+11-09 11:13:59.081  2067  2067 F DEBUG   : Process uptime: 58s
+11-09 11:13:59.081  2067  2067 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.probe
+11-09 11:13:59.082  2067  2067 F DEBUG   : pid: 1784, tid: 1784, name: rmingstar.probe  >>> io.github.uhmj4ke.farmingstar.probe <<<
+11-09 11:13:59.082  2067  2067 F DEBUG   : uid: 10150
+11-09 11:13:59.082  2067  2067 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+11-09 11:13:59.083  2067  2067 F DEBUG   :     rax 00007fff90deaac0  rbx 00001e6e005b8f20  rcx 0000000000000000  rdx 0000000000000000
+11-09 11:13:59.090  2067  2067 F DEBUG   :     r8  0000000000000010  r9  00007fff90dea460  r10 00000000ffffffff  r11 0000000000000000
+11-09 11:13:59.091  2067  2067 F DEBUG   :     r12 00007e29bdeb480d  r13 00007fff90deaac0  r14 00007fff90deab7f  r15 00007fff90deab88
+11-09 11:13:59.091  2067  2067 F DEBUG   :     rdi 00007fff90deaad8  rsi 0000000000000000
+11-09 11:13:59.098  2067  2067 F DEBUG   :     rbp 00007fff90deaac0  rsp 00007fff90deaac0  rip 00007e2684cee840
+11-09 11:13:59.099  2067  2067 F DEBUG   : 1 total frames
+11-09 11:13:59.106  2067  2067 F DEBUG   : backtrace:
+11-09 11:13:59.107  2067  2067 F DEBUG   :       #00 pc 000000000249c840  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7b3c000) (BuildId: 3fed08901ee0e6620bf486e4e9e34fba0a577d62)
+11-09 11:15:01.679  2142  2142 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 2142 (rmingstar.probe), pid 2142 (rmingstar.probe)
+11-09 11:15:16.314  2345  2345 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-09 11:15:16.315  2345  2345 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:16/BE2A.250530.026.D1/13818094:userdebug/test-keys'
+11-09 11:15:16.315  2345  2345 F DEBUG   : Revision: '0'
+11-09 11:15:16.316  2345  2345 F DEBUG   : ABI: 'x86_64'
+11-09 11:15:16.323  2345  2345 F DEBUG   : Timestamp: 2026-11-09 11:15:03.304541580+0000
+11-09 11:15:16.323  2345  2345 F DEBUG   : Process uptime: 59s
+11-09 11:15:16.324  2345  2345 F DEBUG   : Cmdline: io.github.uhmj4ke.farmingstar.probe
+11-09 11:15:16.324  2345  2345 F DEBUG   : pid: 2142, tid: 2142, name: rmingstar.probe  >>> io.github.uhmj4ke.farmingstar.probe <<<
+11-09 11:15:16.325  2345  2345 F DEBUG   : uid: 10150
+11-09 11:15:16.325  2345  2345 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+11-09 11:15:16.326  2345  2345 F DEBUG   :     rax 00007fff90deaac0  rbx 00002c7a002fe990  rcx 0000000000000000  rdx 0000000000000000
+11-09 11:15:16.326  2345  2345 F DEBUG   :     r8  0000000000000010  r9  00007fff90dea460  r10 00000000ffffffff  r11 0000000000000000
+11-09 11:15:16.327  2345  2345 F DEBUG   :     r12 00007e29bdeb480d  r13 00007fff90deaac0  r14 00007fff90deab7f  r15 00007fff90deab88
+11-09 11:15:16.327  2345  2345 F DEBUG   :     rdi 00007fff90deaad8  rsi 0000000000000000
+11-09 11:15:16.327  2345  2345 F DEBUG   :     rbp 00007fff90deaac0  rsp 00007fff90deaac0  rip 00007e2684cee840
+11-09 11:15:16.332  2345  2345 F DEBUG   : 1 total frames
+11-09 11:15:16.332  2345  2345 F DEBUG   : backtrace:
+11-09 11:15:16.333  2345  2345 F DEBUG   :       #00 pc 000000000249c840  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7b3c000) (BuildId: 3fed08901ee0e6620bf486e4e9e34fba0a577d62)
+11-09 11:16:01.771   231   231 F libc    : Unwind request: crash_dump helper failed to exec, or was killed

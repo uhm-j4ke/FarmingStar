@@ -1,0 +1,16 @@
+{
+  "package": "io.github.uhmj4ke.farmingstar.test",
+  "environment": "Android emulator, API 35, x86_64, software CPU/GPU; not a physical device",
+  "audio": "WebAudio synthesis/context checked; emulator uses no-audio, audible speaker output unverified",
+  "rows": [
+    {
+      "id": "ANDROID-OFFLINE-CONFIG",
+      "status": "PASS",
+      "details": {
+        "wifi": "disabled",
+        "mobileData": "not present in this emulator image"
+      }
+    }
+  ],
+  "error": "TypeError: Cannot read properties of undefined (reading 'setDefaultTimeout')\n    at connect (/workspace/FarmingStar/tools/android_runtime.cjs:12:39)\n    at async /workspace/FarmingStar/tools/android_runtime.cjs:24:102"
+}

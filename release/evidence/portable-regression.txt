@@ -1,0 +1,13 @@
+
+> farmingstar-moss-and-ember@0.4.0 test:portable
+> node tests/portable.cjs
+
+PASS: export preserves upgraded farm, quality inventory and four history points without device preferences
+PASS: import confirmation/cancel, full replacement, destination backup and repeated import without duplication
+PASS: malformed, future, prototype, invalid nested state and foreign-history imports leave all bytes unchanged
+PASS: failed multi-key browser replacement rolls back every destination record
+PASS: interrupted browser import recovers old primary/history before loading any farm
+PASS: import backup restores an originally empty slot and its previous records
+PASS: cancelled file read cannot replace a later slot selection or import preview
+PASS: native picker/atomic-batch contract and rejected native import retain existing bytes
+PASS: imported collection/achievement labels render as text, not executable HTML

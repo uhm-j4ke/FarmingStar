@@ -1,0 +1,8 @@
+// Development-only control app to separate WebView/emulator faults from game faults.
+plugins { id 'com.android.application' }
+android {
+    namespace 'io.github.uhmj4ke.farmingstar.probe'
+    compileSdk 36
+    defaultConfig { applicationId 'io.github.uhmj4ke.farmingstar.probe'; minSdk 26; targetSdk 36; versionCode 400; versionName '0.4.0' }
+    signingConfigs { debug { storeFile rootProject.file('../.local-signing/android-debug.keystore') } }
+}

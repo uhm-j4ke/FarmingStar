@@ -1,3 +1,19 @@
+# Alpha 0.4.0 — native packaging candidate
+
+Public package metadata is 0.4.0 as requested. All stability repairs from the earlier 0.4.1 browser candidate below are retained.
+
+- Added a self-contained Android wrapper with app-private atomic storage, landscape/back/lifecycle handling, document pickers and a test-signed APK. Uploaded the requested phone test build to `betas/` on GitHub main.
+- Added one shared Electron wrapper for macOS and Windows, with isolated renderer/preload, blocked remote content, native persistent storage, file dialogs and save-before-close handling.
+- Added the original forest/character icon in Android densities, Windows ICO, macOS ICNS and browser formats.
+- Added portable save export/import: schema validation, explicit full replacement, destination backup/restore, up to four same-farm history points, cancellation and interrupted-import recovery. Device preferences stay local.
+- Removed unrestricted game diagnostics from production copies while retaining test-only regression access.
+- Fixed imported-label HTML interpretation, export-side sibling file deletion, repeated-close acknowledgement bypass and stale asynchronous file-read completion.
+- Added pinned build tooling, native CI candidates, structural artifact verification, source-hash checks, test evidence, checksums and build/release handoff documentation.
+
+Validation: eight existing browser suites, nine portable groups, production HTML checks, seven native Android storage tests, desktop storage tests, and actual source/packaged Linux Electron scenarios. Windows EXE cross-build and resource/source integrity checks pass. Native Mac/Windows runner results, phone launch feedback and release signing remain separate gates. No GitHub Release has been created or published.
+
+See `RELEASE_BUG_LOG.md`, `RELEASE_TEST_REPORT.md`, `RELEASE_MANIFEST.md` and `BUILD_INSTRUCTIONS.md` for exact results and limitations. No unrelated gameplay features, livestock, iOS package or controller support were added.
+
 # 0.4.1 — independent QA stability repairs
 
 All nine reported failures were reproduced against `d3af752`, repaired at their state/transaction boundaries and retested. A tenth legacy migration defect was confirmed and repaired. The detailed [repair changelog](bug%20reports/REPAIR_CHANGELOG.md), [fixed/unresolved ledger](bug%20reports/FIX_STATUS.md) and recorded [verification results](bug%20reports/verification/final.json) support independent rechecking.

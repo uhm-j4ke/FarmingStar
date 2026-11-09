@@ -1,0 +1,17 @@
+{
+  "artifact": "artifacts/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+  "bytes": 2558519,
+  "sha256": "4d9ba60843c76a9966283c38bfa8ae0a73f182a0a7794460dd655aa735e6ab38",
+  "versionName": "0.4.0",
+  "versionCode": 400,
+  "package": "io.github.uhmj4ke.farmingstar.test",
+  "signature": "verified test key; not release signing",
+  "embeddedHtmlSha256": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724",
+  "nativeStorageTests": {
+    "api": 36,
+    "passed": 7,
+    "mode": "isolated instrumentation; game UI not launched"
+  },
+  "runtime": "cloud WebView path blocked; user phone testing pending",
+  "releaseReady": false
+}
