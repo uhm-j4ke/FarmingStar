@@ -121,7 +121,7 @@ jobs:
           path: release/evidence/desktop-darwin.*
 
   windows:
-    needs: [shared, macos-build]
+    needs: shared
     if: ${{ !cancelled() && needs.shared.result == 'success' }}
     runs-on: windows-2022
     timeout-minutes: 25
@@ -175,6 +175,6 @@ jobs:
 
 # Desktop-only while the user tests Android. No Android build or device job runs here.
 # Universal packaging starts on Intel; both Mac architecture checks remain.
-# Windows follows the Mac package build without waiting for a queued ARM runtime slot.
+# Intel Mac packaging/runtime has passed; Windows now runs alongside Mac rechecks after shared tests.
 # Candidate builds are retained even when another platform is blocked.
 # This workflow never creates or publishes a GitHub release. Release remains the final reviewed step.
