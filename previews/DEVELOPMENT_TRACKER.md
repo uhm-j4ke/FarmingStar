@@ -8,7 +8,7 @@ Game changes are confined to `index.html`. This tracker is documentation request
 
 - Tab/button treatment and tool poses are approved. The requested final refinements are implemented: the journal button panel starts below the top-right button; side profiles are slimmer, with a smaller nose and forward-facing mirrored feet. Targeted checks pass.
 - The yellow-paper, centre-crease, leather-outline and stepped-corner design is now shared across the menus; retain the satchel handle and obtain feedback on the latest pictures.
-- Build the dedicated overhead furnishing editor and its mouse/touch/controller interactions.
+- Choose the furnishing-editor layout from the three real previews (A: plan left / palette right; B: palette left / plan right; C: plan above a drawer). Its working controls and transaction safeguards are implemented.
 - Continue integration testing and repair confirmed failures before completion.
 
 ## Feature status
@@ -27,10 +27,10 @@ Game changes are confined to `index.html`. This tracker is documentation request
 | Coop / fixture artwork and chicken behaviours | Implemented | Visual and extended behaviour review underway |
 | Slot-based chest interface | Implemented | Two grids, drag transfers both directions, splitting and item conservation passed; further failure/quality checks remain |
 | Recipe book and journal | Functional, visual revision underway | Page/index navigation, page turns, swipe support and menu tests pass; latest whole-page navigation request is being applied |
-| Dedicated overhead furnishing editor | Not implemented yet | Existing world placement/storage safeguards are retained and tested. The new editor is the main outstanding gameplay feature |
+| Dedicated overhead furnishing editor | Implemented; layout review pending | Real plan, owned/placed/shop palette, pan/zoom, previews, rotation, move/store, home expansion, farm plan with crops/pen/parcels. Mouse, touch drag, controller entry/placement, chest grades/UIDs, equipment upgrades, occupied coop guard, retained feed, failed-save rollback, orientation and purchase de-duplication tests pass |
 | Arcade | Three playable games implemented | Maze completion, memory pairs, rhythm scoring, duplicate-tap rejection, high scores, paused farm state and safe exits passed |
 | Enterable mine | Implemented | Entry, tool tiers, real resource yields, repeated-reward rejection and regeneration passed |
-| Seasonal merchandise / retained ownership | Implemented | Seasonal stock and furnishings added; final calendar/ownership regression matrix remains |
+| Seasonal merchandise / retained ownership | Implemented | All four catalogue availability guards, rejected off-season purchases and retained ownership/placement/save state across seasons pass |
 | Foliage, bridges, lighting and environmental art | Integrated | Cached seasonal foliage, bridge lamps/arches, dawn/dusk/night, grass and decorations added; visual/performance checks underway |
 | Held tools / working poses | Implemented; visual review pending | Fixed-length hand-attached tools; overhead windup/contact/recovery and tipped-can watering pass targeted checks; original directional impact/tier/energy regressions pass |
 | Music, tool sounds and ambience | Implemented; audible review pending | Soft/plucked/chip music, paper sounds, distinct soil/wood/stone/water/harvest effects, birds and proximity river ambience. Generated effects, mute and explicit node cleanup pass browser checks |
@@ -44,8 +44,10 @@ Game changes are confined to `index.html`. This tracker is documentation request
 - New-home service/navigation anchors are now covered by passing interior/route suites. Clear riverbank access was restored after procedural trees displaced the old fishing approach.
 - Portable import/export, malformed files, interrupted imports, multi-key rollback and native save-bridge contract checks pass.
 - The latest journal navigation eligibility/viewport refinement passes: recipe ingredients remain visible, chapter navigation starts at the top of the spare page, and page controls fit desktop plus portrait/landscape phone viewports.
-- Six new reusable suites live in `tests/`: controller, tool/audio, animals, activities, book/storage, and phone layouts. All six reusable suites passed in a clean post-restart run.
-- The entire expansion is not marked complete: the dedicated editor, final seasonal/placement matrix, design feedback and performance review remain.
+- The six initial expansion suites passed after restart. New furnishing, profile, seasonal and controller/phone HUD regressions are also available; their focused checks pass.
+- The full eight-suite main regression pass was repeated successfully with the dedicated editor integrated (`integration-regressions-editor.log`). Later editor text-size and controller-HUD spacing changes pass their targeted checks.
+- Eight additional controller/phone cases include active waypoints and transient item labels, using generic long button prompts.
+- The entire expansion is not marked complete: the editor layout choice, final performance/compatibility review and final verification handoff remain.
 - No physical-controller, audible-output, real-phone frame-rate or newly packaged-app certification is claimed.
 
 ## Confirmed integration issues
@@ -75,6 +77,16 @@ User-selected phone behaviour: **A by default, optional C in Settings**.
 
 For each set of visual options, wait for the user's response before continuing that specific design task. Continue independent gameplay, bug fixes and tests meanwhile. Silence is not approval.
 
+## Editor integration fixes
+
+| Issue | Proper fix | Verification |
+|---|---|---|
+| Touch Confirm did nothing after a canvas drag | Browser compatibility clicks could be suppressed after pointer capture. Editor touch controls now activate on a valid pointer release and suppress the following compatibility click | Real emulated touch drag/confirm, purchase-once and touch-close reproductions pass |
+| Canvas border shifted touch tile coordinates | Plan render size uses the content box; hit testing subtracts the actual border | Real touch tile and drag targets pass |
+| Off-season furniture available through retained Build menu | Availability is checked in both the catalogue and purchase handler, alongside the new editor | All four seasons and forged stale purchase buttons pass; owned decorations remain usable |
+| Long controller hints covered phone navigation / labels | Hints receive full available width above the hotbar, with separate portrait label spacing; old placement toolbar takes priority | Eight generic-controller A/C phone/tablet cases pass |
+| Editor generic button text overrode compact labels | Scoped editor typography respects the shared UI scaling preference | Actual previews and touch placement checks pass |
+
 ## Latest visual refinement
 
 - Journal navigation panel lifted beneath the top-right Close button; the left page and page-turn controls keep their positions.
@@ -93,6 +105,9 @@ node tests/activities.cjs
 node tests/book-storage.cjs
 node tests/phone-layouts.cjs
 node tests/profile.cjs
+node tests/furnishing.cjs
+node tests/seasonal.cjs
+node tests/phone-controller.cjs
 ```
 
 Browser tests need installed Playwright and Chromium (`CHROMIUM_PATH` can override the browser path). Each test uses a fresh disposable origin. Generated images are under the ignored `tests/artifacts/1.0/` directory. No player save files are used.
