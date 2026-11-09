@@ -135,6 +135,7 @@ jobs:
       - run: npm ci
       - run: npm run desktop:install
       - run: npm run build:windows
+      - run: node tests/windows-archive.cjs
       - run: node tools/verify_windows.cjs
       - run: node tools/checksum_artifact.cjs artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe
       - run: npm run test:desktop-store

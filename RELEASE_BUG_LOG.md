@@ -169,3 +169,13 @@ All seven native store/import instrumentation tests pass on API 36 when run in i
 - Cause: the Mac runtime job checked out source and downloaded the DMG but did not prepare the reference used by source-hash comparison.
 - Fix: the desktop test command generates its reference automatically, using desktop-only preparation.
 - Retest: original missing-reference failure reproduced; corrected command passes against the same packaged app in a fresh-reference condition. Native Mac rerun remains required.
+
+## REL-012 — Windows archive inspection uses an unnormalised nested path
+
+- Platform/severity: Windows native package verification / P1 test blocker.
+- Reproduction: native run 42652576012 builds the EXE, then ASAR inspection raises `"dist/web/index.html" was not found in this archive`.
+- Root cause: ASAR 3.4.1 splits directory components using the host separator; the verifier supplied literal forward slashes. Single-directory paths happened to work because the host basename/dirname helpers accept them, while nested `dist/web` was treated as one archive key. The payload is present.
+- Fix: normalise every ASAR extraction path using the host path API. No missing-file check or source-integrity assertion was removed.
+- Retest: a real temporary ASAR and the dependency's actual filesystem implementation reproduce the original failure under Windows path semantics; normalised lookup passes on Windows and Unix semantics. The complete local Windows PE/icon/version/source verification passes. Native Windows rerun remains required.
+
+Native Intel Mac runtime passed in job 129287445974, including actual mounted-DMG execution, fullscreen, save import/export, restart and delayed repeated-close acknowledgement. Apple Silicon runtime remained queued at this checkpoint.
