@@ -7,8 +7,8 @@
     "test": "node tests/immersion.cjs && node tests/systems.cjs && node tests/smoke.cjs && node tests/update.cjs && node tests/expansion.cjs && node tests/compatibility.cjs && node tests/bedtime.cjs && node tests/stability.cjs",
     "start": "python3 -m http.server 8000 --bind 127.0.0.1",
     "test:stability": "node tests/stability.cjs",
-    "prepare:web": "node tools/prepare_web.cjs",
-    "test:packaging": "node tools/prepare_web.cjs && node tests/packaging.cjs",
+    "prepare:web": "node tools/prepare_web.cjs --desktop-only",
+    "test:packaging": "node tests/production-html.cjs && node tools/prepare_web.cjs --desktop-only && node tests/packaging.cjs",
     "icons": "python3 tools/make_icons.py",
     "build:android:test": "node tools/build_android.cjs",
     "test:portable": "node tests/portable.cjs",
@@ -19,7 +19,7 @@
     "build:macos": "npm run prepare:web && electron-builder --config electron-builder.cjs --mac --universal --publish never",
     "build:windows": "npm run prepare:web && electron-builder --config electron-builder.cjs --win --x64 --publish never",
     "build:desktop:test": "npm run prepare:web && electron-builder --config electron-builder.cjs --linux dir --publish never",
-    "test:desktop": "node tests/desktop.cjs"
+    "test:desktop": "npm run prepare:web && node tests/desktop.cjs"
   },
   "devDependencies": {
     "electron": "45.2.3",

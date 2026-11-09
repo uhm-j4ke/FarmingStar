@@ -1,1 +1,6 @@
 android/gradlew.bat text eol=crlf
+*.html text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.plist text eol=lf

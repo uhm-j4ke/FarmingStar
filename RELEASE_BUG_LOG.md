@@ -147,3 +147,25 @@ All seven native store/import instrumentation tests pass on API 36 when run in i
 - Windows portable EXE cross-build succeeds. PE/AMD64 payload, version, custom icons, unsigned certificate status and packaged source are independently checked. Actual Windows execution is pending.
 - macOS Universal build reaches the merger, which explicitly requires darwin. No DMG is fabricated from Linux intermediates. Native Mac build and Intel/Apple Silicon runtime jobs are prepared.
 - User steering: focus on desktop applications while physical Android testing proceeds; macOS remains first desktop priority, Windows follows its native build/testing attempt. GitHub release remains last and unpublished.
+
+## Desktop native-run findings — 9 November
+
+- Android is checked off following the user's physical-phone report that it functions perfectly. This is user-reported verification of the GitHub beta, not invented device telemetry. Its build remains unchanged and no Android CI job runs in the current workflow.
+- The Universal macOS DMG built on a real Intel Mac and passed all Mach-O architecture, signature, icon/version and DMG integrity checks. Intel runtime testing exposed a missing generated reference fixture in a fresh checkout; Apple Silicon scheduling was delayed.
+- Windows native build succeeded but stopped at artifact verification before runtime tests. Detailed failure annotation has been added without relaxing assertions.
+
+## REL-010 — CRLF input generates an incorrect script security hash
+
+- Platform/severity: Windows packaging / P0 potential blank startup.
+- Reproduction: compile the same source with CRLF line endings; compare its script digest against browser-normalised LF content. Original digests differ, so the security policy rejects the script.
+- Root cause: hashing raw file line endings before HTML parsing normalises them.
+- Fix: canonical LF compilation and explicit source text attributes. Script policy remains strict; no unsafe script execution is enabled.
+- Retest: LF and CRLF compilation produce identical output and the browser-normalised digest matches; production browser startup/file-transfer checks PASS. Actual Windows native rerun is required before marking the platform complete.
+
+## REL-011 — native package integrity test lacks its prepared reference HTML
+
+- Platform/severity: fresh native runner / P1 test setup blocker.
+- Reproduction: remove the generated `dist/web` reference, run the packaged app test directly; it raises ENOENT for `dist/web/index.html`. The app payload itself remains intact.
+- Cause: the Mac runtime job checked out source and downloaded the DMG but did not prepare the reference used by source-hash comparison.
+- Fix: the desktop test command generates its reference automatically, using desktop-only preparation.
+- Retest: original missing-reference failure reproduced; corrected command passes against the same packaged app in a fresh-reference condition. Native Mac rerun remains required.

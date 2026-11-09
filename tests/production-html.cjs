@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{prepareHTML}=require('../tools/prepare_web.cjs');
+const lf=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8').replace(/\r\n?/g,'\n'),crlf=lf.replace(/\n/g,'\r\n');
+assert.ok(prepareHTML(crlf)===prepareHTML(lf),'Windows CRLF changes the production HTML/security hash');
+const html=prepareHTML(crlf),script=html.match(/<script>([\s\S]*?)<\/script>/)[1],browserScript=script.replace(/\r\n?/g,'\n'),hash=crypto.createHash('sha256').update(browserScript).digest('base64');assert.ok(html.includes("script-src 'sha256-"+hash+"'"));assert.ok(!html.includes('__FARMINGSTAR_TEST__'));assert.ok(!/window\.FarmingStar\s*=/.test(html));console.log('PASS: LF and Windows CRLF build identical offline HTML; script hash matches browser-normalised content and diagnostics remain stripped.');

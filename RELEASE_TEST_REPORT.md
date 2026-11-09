@@ -13,7 +13,7 @@ Source branch: `release/v0.4.0-alpha`, based on `98baeace979ae0bb8dce0012efde1e7
 | Extended native import instrumentation | PASS, isolated | Seven cases on API 36 including batch commit, invalid member rejection and filesystem failure; first concurrent run was killed by a startup ANR before tests |
 | Packaged game on API 35 / WebView 124 | BLOCKED | Native renderer SIGTRAP reproduced in an independent minimal WebView app |
 | Packaged game on API 36 / WebView 133 | BLOCKED | Independent control also terminates with native SIGTRAP, including isolated retry; exact engine cause unknown |
-| Physical Android device | USER TEST PENDING | APK uploaded to GitHub `betas/` at the user's request; no phone result received yet |
+| Physical Android device | PASS — user reported | User reports the GitHub beta functions perfectly; device/OS details not supplied. Android is checked off and further work is paused |
 | Desktop store tests | PASS | Five groups, including whole-batch rejection, simulated rename failure, damaged-store preservation and unrelated export sibling preservation |
 | Electron source and packaged Linux QA app | PASS | Eleven scenario groups in each mode: exact embedded source/version, isolation, controls, bag/hotbar, WebAudio synthesis, viewport resizing, real file I/O, transfer, restart, errors and repeated-close acknowledgement |
 | Windows portable executable cross-build | PASS | Actual PE, AMD64 payload, correct icon/version, unsigned certificate status, exact production source |

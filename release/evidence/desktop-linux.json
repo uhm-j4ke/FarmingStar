@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-11-09T12:12:13.625Z",
+  "recordedAt": "2026-11-09T16:07:05.983Z",
   "commit": null,
   "platform": "linux",
   "arch": "x64",
@@ -7,6 +7,7 @@
   "embedded": {
     "version": "0.4.0",
     "packaged": true,
+    "arch": "x64",
     "hashes": {
       "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
       "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
@@ -21,6 +22,7 @@
       "details": {
         "version": "0.4.0",
         "packaged": true,
+        "arch": "x64",
         "hashes": {
           "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
           "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
@@ -45,8 +47,8 @@
       "status": "PASS",
       "details": {
         "beforeX": 204,
-        "afterX": 230.92120000001273,
-        "farmId": "727808b0-b194-4c6d-8d5a-c8d936599719"
+        "afterX": 230.96880000000004,
+        "farmId": "328738fd-747d-47a1-b4bd-45ed1ea66793"
       }
     },
     {
@@ -100,7 +102,7 @@
       "id": "DESKTOP-FORCED-EXIT-RELAUNCH",
       "status": "PASS",
       "details": {
-        "farmId": "727808b0-b194-4c6d-8d5a-c8d936599719",
+        "farmId": "328738fd-747d-47a1-b4bd-45ed1ea66793",
         "coins": 444
       }
     },

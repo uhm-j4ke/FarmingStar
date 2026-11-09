@@ -1,5 +1,6 @@
 // Structural verification is separate from execution on a real Windows runner.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),ResEdit=require('resedit'),asar=require('@electron/asar');
+try{
 const root=path.join(__dirname,'..'),out=path.join(root,'artifacts/desktop'),launcher=path.join(out,'FarmingStar-Alpha-0.4.0-Windows-x64.exe'),payload=path.join(out,'win-unpacked/FarmingStar.exe'),icon=fs.readFileSync(path.join(root,'assets/icons/icon.ico')),images=[];
 for(let i=0;i<icon.readUInt16LE(4);i++){const p=6+i*16;images.push(icon.subarray(icon.readUInt32LE(p+12),icon.readUInt32LE(p+12)+icon.readUInt32LE(p+8)))}
 function inspect(file){
@@ -10,3 +11,5 @@ const app=inspect(payload),portable=inspect(launcher);assert.equal(app.machine,'
 const archive=path.join(out,'win-unpacked/resources/app.asar'),hashes={};for(const relative of ['desktop/main.cjs','desktop/preload.cjs','desktop/store.cjs','dist/web/index.html']){const embedded=asar.extractFile(archive,relative),source=fs.readFileSync(path.join(root,relative));assert.ok(embedded.equals(source),'Stale Windows package source: '+relative);hashes[relative]=crypto.createHash('sha256').update(embedded).digest('hex')}
 const html=asar.extractFile(archive,'dist/web/index.html').toString();assert.ok(!html.includes('__FARMINGSTAR_TEST__'));assert.ok(!/window\.FarmingStar\s*=/.test(html));
 const result={recordedAt:new Date().toISOString(),version:'0.4.0',payload:app,portable,embedded:hashes,architecture:'AMD64 game payload; NSIS portable bootstrapper may be x86',runtime:'UNVERIFIED until the actual Windows native job passes'};fs.mkdirSync(path.join(root,'release/evidence'),{recursive:true});fs.writeFileSync(path.join(root,'release/evidence/windows-integrity.json'),JSON.stringify(result,null,2)+'\n');console.log('PASS: Windows PE formats, AMD64 payload, version 0.4.0, original icons, unsigned status and exact embedded production source.');
+
+}catch(error){const out=path.join(__dirname,'../release/evidence');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'windows-integrity.json'),JSON.stringify({status:'FAIL',platform:process.platform,error:error.stack},null,2)+'\n');console.error('::error title=Windows artifact validation::'+String(error.message).slice(0,2000).replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'));console.error(error);process.exitCode=1}

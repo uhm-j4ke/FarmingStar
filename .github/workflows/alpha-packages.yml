@@ -69,11 +69,14 @@ jobs:
       - run: npm run build:macos
       - run: node tools/verify_macos.cjs
       - run: hdiutil verify artifacts/desktop/FarmingStar-Alpha-0.4.0-macOS-Universal.dmg
+      - run: node tools/checksum_artifact.cjs artifacts/desktop/FarmingStar-Alpha-0.4.0-macOS-Universal.dmg
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: macos-universal-candidate
           path: |
             artifacts/desktop/*.dmg
+            artifacts/desktop/*.dmg.sha256
+            artifacts/desktop/*.dmg.metadata.json
             release/evidence/macos-binaries.json
 
   macos-runtime:
@@ -81,7 +84,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, macos-15-intel]
+        include:
+          - os: macos-26
+            arch: arm64
+          - os: macos-15-intel
+            arch: x64
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
@@ -89,6 +96,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '24.22.1'
+          architecture: ${{ matrix.arch }}
           cache: npm
       - run: node tools/reset_ci_evidence.cjs
       - run: npm ci
@@ -104,7 +112,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/farmingstar-mount"
           hdiutil attach "$dmg" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/farmingstar-mount"
           node tools/verify_macos.cjs "$RUNNER_TEMP/farmingstar-mount/FarmingStar.app"
-          FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
+          FARMINGSTAR_EXPECT_ARCH="${{ matrix.arch }}" FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
           hdiutil detach "$RUNNER_TEMP/farmingstar-mount"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
@@ -128,10 +136,12 @@ jobs:
       - run: npm run desktop:install
       - run: npm run build:windows
       - run: node tools/verify_windows.cjs
+      - run: node tools/checksum_artifact.cjs artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe
       - run: npm run test:desktop-store
       - run: npm run test:desktop
         env:
           FARMINGSTAR_DESKTOP_EXE: artifacts/desktop/win-unpacked/FarmingStar.exe
+          FARMINGSTAR_EXPECT_ARCH: x64
       - name: Inspect and launch the actual portable executable
         shell: pwsh
         run: |
@@ -156,6 +166,8 @@ jobs:
           name: windows-x64-candidate
           path: |
             artifacts/desktop/*.exe
+            artifacts/desktop/*.exe.sha256
+            artifacts/desktop/*.exe.metadata.json
             release/evidence/desktop-win32.*
             release/evidence/windows-portable.txt
             release/evidence/windows-integrity.json
