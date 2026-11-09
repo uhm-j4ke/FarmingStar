@@ -55,11 +55,11 @@ The latest art refresh adds carved menu frames, seasonal background leaves, deta
 
 ## Scope and next milestones
 
-Cooking stations use timing activities rather than bespoke dragging, stirring, topping placement or temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. NPC schedules and off-screen resolution remain lightweight. The market uses price presets and modest seasonal demand rather than a detailed preference simulation. Native packages, livestock and save export/import remain future work.
+Cooking stations use timing activities rather than bespoke dragging, stirring, topping placement or temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. NPC schedules and off-screen resolution remain lightweight. The market uses price presets and modest seasonal demand rather than a detailed preference simulation. Portable save export/import and native package candidates are now implemented. Livestock remains future work; native build and runtime results are tracked in [RELEASE_TEST_REPORT.md](RELEASE_TEST_REPORT.md).
 
-The next milestone is independent retesting and physical-device validation of the stability candidate. Browser emulation and synthetic lifecycle tests do not establish Android/iPad storage durability or hardware performance. No new content is planned during this repair phase.
+The next milestone is completing the native macOS and Windows verification gates. The user reports that the Android beta functions perfectly on their phone; no device model or OS version was supplied. Browser emulation and synthetic checks do not establish hardware performance. No unrelated gameplay content is planned during this packaging phase.
 
-**Future roadmap:** animal farming remains planned, including livestock care and animal products; none is implemented now. **APK reminder:** a fully offline Android WebView APK is a future milestone after browser stability, including persistent saves, back-button handling and an original icon.
+**Future roadmap:** animal farming and controller support remain planned. **APK status:** the offline Android test build, with persistent saves, back handling and the original icon, is available in [betas/](betas/). Android work is paused following the user’s successful phone test; release signing remains a separate milestone.
 
 ## Browser regression tests
 
@@ -82,11 +82,11 @@ At home or on your farm, use **Build** for Furniture Shop, Owned Furniture and B
 
 ## Saves and history
 
-Load Game → a slot’s **...** menu opens Rename, Delete and Autosave History. Four rolling restore points are made at roughly 60 seconds of active play; menus/inactive tabs pause the interval. Current progress saves separately at important actions. Confirm before restoring; one pre-restore safety copy permits Undo last restore. Restore points are isolated by farm. Browser storage is not a permanent backup; export/import is planned.
+Load Game → a slot’s **...** menu opens Rename, Delete and Autosave History. Four rolling restore points are made at roughly 60 seconds of active play; menus/inactive tabs pause the interval. Current progress saves separately at important actions. Confirm before restoring; one pre-restore safety copy permits Undo last restore. Restore points are isolated by farm. Browser storage is not a permanent backup; use Save files & transfer to export a validated portable backup. See [BUILD_INSTRUCTIONS.md](BUILD_INSTRUCTIONS.md#portable-saves) for import confirmation, full replacement and backup recovery details.
 
 The minimap and atlas share actual world terrain and original illustrated woodland/roof assets. Tap the map for the atlas; use the **?** button for the compact icon legend. The reference image inspired density and overhead styling, not copied geography.
 
-**Permanent roadmap:** animal farming in a future update; offline Android APK only on explicit request; iPad IPA with minimum iOS 15 support only on explicit request, subject to suitable build/signing tools. No APK or IPA is generated in this release.
+**Permanent roadmap:** animal farming and controller support in future updates; iPad IPA with minimum iOS 15 support only on explicit request, subject to suitable build/signing tools. The Android test APK is already available; no iOS package is produced.
 
 ## Backpack and village life (0.4.0)
 
@@ -115,4 +115,4 @@ The imported independent reports are unchanged in `bug reports/`; their external
 
 ## Native alpha packaging
 
-See [build instructions](BUILD_INSTRUCTIONS.md), [test results](RELEASE_TEST_REPORT.md), [release issue log](RELEASE_BUG_LOG.md) and [artifact manifest](RELEASE_MANIFEST.md). Current native packages are candidates until their platform gates pass. The GitHub workflow builds macOS Universal 2 on a Mac, tests the same DMG on Intel and Apple Silicon, then builds/tests Windows x64. It does not publish a release. Controller support and animal farming remain in [the future roadmap](ROADMAP.md).
+See [build instructions](BUILD_INSTRUCTIONS.md), [test results](RELEASE_TEST_REPORT.md), [release issue log](RELEASE_BUG_LOG.md) and [artifact manifest](RELEASE_MANIFEST.md). Current native packages are candidates until their platform gates pass. The GitHub workflow builds macOS Universal 2 on a Mac, tests the same DMG on Intel and Apple Silicon, and builds/tests Windows x64 alongside Mac rechecks after shared tests. It does not publish a release. Controller support and animal farming remain in [the future roadmap](ROADMAP.md).

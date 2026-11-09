@@ -9,8 +9,10 @@ Public package metadata is 0.4.0 as requested. All stability repairs from the ea
 - Removed unrestricted game diagnostics from production copies while retaining test-only regression access.
 - Fixed imported-label HTML interpretation, export-side sibling file deletion, repeated-close acknowledgement bypass and stale asynchronous file-read completion.
 - Added pinned build tooling, native CI candidates, structural artifact verification, source-hash checks, test evidence, checksums and build/release handoff documentation.
+- Fixed cross-platform production compilation: Windows CRLF input now produces canonical LF HTML and a script-security hash that matches browser parsing.
+- Fixed fresh-checkout desktop test setup by generating its reference HTML before checking packaged source. Native jobs assert the actual executing CPU architecture and include payload checksum sidecars.
 
-Validation: eight existing browser suites, nine portable groups, production HTML checks, seven native Android storage tests, desktop storage tests, and actual source/packaged Linux Electron scenarios. Windows EXE cross-build and resource/source integrity checks pass. Native Mac/Windows runner results, phone launch feedback and release signing remain separate gates. No GitHub Release has been created or published.
+Validation: eight existing browser suites, nine portable groups, production HTML checks, seven native Android storage tests, desktop storage tests, and actual source/packaged Linux Electron scenarios. Windows EXE cross-build and resource/source integrity checks pass. A real Intel Mac has built and verified the Universal DMG; native Intel execution now passes. Apple Silicon execution remains unverified while its runner is queued, and native Windows package/UI/storage/fullscreen/portable-launch verification now passes after fixing nested archive-path normalization. The user reports the Android beta functions perfectly; Android is checked off and paused. Release signing remains unavailable. No GitHub Release has been created or published.
 
 See `RELEASE_BUG_LOG.md`, `RELEASE_TEST_REPORT.md`, `RELEASE_MANIFEST.md` and `BUILD_INSTRUCTIONS.md` for exact results and limitations. No unrelated gameplay features, livestock, iOS package or controller support were added.
 

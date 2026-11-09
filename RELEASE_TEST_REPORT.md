@@ -17,8 +17,10 @@ Source branch: `release/v0.4.0-alpha`, based on `98baeace979ae0bb8dce0012efde1e7
 | Desktop store tests | PASS | Five groups, including whole-batch rejection, simulated rename failure, damaged-store preservation and unrelated export sibling preservation |
 | Electron source and packaged Linux QA app | PASS | Eleven scenario groups in each mode: exact embedded source/version, isolation, controls, bag/hotbar, WebAudio synthesis, viewport resizing, real file I/O, transfer, restart, errors and repeated-close acknowledgement |
 | Windows portable executable cross-build | PASS | Actual PE, AMD64 payload, correct icon/version, unsigned certificate status, exact production source |
-| Actual Windows execution | NOT RUN LOCALLY | Native Windows runner workflow prepared; Linux pass does not substitute for Windows |
-| macOS Universal/DMG build | BLOCKED LOCALLY | Supported merger explicitly requires darwin. Native Mac build and Intel/Apple Silicon checks are prepared |
+| Native Windows build / execution | PASS | [Windows job 129293790231](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231): build, archive-path regression, PE/icon/version/source integrity, payload checksum, store faults, packaged x64 UI and actual portable launcher all passed on windows-2022. Windows 10/11 manual testing remains separate |
+| macOS Universal/DMG build | PASS on native Intel Mac | Run [42655400937](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937): all bundled Mach-O files contain both architectures; ad-hoc signature, icon/version and DMG integrity verified |
+| macOS Intel execution | PASS | [Native Intel job 129295994720](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129295994720) mounted the actual Universal DMG and passed embedded source/CPU checks, isolated offline startup, controls, WebAudio synthesis, fullscreen, resizing, real file transfer, restart and repeated close |
+| macOS Apple Silicon execution | UNVERIFIED | Both architectures are present in every bundled Mach-O binary, but the ARM runner remained queued. Fresh verification retains an actual arm64 process assertion |
 | Release signing / Apple notarisation | BLOCKED | No configured signing credentials |
 | GitHub release API | BLOCKED | Explicit destination denial; two-domain environment-settings draft saved, not applied |
 
@@ -27,3 +29,5 @@ The emulator uses software CPU/GPU and no audio device. WebAudio state/synthesis
 Native desktop dialog return paths are controlled in automation, while storage and portable file I/O are real. OS dialog interaction and audible playback remain manual/native checks. Linux QA uses a headless backend with `--no-sandbox` because of execution restrictions; the production wrapper requests renderer sandboxing, and the Mac/Windows tests use normal native launch flags.
 
 Publication remains gated. The Android APK has been committed to the user-requested `betas/` folder on GitHub main; this is separate from a GitHub Release. No release/tag has been created or published, and untested desktop execution is not represented as complete.
+
+Current native candidate links and artifact ZIP digests are retained in `release/native-candidates.json`. Public job step conclusions are captured in `release/evidence/native-ci-summary.json`; the downloadable archives contain the native test evidence and payload checksum sidecars. Local cross-build hashes are kept separate from the independently built native candidates.

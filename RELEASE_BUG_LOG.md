@@ -2,6 +2,22 @@
 
 Starting commit: `98baeace979ae0bb8dce0012efde1e780585ae49`; release branch: `release/v0.4.0-alpha`. Previous stability fixes are retained. Public package version 0.4.0 is explicitly requested, independently of the prior browser repair label 0.4.1.
 
+## Current issue status
+
+| Issues | Current result |
+|---|---|
+| Prior independent QA-001–QA-010 | Repairs retained; shared regression run passes |
+| REL-001, REL-006–REL-009 | Original targeted regressions pass; fixes retained |
+| REL-002–REL-005 (Android wrapper) | Fixes built/linted and targeted storage/shared tests pass; user accepts the phone beta. Detailed emulator UI cases remain unavailable; Android work is paused |
+| REL-010 (line-ending security hash) | RESOLVED: original reproduction and native Windows startup pass |
+| REL-011 (missing reference fixture) | RESOLVED: fresh-reference reproduction and native Intel Mac package tests pass |
+| REL-012 (Windows nested ASAR path) | RESOLVED: original dependency reproduction and native Windows artifact inspection pass |
+| ENV-001 / ENV-002 | OPEN: GitHub API policy blocks publication; release signing credentials unavailable |
+| ENV-004 | OPEN environment issue: emulator control WebView also crashes; user phone success is recorded separately |
+| Apple Silicon runtime | UNVERIFIED: Universal architecture inspection passes; ARM runner remains queued |
+
+Latest Windows verification: [native job 129293790231](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231). No additional gameplay defect was confirmed in this desktop packaging group.
+
 ## Baseline
 
 All eight existing browser suites passed before changes, including 29 stability checks. This covers startup/new/load, movement, bag/hotbar, shop transactions, persistence, crops, cooking, fishing, schedules and navigation. No new baseline gameplay failure reproduced. All runtime assets/audio are embedded/generated; the SVG namespace URL is not an external fetch. No native packaging existed.
@@ -160,7 +176,7 @@ All seven native store/import instrumentation tests pass on API 36 when run in i
 - Reproduction: compile the same source with CRLF line endings; compare its script digest against browser-normalised LF content. Original digests differ, so the security policy rejects the script.
 - Root cause: hashing raw file line endings before HTML parsing normalises them.
 - Fix: canonical LF compilation and explicit source text attributes. Script policy remains strict; no unsafe script execution is enabled.
-- Retest: LF and CRLF compilation produce identical output and the browser-normalised digest matches; production browser startup/file-transfer checks PASS. Actual Windows native rerun is required before marking the platform complete.
+- Retest: LF and CRLF compilation produce identical output and the browser-normalised digest matches; production browser startup/file-transfer checks PASS. Native Windows startup and packaged UI checks also PASS in job 129293790231; the original compilation reproduction no longer fails. RESOLVED.
 
 ## REL-011 — native package integrity test lacks its prepared reference HTML
 
@@ -168,7 +184,7 @@ All seven native store/import instrumentation tests pass on API 36 when run in i
 - Reproduction: remove the generated `dist/web` reference, run the packaged app test directly; it raises ENOENT for `dist/web/index.html`. The app payload itself remains intact.
 - Cause: the Mac runtime job checked out source and downloaded the DMG but did not prepare the reference used by source-hash comparison.
 - Fix: the desktop test command generates its reference automatically, using desktop-only preparation.
-- Retest: original missing-reference failure reproduced; corrected command passes against the same packaged app in a fresh-reference condition. Native Mac rerun remains required.
+- Retest: original missing-reference failure reproduced; corrected command passes against the same packaged app in a fresh-reference condition. Native Intel Mac mounted-DMG execution PASS in job 129287445974. RESOLVED.
 
 ## REL-012 — Windows archive inspection uses an unnormalised nested path
 
@@ -176,6 +192,14 @@ All seven native store/import instrumentation tests pass on API 36 when run in i
 - Reproduction: native run 42652576012 builds the EXE, then ASAR inspection raises `"dist/web/index.html" was not found in this archive`.
 - Root cause: ASAR 3.4.1 splits directory components using the host separator; the verifier supplied literal forward slashes. Single-directory paths happened to work because the host basename/dirname helpers accept them, while nested `dist/web` was treated as one archive key. The payload is present.
 - Fix: normalise every ASAR extraction path using the host path API. No missing-file check or source-integrity assertion was removed.
-- Retest: a real temporary ASAR and the dependency's actual filesystem implementation reproduce the original failure under Windows path semantics; normalised lookup passes on Windows and Unix semantics. The complete local Windows PE/icon/version/source verification passes. Native Windows rerun remains required.
+- Retest: a real temporary ASAR and the dependency's actual filesystem implementation reproduce the original failure under Windows path semantics; normalised lookup passes on Windows and Unix semantics. The complete local Windows PE/icon/version/source verification passes. Native Windows job 129293790231 passes the archive-path regression, full package inspection, storage tests, packaged UI scenarios and actual portable launcher. RESOLVED.
 
 Native Intel Mac runtime passed in job 129287445974, including actual mounted-DMG execution, fullscreen, save import/export, restart and delayed repeated-close acknowledgement. Apple Silicon runtime remained queued at this checkpoint.
+
+### Final desktop verification checkpoint
+
+- Run 42655400937: shared regressions, native Universal DMG build/verification, native Windows build/integrity/storage/UI/fullscreen/portable-launch checks, and Intel Mac mounted-DMG runtime all PASS. Intel runtime job: 129295994720; Windows job: 129293790231.
+- Apple Silicon execution remains unverified: the ARM runner is queued. Actual x86_64/arm64 binary coverage was inspected on a native Mac and passed.
+- Original REL-010, REL-011 and REL-012 reproductions no longer fail under their targeted regressions and available native platform checks. No assertions were suppressed.
+- No GitHub Release or tag was created. API access policy remains unchanged; the saved two-domain environment-settings draft is not active. Signing/notarisation credentials remain unavailable.
+- Android is checked off from user phone feedback and its accepted beta bytes remain unchanged.

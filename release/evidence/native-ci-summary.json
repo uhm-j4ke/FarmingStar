@@ -1,0 +1,196 @@
+{
+  "observedAt": "2026-11-09T16:39:16.434752+00:00",
+  "source": "Public GitHub Actions job-summary HTML; detailed native reports are in the corresponding artifact archives",
+  "commit": "c922969d50ed962572712f2da0a77ef99e6c6872",
+  "jobs": [
+    {
+      "platform": "Windows x64",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231",
+      "status": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:26Z",
+          "completedAt": "2026-11-09T16:32:27Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:27Z",
+          "completedAt": "2026-11-09T16:32:32Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:32Z",
+          "completedAt": "2026-11-09T16:32:41Z"
+        },
+        {
+          "name": "Run node tools/reset_ci_evidence.cjs",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:41Z",
+          "completedAt": "2026-11-09T16:32:42Z"
+        },
+        {
+          "name": "Run npm ci",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:42Z",
+          "completedAt": "2026-11-09T16:32:52Z"
+        },
+        {
+          "name": "Run npm run desktop:install",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:52Z",
+          "completedAt": "2026-11-09T16:32:58Z"
+        },
+        {
+          "name": "Run npm run build:windows",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:32:58Z",
+          "completedAt": "2026-11-09T16:35:41Z"
+        },
+        {
+          "name": "Run node tests/windows-archive.cjs",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:41Z",
+          "completedAt": "2026-11-09T16:35:42Z"
+        },
+        {
+          "name": "Run node tools/verify_windows.cjs",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:42Z",
+          "completedAt": "2026-11-09T16:35:43Z"
+        },
+        {
+          "name": "Run node tools/checksum_artifact.cjs artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:43Z",
+          "completedAt": "2026-11-09T16:35:43Z"
+        },
+        {
+          "name": "Run npm run test:desktop-store",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:43Z",
+          "completedAt": "2026-11-09T16:35:44Z"
+        },
+        {
+          "name": "Run npm run test:desktop",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:44Z",
+          "completedAt": "2026-11-09T16:35:52Z"
+        },
+        {
+          "name": "Inspect and launch the actual portable executable",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:35:52Z",
+          "completedAt": "2026-11-09T16:36:06Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:06Z",
+          "completedAt": "2026-11-09T16:36:10Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:10Z",
+          "completedAt": "2026-11-09T16:36:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:12Z",
+          "completedAt": "2026-11-09T16:36:14Z"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:14Z",
+          "completedAt": "2026-11-09T16:36:14Z"
+        }
+      ]
+    },
+    {
+      "platform": "macOS Intel",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129295994720",
+      "status": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:10Z",
+          "completedAt": "2026-11-09T16:36:13Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:13Z",
+          "completedAt": "2026-11-09T16:36:17Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:17Z",
+          "completedAt": "2026-11-09T16:36:47Z"
+        },
+        {
+          "name": "Run node tools/reset_ci_evidence.cjs",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:47Z",
+          "completedAt": "2026-11-09T16:36:47Z"
+        },
+        {
+          "name": "Run npm ci",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:36:47Z",
+          "completedAt": "2026-11-09T16:37:03Z"
+        },
+        {
+          "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:37:03Z",
+          "completedAt": "2026-11-09T16:37:22Z"
+        },
+        {
+          "name": "Mount and run the actual shared Universal DMG",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:37:22Z",
+          "completedAt": "2026-11-09T16:38:16Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:38:16Z",
+          "completedAt": "2026-11-09T16:38:17Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:38:17Z",
+          "completedAt": "2026-11-09T16:38:17Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:38:17Z",
+          "completedAt": "2026-11-09T16:38:18Z"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "startedAt": "2026-11-09T16:38:18Z",
+          "completedAt": "2026-11-09T16:38:18Z"
+        }
+      ]
+    }
+  ],
+  "appleSilicon": "Unverified; runner queued",
+  "signing": "macOS verified ad-hoc, no notarisation; Windows unsigned",
+  "manualLimits": [
+    "Audible output not verified by automation",
+    "Native file-dialog return paths controlled in tests; actual file I/O is real",
+    "Windows 10/11 manual checks not performed"
+  ]
+}
