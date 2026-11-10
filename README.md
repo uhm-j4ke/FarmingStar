@@ -37,7 +37,7 @@ Refill the can at the southeast pond. Collect free daily wild carrots with the s
 - E: interact with a door, counter, villager, bed, chest or station.
 - 1–9: hotbar; I: inventory; M: map; Escape: pause / close.
 - Mobile: joystick, contextual interaction, Use tool, touch hotbar and menus.
-- Settings switches control modes, camera zoom, reduced motion, gentle activities, music, effects and master volume. Phone hotbar: swipe horizontally for more tools and seeds; tap to equip. The item name appears briefly after selection.
+- Settings → Help & controls contains the longer instructions. Phone menus keep short headings and reachable actions while content scrolls. Settings switches control modes, camera zoom, reduced motion, gentle activities, music, effects and master volume. Phone hotbar: swipe horizontally for more tools and seeds; tap to equip. The item name appears briefly after selection.
 
 Menus pause time. One real second equals thirty game seconds: a complete natural day lasts 48 real minutes. Stand beside your farmhouse bed and press E / tap Talk–Enter to sleep until 08:00. Turning in early is available. After midnight, sleeping wakes you on the current date because the daily crop/shipping update has already happened. Seasons last 14 days. Watered crops grow when the date advances; rain waters all plots. Unsupported-season crops wither at season boundaries. Save failures produce an explicit warning.
 

@@ -2,6 +2,8 @@
 
 This work changes the shared `index.html`; native installers, package versions, beta downloads and releases remain unchanged. Menu visuals are awaiting feedback. See [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for the running implementation and verification ledger.
 
+- Fixed oversized carried tools with separate, crisp sprites at 5/8 scale; retained working animations, targeting and sound.
+- Compacted phone menus: short headings, reduced secondary copy, Settings → Help & controls, independent content scrolling, reachable Save and furnishing actions, practical backpack spacing and no browser tap-highlight overlay. Essential counts/prices/errors and text-size preferences remain available.
 - Expanded farm/town/forest, new villagers, furnished shops/homes, enterable mine and three playable arcade games.
 - Added chicken housing/care/eggs/illness/medicine with versioned save migration, transaction rollback and stable ownership identities.
 - Added overhead furnishing layout A with real map, owned/placed/shop palette, pan/zoom, preview/confirm, rotation, move/store and preserved chest contents/equipment upgrades.
