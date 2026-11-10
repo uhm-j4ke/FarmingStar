@@ -1,8 +1,18 @@
-# Future updates
+# Development roadmap
 
-These items are planned, not implemented by the Alpha 0.4.0 packaging work.
+## Current browser expansion — unreleased
 
-- **Controller support:** gamepad movement, tools and interactions, hotbar selection, menu navigation, button prompts and configurable mappings. Verify on each supported platform before advertising compatibility.
-- **Animal farming:** livestock, shelters, care and animal products integrated with cooking.
-- **iOS/iPadOS:** a separate release targeting iOS 15 or newer when explicitly requested, with appropriate signing/provisioning.
-- Continue save reliability, mobile stability, performance and cross-platform regression work before substantial gameplay expansion.
+Chicken farming and controller controls are implemented in the shared `index.html`; see [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for verification. The current right-side menu layout awaits user feedback. Existing app packages remain unchanged.
+
+## Next milestones
+
+- Finish visual review and browser verification handoff.
+- When the user authorises rollout, rebuild and verify Android, macOS and Windows against the accepted shared HTML, then publish an explicitly requested release.
+- Verify controller mappings, focus, reconnect and activities on physical hardware and each native platform.
+- Measure performance on actual Android devices; cloud browser measurements do not certify device frame rate.
+
+## Future expansion
+
+- Additional animal farming: cows, sheep, suitable shelters/care and animal products. Only chickens are implemented in the current browser expansion.
+- iOS/iPadOS: a separate target when explicitly requested, with appropriate signing/provisioning.
+- More seasonal events, furniture, cooking interactions and exploration, while retaining save reliability and progression safeguards.

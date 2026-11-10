@@ -1,6 +1,8 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. This release branch packages **Alpha 0.4.0** with native Android and desktop wrappers, portable saves and the original forest portrait icon. The prior 0.4.1 stability repairs are retained; the public package version follows the requested Alpha 0.4.0 release metadata. Compact furnished shops, NPC routines, slot backpacks, fishing and Bramblewood exploration remain available. This is a playable release, not the complete master specification. See [CHANGELOG.md](CHANGELOG.md), the [repair handoff](bug%20reports/REPAIR_CHANGELOG.md) and the [issue ledger](bug%20reports/FIX_STATUS.md) for fixes, exact reproduction checks and remaining validation.
+An original, offline, top-down farming and kitchen game. This branch contains the **unreleased browser expansion** in `index.html`. It adds the expanded valley, chicken care, furnishing editor, controller controls and paper menus. The latest right-side menu layout awaits visual feedback. See [the development tracker](DEVELOPMENT_TRACKER.md) for verification and remaining review.
+
+Existing Android, Windows and macOS packages still use Alpha 0.4.0. Native builds, package metadata, beta downloads and GitHub Releases are on hold until the user authorises rollout. Prior independent QA repairs remain covered by the [issue ledger](bug%20reports/FIX_STATUS.md).
 
 ## Play
 
@@ -43,23 +45,28 @@ The latest art refresh adds carved menu frames, seasonal background leaves, deta
 
 ## Implemented
 
-- Connected farm and town, five compact town interiors, farmhouse and pantry, solid buildings, doors and equipment; camera and depth-sorted original pixel characters.
+- Connected expanded farm and town, furnished shop/home interiors, farmhouse and pantry, solid buildings, doors and equipment; clamped camera and depth-sorted original pixel characters.
 - Custom name, skin/hair/eye/clothing colours, hairstyles, two outfits and accessories; appearance can be edited later.
 - Ten seasonal crop definitions, single and repeat harvests, watering capacity/refill, rain, four tool tiers, wood/stone gathering.
 - Inventory, equipment hotbar, chest transfers, seasonal seed shop, ingredient shop, direct sales and validated transactions.
 - Nine physical placeable station types and twenty recipes; three-action timing activities, gentle mode, quality and craft bonuses. Interrupted cooking resumes its saved ingredient reservation.
-- Four adult villagers with indoor/outdoor routines, daily talk/gift friendship, optional companion designation and community deliveries.
+- Nine adult villagers with indoor/outdoor routines, daily talk/gift friendship, optional companion designation and community deliveries. Expanded town shops, homes, forest and an enterable mine support exploration.
 - Three fishing rod tiers and five fish, market stocking/removal/collection, quality-aware daytime sales and end-of-day reports.
-- Pannable/zoomable atlas, minimap, discovered-area travel, building landmarks, player/facing marker and walkable waypoint routes. Town has winding water, two bridges and eastbank gardens.
+- Pannable/zoomable atlas, minimap, discovered-area travel, selectable landmark list, player/facing marker and walkable waypoint routes. Town has winding water, two bridges and eastbank gardens.
 - Day/night tint, seasonal foliage, rain, wind, leaves, original pixel font/art/icons and generated music/effects. Three versioned localStorage save slots; migration preserves legacy data and corrupt slots remain isolated.
 
-## Scope and next milestones
+## Browser expansion
 
-Cooking stations use timing activities rather than bespoke dragging, stirring, topping placement or temperature controls. Coffee uses a shortened roasting/grinding/brewing chain. NPC schedules and off-screen resolution remain lightweight. The market uses price presets and modest seasonal demand rather than a detailed preference simulation. Portable save export/import and native package candidates are now implemented. Livestock remains future work; native build and runtime results are tracked in [RELEASE_TEST_REPORT.md](RELEASE_TEST_REPORT.md).
+- Chickens: purchase adult hens after placing housing in the south pen, provide feed and water, collect eggs, treat illness and expand coops. Moving housing preserves each hen's association; occupied coops cannot be stored. No additional animal species are implemented.
+- Furnishing editor: Build → overhead editor. Layout A keeps the floor plan on the left and owned/placed/shop controls on the right. Select an object, preview a tile, rotate where supported, then confirm. Moving or storing chests preserves their exact contents and quality. Moving cooking equipment retains its upgrade level. The farm and farmhouse can be edited without moving the farmer.
+- Firefly Arcade: three original games; the mine has tool-tier ore deposits and regeneration. Seasonal decorations remain owned and placeable after their purchasing season ends.
+- Paper menus: cream pages, leather edges, centre crease and stepped corners. Book/journal controls retain their approved page treatment. Other menu action buttons use the right side; the current layout is awaiting feedback.
+- Phone HUD: A (map above the left joystick) is the default; C (map below the right menu) is selectable in Settings. Landscape remains preferred. Music offers varied, smooth, pixel and plucked styles, with generated birds, river ambience and distinct tool sounds.
+- Controller: left stick/D-pad movement and menu focus, tools/interactions, shoulder hotbar selection, bag/map/journal shortcuts, right-stick atlas panning, remappable actions and controller text/colour entry. Press a controller button to activate. Synthetic browser regressions pass; physical controllers and updated native builds remain unverified.
 
-The next milestone is completing the native macOS and Windows verification gates. The user reports that the Android beta functions perfectly on their phone; no device model or OS version was supplied. Browser emulation and synthetic checks do not establish hardware performance. No unrelated gameplay content is planned during this packaging phase.
+Cooking stations continue to use timing activities rather than bespoke stirring, topping or temperature minigames. Coffee uses a shortened processing chain. NPC schedules and market demand remain lightweight. Saves use schema 5 and accept older schemas 1–4; portable save support remains available.
 
-**Future roadmap:** animal farming and controller support remain planned. **APK status:** the offline Android test build, with persistent saves, back handling and the original icon, is available in [betas/](betas/). Android work is paused following the user’s successful phone test; release signing remains a separate milestone.
+Next: obtain menu feedback, complete final browser handoff, then perform native rollout only when authorised. Additional animal species and hardware controller verification remain future milestones. The existing offline Android beta remains in [betas/](betas/); this expansion has not been applied to it.
 
 ## Browser regression tests
 
@@ -115,4 +122,4 @@ The imported independent reports are unchanged in `bug reports/`; their external
 
 ## Native alpha packaging
 
-See [build instructions](BUILD_INSTRUCTIONS.md), [test results](RELEASE_TEST_REPORT.md), [release issue log](RELEASE_BUG_LOG.md) and [artifact manifest](RELEASE_MANIFEST.md). Current native packages are candidates until their platform gates pass. The GitHub workflow builds macOS Universal 2 on a Mac, tests the same DMG on Intel and Apple Silicon, and builds/tests Windows x64 alongside Mac rechecks after shared tests. It does not publish a release. Controller support and animal farming remain in [the future roadmap](ROADMAP.md).
+See [build instructions](BUILD_INSTRUCTIONS.md), [test results](RELEASE_TEST_REPORT.md), [release issue log](RELEASE_BUG_LOG.md) and [artifact manifest](RELEASE_MANIFEST.md). Current native packages are candidates until their platform gates pass. The GitHub workflow builds macOS Universal 2 on a Mac, tests the same DMG on Intel and Apple Silicon, and builds/tests Windows x64 alongside Mac rechecks after shared tests. It does not publish a release. Controller controls and chicken farming exist in the unreleased browser expansion; existing native candidates do not include them. Further platform work is tracked in [the roadmap](ROADMAP.md).

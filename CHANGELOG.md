@@ -1,3 +1,20 @@
+# Unreleased — browser expansion and review candidate
+
+This work changes the shared `index.html`; native installers, package versions, beta downloads and releases remain unchanged. Menu visuals are awaiting feedback. See [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for the running implementation and verification ledger.
+
+- Expanded farm/town/forest, new villagers, furnished shops/homes, enterable mine and three playable arcade games.
+- Added chicken housing/care/eggs/illness/medicine with versioned save migration, transaction rollback and stable ownership identities.
+- Added overhead furnishing layout A with real map, owned/placed/shop palette, pan/zoom, preview/confirm, rotation, move/store and preserved chest contents/equipment upgrades.
+- Added controller movement, menu focus, remapping, text/colour entry, hotbar/map/book shortcuts and activity controls. Added phone HUD choices A/C, A default.
+- Added cream-paper menus, leather backing, central crease, stepped corners, adaptive book tabs and ordinary page buttons. Other menu actions now sit on the right. Removed atlas destination icons as requested; retained player/waypoint navigation.
+- Refined slimmer directional farmer sprites, corrected side-profile legs/nose and hand-attached overhead/tipping tool animations. Added seasonal foliage, bridge details, music styles, tool effects, bird and river ambience.
+- Fixed old-home save rejection, nested care writes, off-season catalogue bypass, bank access obstructed by foliage, canvas border hit testing and touch-confirm compatibility-click suppression.
+- Fixed shopkeeper service routing, removed resident shop offers, disabled outside-shop purchasing with clear directions, and added closed seasonal-shop feedback.
+
+Checks: established browser regressions plus reusable expansion/controller/touch/menu/transaction suites; exact final results and limitations are recorded in the tracker. Physical-controller, audible-output and actual-device performance certification remain outstanding.
+
+---
+
 # Alpha 0.4.0 — native packaging candidate
 
 Public package metadata is 0.4.0 as requested. All stability repairs from the earlier 0.4.1 browser candidate below are retained.
