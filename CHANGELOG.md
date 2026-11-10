@@ -2,6 +2,7 @@
 
 This work changes the shared `index.html`; native installers, package versions, beta downloads and releases remain unchanged. Menu visuals are awaiting feedback. See [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for the running implementation and verification ledger.
 
+- Fixed tool-size jumps during use: carried and animated tools now share one 5/8 raster scale, with water and fishing-line effects anchored to the scaled tool.
 - Fixed oversized carried tools with separate, crisp sprites at 5/8 scale; retained working animations, targeting and sound.
 - Compacted phone menus: short headings, reduced secondary copy, Settings → Help & controls, independent content scrolling, reachable Save and furnishing actions, practical backpack spacing and no browser tap-highlight overlay. Essential counts/prices/errors and text-size preferences remain available.
 - Expanded farm/town/forest, new villagers, furnished shops/homes, enterable mine and three playable arcade games.

@@ -9,7 +9,7 @@ Game changes are confined to `index.html`. This tracker is documentation request
 - Tab/button treatment and tool poses are approved. The requested final refinements are implemented: the journal button panel starts below the top-right button; side profiles are slimmer, with a smaller nose and forward-facing mirrored feet. Targeted checks pass.
 - The yellow-paper, centre-crease, leather-outline and stepped-corner design is now shared across the menus; retain the satchel handle and obtain feedback on the latest pictures.
 - Furnishing layout A is selected. Menu action buttons now use the right side, including the editor palette and placement controls. Book/journal navigation remains as approved. New title, pause, settings, backpack and phone pictures await visual feedback. Controller, furnishing transactions/touch and responsive menu checks pass.
-- Latest requested fixes: carried tools now use separate sprites at 5/8 size, preserving working poses. Phone menus hide routine instructions, use short headings and keep action controls reachable while content scrolls; longer instructions are in Settings → Help & controls. Latest pictures await feedback. Continue independent regression checks.
+- Latest requested fixes: carried tools now use separate sprites at 5/8 size, preserving working poses. Phone menus hide routine instructions, use short headings and keep action controls reachable while content scrolls; longer instructions are in Settings → Help & controls. The user approved the compact phone menus and carried size. The remaining animation size jump is fixed as recorded below.
 
 ## Feature status
 
@@ -142,4 +142,12 @@ Existing test expectations were updated only for intentional changes: non-workin
 - Pause actions use a compact two-column group on the right. Furnishing plan and placement actions remain on screen; its right palette scrolls independently. Backpack keeps finger-sized slots, right navigation, a shorter empty-selection hint and its handle. No approved book/journal design was replaced.
 - `tests/phone-compact.cjs` measures all six carried tools at two tiers/four facings (48 cases), verifies scaled pixel bounds, captures real menu pictures, and tests touch flows at 844×390, 568×320 and 390×844. It also checks Help access, unsaved settings, Save visibility, the larger text preference, menu bounds, placement controls and all ten starter inventory slots.
 - Tool/audio, controller, furnishing, menu layout, book/storage, 14 A/C phone layouts and eight controller/phone layouts pass. All eight established browser suites also pass (`compact-full-regressions.log`), including saves, duplication, tool tiers, farming/cooking, travel, mobile fishing and bedtime. The final font-scaling refinement passes the focused phone checks.
-- Preview commit: `25de7f3efb688dfecbfff71caea226d6c37f3571`. Further visual refinement waits for feedback. Native installers, beta packages, versions and releases remain unchanged.
+- Preview commit: `25de7f3efb688dfecbfff71caea226d6c37f3571`. The user approved these compact menus and carried sprites. Native installers, beta packages, versions and releases remain unchanged.
+
+## Constant tool scale during animation
+
+- User-approved compact phone menus and carried-tool size are retained. No additional menu redesign was made.
+- Reproduced the reported size jump before editing: the actual hoe action changed 368 pixel channels at its first frame while the hand/pose were unchanged. Cause: carried tools used a 5/8 bitmap, but working poses still drew their raw full-size geometry.
+- Both paths now share one scale constant and the same raster pipeline. Working frames use a reusable scratch canvas; idle frames keep their bounded cache. Overhead motion, tipped watering, hand anchors, action timing and targeting are preserved. Water and fishing-line effects remain in world coordinates, starting from the scaled spout/rod tip.
+- New `tests/tool-scale.cjs` fails on the original source and passes after the fix: 48 tool/tier/facing cases, pixel-identical start/recovery for five hand tools, and constant compact tool rendering through seven animation phases including the fishing rod. Its screenshot shows carry, raise/tip, contact, recovery and carry again.
+- Relevant tool/audio, approved phone menu/carried-sprite and UI/journal/map/save regressions pass. Save schema, inventory, platform packages and release metadata are unchanged.
