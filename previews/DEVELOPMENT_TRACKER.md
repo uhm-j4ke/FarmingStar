@@ -8,7 +8,7 @@ Game changes are confined to `index.html`. This tracker is documentation request
 
 - Tab/button treatment and tool poses are approved. The requested final refinements are implemented: the journal button panel starts below the top-right button; side profiles are slimmer, with a smaller nose and forward-facing mirrored feet. Targeted checks pass.
 - The yellow-paper, centre-crease, leather-outline and stepped-corner design is now shared across the menus; retain the satchel handle and obtain feedback on the latest pictures.
-- Choose the furnishing-editor layout from the three real previews (A: plan left / palette right; B: palette left / plan right; C: plan above a drawer). Its working controls and transaction safeguards are implemented.
+- Furnishing layout A is selected. Menu action buttons now use the right side, including the editor palette and placement controls. Book/journal navigation remains as approved. New title, pause, settings, backpack and phone pictures await visual feedback. Controller, furnishing transactions/touch and responsive menu checks pass.
 - Continue integration testing and repair confirmed failures before completion.
 
 ## Feature status
