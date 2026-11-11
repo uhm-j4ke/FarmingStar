@@ -10,7 +10,27 @@ concurrency:
   group: farmingstar-release
   cancel-in-progress: false
 jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Skip versions that already have a release
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(node -p "require('./release/release-config.json').tag")
+          if gh release view "$tag" --json tagName >/dev/null 2>&1; then
+            echo 'build=false' >> "$GITHUB_OUTPUT"
+            echo 'This version already has a release. Use a new version for the next app update.'
+          else
+            echo 'build=true' >> "$GITHUB_OUTPUT"
+          fi
   shared:
+    needs: version
+    if: needs.version.outputs.build == 'true'
     runs-on: ubuntu-24.04
     permissions:
       contents: write
