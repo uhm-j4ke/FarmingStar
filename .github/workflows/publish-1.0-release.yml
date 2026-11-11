@@ -1,4 +1,4 @@
-# Publish the existing verified v1.0.0 tag after all accessible platform gates passed.
+# Publish the existing verified v1.0.0 tag without an unnecessary target_commitish override.
 name: Publish verified FarmingStar 1.0.0 downloads
 on:
   push:
@@ -23,6 +23,11 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '24.22.1'
+      - name: Stop superseded duplicate builds
+        run: |
+          gh run cancel 43058203191 || true
+          gh run cancel 43059212731 || true
+          gh run cancel 43060375449 || true
       - name: Verify completed native gates and disclose unavailable ARM execution
         run: |
           gh api repos/${{ github.repository }}/actions/runs/43054835406/jobs --paginate > "$RUNNER_TEMP/original-jobs.json"
