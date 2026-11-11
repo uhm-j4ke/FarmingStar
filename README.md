@@ -4,6 +4,10 @@ An original, offline, top-down farming and kitchen game. This branch contains th
 
 Existing Android, Windows and macOS packages still use Alpha 0.4.0. Native builds, package metadata, beta downloads and GitHub Releases are on hold until the user authorises rollout. Prior independent QA repairs remain covered by the [issue ledger](bug%20reports/FIX_STATUS.md).
 
+## Latest independent QA repairs
+
+All four P2 issues in the 11 November HTML report have fixes and passing reproduction checks: occupied resource renewal, coop entrances, hen obstacle detours and arcade native Back. Save compatibility and the recent enlarged hotbar icons are retained. See [the repair changelog](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md) for the exact build, tests and remaining physical-device limits. Existing app packages have not been rebuilt.
+
 ## Play
 
 Download/open `index.html` in a modern browser. The entire game, procedural pixel artwork, styles and generated music are in that file; no network, build, account, asset download, or package installation is needed. Keep the same browser and file/location for your three save slots. Existing single saves migrate automatically; the original legacy data remains as a backup. Browser storage restrictions or clearing site data can remove saves. Android file opening varies by browser/file manager; a local web server is another option.

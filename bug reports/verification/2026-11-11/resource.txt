@@ -1,0 +1,4 @@
+PASS: HTML-001 forest/mine renewal and nonrenewal, full bag/zero energy, cardinal movement, unchanged resource history/rewards and invalid-position reload
+PASS: HTML-001 normal frame loop and real touch movement forest
+PASS: HTML-001 normal frame loop and real touch movement mine
+PASS: LF and Windows CRLF build identical offline HTML; script hash matches browser-normalised content and diagnostics remain stripped.

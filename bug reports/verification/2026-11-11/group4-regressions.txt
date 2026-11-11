@@ -1,0 +1,12 @@
+PASS: actual cabinet launch, solvable maze, persisted high score, paused farm state, safe keyboard exit
+PASS: memory mismatches, eight pairs, win and safe touch-button exit
+PASS: original rhythm timing, sixteen beats and duplicate-tap prevention
+PASS: entered mine, tool-tier requirements, real ore yield, no repeated rewards, three-day regeneration and safe entry
+PASS: no browser exceptions
+PASS: controller title activation, name keyboard, colour palette and character start
+PASS: deadzone/movement, backpack/map/journal shortcuts, atlas panning, slider/select controls, remap swaps, reserved D-pad rejection and live prompts
+PASS: background suppression, release-before-resume and furniture rotation/confirmation
+PASS: controller pause/build/editor entry, palette selection, tile movement, rotation, confirmation and exit
+PASS: held fishing, disconnect release, pointer coexistence, cooking result and arcade movement/select/exit
+PASS: remapping persistence and no browser exceptions; synthetic Gamepad API coverage, physical controllers remain unverified
+PASS: bedside interaction, night and after-midnight sleep, one-shot save/crop advancement, reduced-motion menu leaves and mobile bedtime.

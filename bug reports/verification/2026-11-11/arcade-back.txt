@@ -1,0 +1,2 @@
+PASS: HTML-004 24 cabinet/completion/native/Escape/controller/touch exit cases, repeated Back and score/item conservation
+PASS: reserved cooking and sleep retain native Back protection; normal completion remains possible

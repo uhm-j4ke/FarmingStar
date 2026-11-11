@@ -1,0 +1,4 @@
+PASS: HTML-003 exact south-edge editor reproduction rejects three times without spending or changing ownership
+PASS: 72 basic/large coop, rotation and pen-boundary placement/adoption/night-entry cases
+PASS: old south-edge coop uses a safe fallback approach without moving housing, deleting hens or losing eggs
+PASS: eight legacy basic/large rotated saves, rejected upgrades/occupied moves and sealed adoption preserve hens, eggs and supplies

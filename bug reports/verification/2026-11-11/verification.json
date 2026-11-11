@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-11",
+  "scope": "browser-only independent QA repairs",
+  "auditedSha256": "cf8ad944e857ea60ed85a967be4e717d9dda92280fdc7d2229e2cec925b28f9e",
+  "repairBaseCommit": "92fbc2c6311d09daa9a4e840fbcad229f3fece46",
+  "repairBaseHtmlSha256": "9cac55fc81e920920d32bd64be580d2cac38fac3ef291f1265c8738af49382f7",
+  "fixedHtmlSha256": "c8a808c8798d56470ec79d8dc112034432086b1498a099821926f61b8952ede2",
+  "originalReproductionGroups": {
+    "auditedBuild": 5,
+    "currentBuild": 5,
+    "allReproduced": true
+  },
+  "issues": {
+    "HTML-001": {
+      "severity": "P2",
+      "status": "fixed",
+      "test": "tests/qa-resource-renewal.cjs",
+      "coverage": [
+        "forest and mine",
+        "day 3→4, 30→31, nonrenewal 31→32",
+        "normal/full bag/zero energy",
+        "footprint edge and invalid saved positions",
+        "menu pause/close and fresh epoch reward once",
+        "ordinary frame loop with real CDP touch"
+      ]
+    },
+    "HTML-003": {
+      "severity": "P2",
+      "status": "fixed",
+      "test": "tests/qa-housing.cjs",
+      "coverage": [
+        "exact placement rejection repeated three times",
+        "72 basic/large rotation/boundary combinations",
+        "legacy south-edge and eight rotated old saves",
+        "rejected occupied move/upgrade and inaccessible adoption",
+        "ownership, hen identity and eggs preserved"
+      ]
+    },
+    "HTML-002": {
+      "severity": "P2",
+      "status": "fixed",
+      "test": "tests/qa-hen-routing.cjs",
+      "coverage": [
+        "single fence/L shape/supplies; three repetitions with three hens",
+        "sealed route bounded wait and replan after opening",
+        "collision clearance at every step",
+        "night save/reload and dawn",
+        "out-of-area return and occupied moved coop"
+      ]
+    },
+    "HTML-004": {
+      "severity": "P2",
+      "status": "fixed",
+      "test": "tests/qa-arcade-back.cjs",
+      "coverage": [
+        "three games × unfinished/completed × native/Escape/controller/touch = 24 cases",
+        "repeated Back cannot replay score or rewards",
+        "durable cooking bytes/reservation unchanged",
+        "sleep remains protected and completes normally"
+      ]
+    }
+  },
+  "mainRegressionSuites": {
+    "status": "passed",
+    "suites": [
+      "immersion",
+      "systems",
+      "smoke",
+      "update",
+      "expansion",
+      "compatibility",
+      "bedtime",
+      "stability"
+    ]
+  },
+  "additionalPassed": [
+    "animals",
+    "furnishing",
+    "chicken-loop",
+    "activities",
+    "controller",
+    "portable",
+    "developer-tools",
+    "production-html"
+  ],
+  "saveSchema": 5,
+  "schemaChanged": false,
+  "nativeOutputsUpdated": false,
+  "releaseCreated": false,
+  "limitations": [
+    "Chromium with disposable test saves",
+    "controlled hen stepping is not real-time overnight play",
+    "direct HTML lifecycle callback, not physical Android Back",
+    "no updated APK/desktop installer",
+    "no certification of other engines, audio or extended physical-device performance"
+  ]
+}

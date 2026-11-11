@@ -171,3 +171,11 @@ Existing test expectations were updated only for intentional changes: non-workin
 - Before/after visible phone hoe height: 19.5 → 37.5px; starter seed packet: 18 → 22.5px. Desktop hoe: 22.75 → 41.25px; seed packet: 21 → 31.875px. Bar dimensions remain unchanged (phone height 52px; desktop 78px).
 - All 186 existing screen/quantity audit cases and 14 A/C phone/tablet layout cases passed after this change. Targeted before/after pixel-bound checks confirm increased artwork size and unchanged bar height; phone pictures were reviewed. No save fields, inventory rules, held-tool artwork or native packages change.
 - Waiting for the user's extensive bug-check findings; no further feature work is started.
+
+## 11 November independent QA repairs
+
+- Read and preserved the entire new report. Recovered and hash-verified its exact uploaded HTML from `3d3b933`; reproduced all five original verification groups on that file and the current hotbar-refined repair base `92fbc2c`.
+- Completed repairs in the requested order: HTML-001 renewal collision, HTML-003 housing geometry, HTML-002 hen navigation, HTML-004 arcade Back. Each targeted suite first recorded its original failure, then passed after repair.
+- All four reported P2 issues are fixed; none is left unresolved. New acceptance suites cover real keyboard/touch renewal, 72 housing combinations and legacy saves, multiple-hen detours/sealed replanning, and 24 arcade completion/input combinations with protected cooking/rest controls.
+- Full eight-suite `npm test` pass and related animal/furnishing/egg/cooking/arcade/controller/portable/developer/production checks pass. [Detailed handoff](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md), [running status](bug%20reports/QA_REPAIR_STATUS_2026-11-11.md), [verification evidence](bug%20reports/verification/2026-11-11/verification.json).
+- Browser source only. Save schema, native builds, package versions, beta downloads and releases are unchanged; physical native Back awaits a future authorised package/device check.

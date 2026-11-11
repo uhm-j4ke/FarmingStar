@@ -1,0 +1,21 @@
+PASS: three unique paid chickens, housing cap, valid pen spawn
+PASS: full supplies support three hens for two days and produce six eggs
+PASS: eggs enter inventory once; repeated collection grants nothing
+PASS: sustained neglect causes illness without death
+PASS: medicine plus adequate food/water restores health
+PASS: schema 5 preserves chicken identities, conditions, feed/water and nests
+PASS: failed purchase save rolls back coins, ownership and leaves prior save intact
+PASS: feed, water, eggs and medicine each commit once; failed writes restore complete farm and stored bytes
+PASS: every old and new outdoor landmark remains reachable
+PASS: no browser exceptions
+PASS: actual editor entry, non-mutating preview, farmer overlap rejection, commit-once placement and paused world
+PASS: rotation, fresh collision recheck and chest move/store/re-place with exact quality stacks and stable identity
+PASS: cooking equipment moves/stores/re-places without duplicate stations or lost upgrade levels
+PASS: failed placement/store writes restore every farm field and saved byte; retry commits once
+PASS: purchase prices, insufficient-funds rejection and valid saved editor results
+PASS: occupied coop store guard, stable hen housing on move, feeder supply identity through storage
+PASS: touch purchase de-duplication, orientation change, farm placement from home and touch close
+PASS: Android-style touch selection, border-correct tile targeting, drag preview and confirm
+PASS: portrait/landscape plan and actionable placement controls, no browser exceptions
+PASS: bought/cared hens naturally produce eggs usable in the complete batter-to-cake chain with exact ingredient debit
+PASS: naturally produced eggs satisfy a community request once, ship/sell once and persist with flock and cake

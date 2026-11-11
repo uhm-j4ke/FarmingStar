@@ -1,0 +1,15 @@
+PASS: HTML-002 exact fence/L-shape/supplies detours, three repeated starts, three hens, collision clearance, night reload and dawn
+PASS: bounded sealed-route waiting, opened detour replan, out-of-area return and occupied moved coop preserve identity/eggs
+PASS: HTML-003 exact south-edge editor reproduction rejects three times without spending or changing ownership
+PASS: 72 basic/large coop, rotation and pen-boundary placement/adoption/night-entry cases
+PASS: old south-edge coop uses a safe fallback approach without moving housing, deleting hens or losing eggs
+PASS: three unique paid chickens, housing cap, valid pen spawn
+PASS: full supplies support three hens for two days and produce six eggs
+PASS: eggs enter inventory once; repeated collection grants nothing
+PASS: sustained neglect causes illness without death
+PASS: medicine plus adequate food/water restores health
+PASS: schema 5 preserves chicken identities, conditions, feed/water and nests
+PASS: failed purchase save rolls back coins, ownership and leaves prior save intact
+PASS: feed, water, eggs and medicine each commit once; failed writes restore complete farm and stored bytes
+PASS: every old and new outdoor landmark remains reachable
+PASS: no browser exceptions

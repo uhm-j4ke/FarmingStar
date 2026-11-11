@@ -1,0 +1,504 @@
+{
+  "audited": [
+    {
+      "id": "REGEN",
+      "reproduced": true,
+      "rows": [
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HEN-DETOUR",
+      "reproduced": true,
+      "rows": [
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "HEN-ENTRANCE",
+      "reproduced": true,
+      "rows": [
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "ARCADE-BACK",
+      "reproduced": true,
+      "rows": [
+        {
+          "kind": "maze",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        },
+        {
+          "kind": "memory",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        },
+        {
+          "kind": "rhythm",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        }
+      ]
+    },
+    {
+      "id": "REGEN-REAL-TOUCH",
+      "reproduced": true,
+      "before": {
+        "day": 31,
+        "x": 84,
+        "y": 84,
+        "walkable": false
+      },
+      "after": {
+        "x": 84,
+        "y": 84
+      },
+      "recovered": true
+    }
+  ],
+  "current": [
+    {
+      "id": "REGEN",
+      "reproduced": true,
+      "rows": [
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "forest",
+          "node": {
+            "x": 32,
+            "y": 25
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            780,
+            612
+          ],
+          "after": [
+            780,
+            612
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        },
+        {
+          "area": "mine",
+          "node": {
+            "x": 3,
+            "y": 3
+          },
+          "day": 31,
+          "walkable": false,
+          "before": [
+            84,
+            84
+          ],
+          "after": [
+            84,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HEN-DETOUR",
+      "reproduced": true,
+      "rows": [
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 16.22282752501815,
+            "y": 49.80000000000067,
+            "inCoop": false,
+            "behavior": "entering"
+          },
+          "afterRemovingFence": {
+            "x": 10.177827525018042,
+            "y": 49.80000000000002,
+            "inCoop": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "HEN-ENTRANCE",
+      "reproduced": true,
+      "rows": [
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        },
+        {
+          "stuck": {
+            "x": 8.796167661251356,
+            "y": 57,
+            "inCoop": false,
+            "goal": {
+              "x": 10,
+              "y": 58.8
+            }
+          },
+          "afterMovingCoopNorth": {
+            "x": 9.91943656335148,
+            "y": 54.94722943961693,
+            "inCoop": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "ARCADE-BACK",
+      "reproduced": true,
+      "rows": [
+        {
+          "kind": "maze",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        },
+        {
+          "kind": "memory",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        },
+        {
+          "kind": "rhythm",
+          "returned": true,
+          "stillActive": true,
+          "toast": "Finish the activity before leaving. Your saved preparation is preserved.",
+          "exitButtonEquivalentWorks": true
+        }
+      ]
+    },
+    {
+      "id": "REGEN-REAL-TOUCH",
+      "reproduced": true,
+      "before": {
+        "day": 31,
+        "x": 84,
+        "y": 84,
+        "walkable": false
+      },
+      "after": {
+        "x": 84,
+        "y": 84
+      },
+      "recovered": true
+    }
+  ]
+}
