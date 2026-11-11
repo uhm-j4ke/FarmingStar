@@ -2,7 +2,7 @@
 
 ## Current game — 1.0.0
 
-Chicken farming and controller controls are implemented in the shared `index.html`; see [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for verification. The current game includes expanded mirror customisation, themed menus, map controls, TV forecasts and isolated development tools. The user has now authorised 1.0.0 packaging and a public GitHub release; see RELEASE_TEST_REPORT.md for current build status.
+Chicken farming and controller controls are implemented in the shared `index.html`; see [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for verification. The current game includes expanded mirror customisation, themed menus, map controls, TV forecasts and isolated development tools. Version 1.0.0 is published for Windows, Universal macOS, Android testing and standalone HTML. See RELEASE_TEST_REPORT.md for results and the explicit Apple Silicon execution limitation.
 
 ## Next milestones
 

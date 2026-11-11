@@ -8,4 +8,6 @@
 - The old ignored Android test keystore is absent in this restored environment. The new build's verifier compares certificate fingerprints with the old beta. Users must export before uninstalling if a signing change blocks installation. CI caches the new test identity for subsequent builds; cache eviction remains a test-build limitation.
 - Historical 0.4.0 records are preserved under `release/history/0.4.0/` and in Git history.
 
-- Publication investigation: the scoped Actions token could not create the missing version tag (HTTP 403). The verified build was tagged through the authorised Git transport; publication now requires that existing tag. No binaries were rebuilt or substituted to bypass a check.
+- Publication investigation: release creation with an explicit old target_commitish failed under the scoped Actions token (HTTP 403). The verified build was tagged through the authorised Git transport; publication requires that existing tag and omits the unnecessary old target_commitish override. This resolved the 403; the public release upload passed. No binaries were rebuilt or substituted to bypass a check.
+
+- Public distribution verification passed: all four downloaded payloads match their published sizes/hashes; website/standalone/APK HTML match, and the released APK is identical to the early beta. No new game defects were discovered during packaging. Apple Silicon execution and the new APK physical-device test remain open verification items, not claimed passes.

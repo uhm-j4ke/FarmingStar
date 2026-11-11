@@ -31,3 +31,9 @@ The shared source and schema 5 are unchanged by packaging; compatible older save
 Android retains `io.github.uhmj4ke.farmingstar.test`. Its new test certificate differs from the old 0.4.0 beta because the previous ignored keystore was absent in the restored environment. **Export from the old app before uninstalling it**, then install and import. Never uninstall your only saved copy. The new test key is privately cached in CI; cache eviction remains a signing-identity limitation.
 
 Windows is unsigned; macOS uses an ad-hoc signature without Developer ID notarisation. Android is deliberately test-signed. Historical records are in `release/history/0.4.0/`.
+
+## Public distribution check
+
+[Publication succeeded](https://github.com/uhm-j4ke/FarmingStar/actions/runs/43061837834). [GitHub Release 1.0.0](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0) is public, marked latest, and is not a prerelease. All four payloads were downloaded from the public release and independently verified for byte size and SHA-256. The standalone HTML matches local production output and the website exactly; APK embedded HTML and the early beta APK also match. Published checksums, platform integrity records and the build commit are preserved in this repository.
+
+Remote branches are exactly `main` and `website`; old preview/release histories remain archived in main and tags. No game source or save schema changed during packaging.

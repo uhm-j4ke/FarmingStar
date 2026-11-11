@@ -4,7 +4,7 @@ A cosy, original pixel-art farming and cooking game. Grow crops, explore the val
 
 ## Version 1.0.0
 
-The 1.0.0 builds are running. The [GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0) will contain all four downloads once automated checks finish:
+The [1.0.0 GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0) is available with all four downloads:
 
 | Platform | Download |
 | --- | --- |
@@ -13,9 +13,9 @@ The 1.0.0 builds are running. The [GitHub Release](https://github.com/uhm-j4ke/F
 | Android phone testing | [Test APK](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Android-TEST.apk) |
 | Any modern browser | [Standalone index.html](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/index.html) |
 
-[Build progress](https://github.com/uhm-j4ke/FarmingStar/actions/workflows/release.yml) · [What's new](release/RELEASE_NOTES.md) · [QA repairs](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md)
+[Published release verification](RELEASE_TEST_REPORT.md) · [What's new](release/RELEASE_NOTES.md) · [QA repairs](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md)
 
-The Android APK is test-signed for device testing. If updating an old beta is rejected because its certificate differs, **export your save before uninstalling the old app**, then install and import. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Checksums and integrity records accompany the release.
+The Android APK is test-signed for device testing. If updating an old beta is rejected because its certificate differs, **export your save before uninstalling the old app**, then install and import. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Windows and Intel Mac execution passed native tests. Apple Silicon binaries are included and verified, but execution is unverified because hosted ARM runners were unavailable. Checksums and integrity records accompany the release.
 
 ## Play
 

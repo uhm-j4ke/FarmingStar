@@ -182,6 +182,13 @@ Existing test expectations were updated only for intentional changes: non-workin
 
 ## 1.0.0 platform rollout
 
-The user authorised Windows, macOS, Android test APK and standalone HTML packaging, public GitHub Release 1.0.0, and repository branch cleanup. The earlier packaging hold is superseded. Current build status and limitations are in [RELEASE_TEST_REPORT.md](RELEASE_TEST_REPORT.md); the GitHub release workflow publishes only after the shared and native gates pass.
+The user authorised Windows, macOS, Android test APK and standalone HTML packaging, public GitHub Release 1.0.0, and repository branch cleanup. The earlier packaging hold is superseded. Current build status and limitations are in [RELEASE_TEST_REPORT.md](RELEASE_TEST_REPORT.md); the normal GitHub release workflow requires shared/native gates. For 1.0.0, all accessible gates passed; unavailable ARM execution is explicitly disclosed as permitted by the packaging instructions.
 
 Remote branches now retain only `main` and `website`. Full feature/release histories are ancestors of main; preview and alpha tips are preserved under `archive/menu-previews-2026-11-11` and `archive/alpha-0.4.0` tags. No game features or save fields changed for packaging.
+
+### 1.0.0 published
+
+- [Actual latest GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0) contains Windows x64 portable EXE, Universal macOS DMG, Android test APK and standalone production `index.html`, with a brief description, checksums and integrity records.
+- Shared browser/QA regressions, native Windows execution, native Intel Mac execution/Universal architecture verification, and Android build/lint/signature/source checks pass. Hosted ARM Mac runners were not allocated; Apple Silicon execution is explicitly unverified. Android 1.0.0 phone testing is assigned to the user.
+- All four public downloads were independently checked for size and SHA-256. Website and standalone/APK HTML are identical. Android release and `betas` APKs are identical; export the old farm before uninstalling because the test certificate changed.
+- Main and website are the only remote branches; older work remains in history/archive tags. Packaging did not change game code or save fields. Further device findings will be handled before the next versioned app release.

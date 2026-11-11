@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "tag": "v1.0.0",
+  "commit": "580ed820abbc87b0992f05004d4493debf29ea97",
+  "run": "43061837834",
+  "artifacts": [
+    {
+      "name": "index.html",
+      "bytes": 528541,
+      "sha256": "550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a"
+    },
+    {
+      "name": "FarmingStar-1.0.0-Android-TEST.apk",
+      "bytes": 2542948,
+      "sha256": "77d856a11f6b078d487383b47e56932f51a440eb3161752e21fd8f2d72870c11"
+    },
+    {
+      "name": "FarmingStar-1.0.0-Windows-x64.exe",
+      "bytes": 112150129,
+      "sha256": "b1f89d2b90be42018de1b7c68d39c08b46525415c5a3d86a3fbf64de6453f776"
+    },
+    {
+      "name": "FarmingStar-1.0.0-macOS-Universal.dmg",
+      "bytes": 231342739,
+      "sha256": "79d4279a3ca29391c1648d35d9bbd97be7eced010d8dcc075c58206f81559f10"
+    }
+  ],
+  "nativeChecks": {
+    "windows": "passed",
+    "macOSIntel": "passed",
+    "macOSAppleSilicon": "Not tested: hosted ARM runners unavailable; Universal 2 binaries verified and Intel execution passed",
+    "android": "APK structure/signature/source/lint passed; user phone testing pending"
+  }
+}

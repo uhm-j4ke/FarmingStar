@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "package": "io.github.uhmj4ke.farmingstar.test",
+  "versionCode": 10000,
+  "apkSha256": "77d856a11f6b078d487383b47e56932f51a440eb3161752e21fd8f2d72870c11",
+  "htmlSha256": "550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a",
+  "signing": "debug/test signed; user device testing pending",
+  "certificateSha256": "5acdde49add6e493fdc9b589ed26eeeddf01c4201c367c9772d7080280e8a82d",
+  "previousCertificateSha256": "d3ccf9d959877986a95a6d0226219e7e7b333a3769653707562d561963259d35",
+  "canUpdatePreviousBeta": false,
+  "permissions": [
+    "package: io.github.uhmj4ke.farmingstar.test",
+    "permission: io.github.uhmj4ke.farmingstar.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='io.github.uhmj4ke.farmingstar.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ]
+}

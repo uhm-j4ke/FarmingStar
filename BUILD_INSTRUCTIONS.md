@@ -57,7 +57,7 @@ node tools/verify_macos.cjs
 hdiutil verify artifacts/desktop/FarmingStar-1.0.0-macOS-Universal.dmg
 ```
 
-The DMG contains Intel and Apple Silicon code. Verification checks every Mach-O file with `lipo`, version/icon metadata and ad-hoc code signatures. The workflow mounts and runs this same DMG on Intel and Apple Silicon. It is not Developer ID signed or notarised; no such credentials are configured. Linux intermediates are never presented as a Mac release.
+The DMG contains Intel and Apple Silicon code. Verification checks every Mach-O file with `lipo`, version/icon metadata and ad-hoc code signatures. The normal workflow mounts and runs this same DMG on Intel and Apple Silicon. For 1.0.0, Intel execution passed; hosted ARM runners were unavailable and Apple Silicon execution is disclosed as unverified. It is not Developer ID signed or notarised; no such credentials are configured. Linux intermediates are never presented as a Mac release.
 
 ## Standalone HTML and release automation
 
@@ -68,5 +68,7 @@ node tools/stage_html_release.cjs
 This stages the production `index.html` and checksums. Root source retains developer/testing conveniences; downloadable release/website copies have developer access disabled.
 
 `.github/workflows/release.yml` runs on main source/version/build changes, or manual dispatch. It runs shared tests, builds Windows/macOS/Android, verifies native desktop execution on both Mac architectures and Windows, uploads the early Android phone-test APK to `betas`, then publishes an actual non-prerelease GitHub Release only after all gates pass. `index.html`, EXE, DMG and test APK are separate assets, with SHA-256 sidecars and a manifest. The workflow's scoped token handles publication; no personal token is embedded in source.
+
+Automatic pushes skip an already tagged version to avoid duplicate builds; manually dispatch to resume an unpublished tag. A `[release maintenance]` commit cancels obsolete builds and skips new ones. The publisher verifies an existing tag and omits a target override; the normal publish job creates the tag through Git after build gates pass.
 
 Use a fresh version/tag for each public update; published versions are not silently replaced. Keep `main` for source and `website` for production HTML. Preview and alpha history remains under archive tags. Physical phones/controllers, audible output and extended hardware performance remain separate checks.
