@@ -32,6 +32,9 @@ async function connect(){
  page.setDefaultTimeout(90000);return {browser:page.context().browser(),page};
 }
 
+// Derive every touch coordinate from the live UI tree, never from a screenshot.
+// CDP touch events provide Android user activation; desktop mouse clicks do not reliably unlock WebAudio.
+async function touch(locator){await locator.scrollIntoViewIfNeeded();const box=await locator.boundingBox();assert.ok(box,'Missing touch target');const page=locator.page(),session=await page.context().newCDPSession(page);try{await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{id:91,x:box.x+box.width/2,y:box.y+box.height/2}]});await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]})}finally{await session.detach()}}
 function nativeSave(){const all=JSON.parse(run(['shell','run-as',pkg,'cat','files/farmingstar-storage.json']));return JSON.parse(all['farmingstar.moss-ember.slot.1'])}
 async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycle.suspend());const state=nativeSave();await page.evaluate(()=>window.FarmingStarLifecycle.resume());return state}
 (async()=>{
@@ -44,8 +47,8 @@ async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycl
    run(['install','-r','-d',process.env.FARMINGSTAR_PREVIOUS_APK],120000);
    run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);
    ({browser,page}=await connect());
-   if(await page.getByRole('button',{name:'Continue your farm'}).count())await page.getByRole('button',{name:'Continue your farm'}).click();
-   else{await page.getByRole('button',{name:'Begin your story'}).click();await page.getByRole('button',{name:'Make this place home'}).click()}
+   if(await page.getByRole('button',{name:'Continue your farm'}).count())await touch(page.getByRole('button',{name:'Continue your farm'}));
+   else{await touch(page.getByRole('button',{name:'Begin your story'}));await touch(page.getByRole('button',{name:'Make this place home'}))}
    upgradeState=await snapshot(page);run(['shell','am','force-stop',pkg]);
    if(browser)await browser.close().catch(()=>{});browser=null;if(device){await device.close().catch(()=>{});device=null}
    assert.ok(process.env.FARMINGSTAR_NEW_APK,'Updated APK required for upgrade check');
@@ -57,28 +60,28 @@ async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycl
   await page.waitForFunction(()=>!!document.querySelector('#titleScene'),null,{timeout:120000});
   assert.equal(await page.evaluate(()=>typeof window.FarmingStar),'undefined');record('ANDROID-STARTUP',{title:await page.title(),diagnostics:'absent',url:page.url()});
   await page.evaluate(()=>{window.__qaAudio=[];window.__qaSources=0;const Native=window.AudioContext;window.AudioContext=class extends Native{constructor(...args){super(...args);window.__qaAudio.push(this)}createOscillator(){window.__qaSources++;return super.createOscillator()}}});
-  if(await page.getByRole('button',{name:'Continue your farm'}).count())await page.getByRole('button',{name:'Continue your farm'}).click();
-  else{await page.getByRole('button',{name:'Begin your story'}).click();await page.getByRole('button',{name:'Make this place home'}).click()}
+  if(await page.getByRole('button',{name:'Continue your farm'}).count())await touch(page.getByRole('button',{name:'Continue your farm'}));
+  else{await touch(page.getByRole('button',{name:'Begin your story'}));await touch(page.getByRole('button',{name:'Make this place home'}))}
   await page.waitForFunction(()=>document.querySelector('#modal').classList.contains('hidden'));
   const first=await snapshot(page);assert.equal(first.version,5);record('ANDROID-NATIVE-SAVE',{farmId:first.farmId,coins:first.coins,bagSlots:first.bagSlots.length,storage:'files/farmingstar-storage.json'});
   if(upgradeState){for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture','profile'])assert.deepEqual(first[key],upgradeState[key]);record('ANDROID-IN-PLACE-UPGRADE',{fromVersionCode:10000,toVersionCode:10001,farmId:first.farmId,identity:'same package and signing certificate; existing farm preserved'})}
   const viewport=await page.evaluate(()=>({width:innerWidth,height:innerHeight,mobile:document.body.classList.contains('mobile')}));assert.ok(viewport.width>viewport.height);assert.ok(viewport.mobile);record('ANDROID-LANDSCAPE',viewport);
   await device.screenshot({path:path.join(out,'android-game.png')});
-  await page.locator('[data-ui="inventory"]').click();assert.ok(await page.locator('[data-bagindex]').count()>=10);await page.locator('[data-bagindex="0"]').click();assert.ok(await page.locator('#bagDetails').isVisible());await page.locator('[data-act="close"]').click();record('ANDROID-BAG-HOTBAR');
+  await touch(page.locator('[data-ui="inventory"]'));assert.ok(await page.locator('[data-bagindex]').count()>=10);await touch(page.locator('[data-bagindex="0"]'));assert.ok(await page.locator('#bagDetails').isVisible());await touch(page.locator('[data-act="close"]'));record('ANDROID-BAG-HOTBAR');
   const joy=await page.locator('#joy').boundingBox(),use=await page.locator('#use').boundingBox(),cdp=await page.context().newCDPSession(page);assert.ok(joy&&use);
   const a={id:1,x:joy.x+joy.width/2,y:joy.y+joy.height/2},b={id:2,x:use.x+use.width/2,y:use.y+use.height/2};
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a]});a.x+=25;await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[a]});await delay(1800);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a,b]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[b]});await delay(1200);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   const moved=await snapshot(page);assert.ok(moved.x!==first.x||moved.y!==first.y);record('ANDROID-MULTITOUCH-MOVE-TOOL',{before:[first.x,first.y],after:[moved.x,moved.y]});
-  const audio=await page.evaluate(()=>({states:window.__qaAudio.map(a=>a.state),sources:window.__qaSources}));assert.ok(audio.states.includes('running'));assert.ok(audio.sources>0);record('ANDROID-WEBAUDIO',audio);
+  const audio=await page.evaluate(()=>({states:window.__qaAudio.map(a=>a.state),sources:window.__qaSources}));assert.ok(audio.states.includes('running'),'Audio activation after real input: '+JSON.stringify(audio));assert.ok(audio.sources>0,'No synthesised audio sources: '+JSON.stringify(audio));record('ANDROID-WEBAUDIO',audio);
   run(['shell','input','keyevent','KEYCODE_BACK']);await page.getByRole('button',{name:'Return to the valley'}).waitFor();run(['shell','input','keyevent','KEYCODE_BACK']);await page.waitForFunction(()=>document.querySelector('#modal').classList.contains('hidden'));record('ANDROID-BACK');
   run(['shell','input','keyevent','KEYCODE_HOME']);await delay(1500);const hidden1=nativeSave();await delay(2000);const hidden2=nativeSave();assert.equal(hidden1.time,hidden2.time);assert.equal(hidden1.playtime,hidden2.playtime);run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);await delay(1000);record('ANDROID-BACKGROUND-RESUME',{time:hidden2.time});
   if(process.env.FARMINGSTAR_ANDROID_FILES==='1'){
-   run(['shell','input','keyevent','KEYCODE_BACK']);await page.getByRole('button',{name:'Save files & transfer',exact:true}).click();await page.locator('[data-slotoptions="1"]').click();await page.getByRole('button',{name:'Export portable save',exact:true}).click();
+   run(['shell','input','keyevent','KEYCODE_BACK']);await touch(page.getByRole('button',{name:'Save files & transfer',exact:true}));await touch(page.locator('[data-slotoptions="1"]'));await touch(page.getByRole('button',{name:'Export portable save',exact:true}));
    const filename='FarmingStar-QA-'+Date.now()+'.json';await device.wait({pkg:'com.android.documentsui'},{timeout:30000});await device.fill({clazz:'android.widget.EditText'},filename);await device.tap({text:/^save$/i});await page.waitForFunction(()=>document.querySelector('#toast').textContent.includes('exported'));
-   const exported=nativeSave();await page.locator('[data-act="close"]').click();run(['shell','input','keyevent','KEYCODE_BACK']);await page.getByRole('button',{name:'Save files & transfer',exact:true}).click();await page.locator('[data-importslot="2"]').click();await device.wait({pkg:'com.android.documentsui'},{timeout:30000});await device.tap({text:filename});await page.getByRole('button',{name:'Replace & import',exact:true}).click();
-   const all=JSON.parse(run(['shell','run-as',pkg,'cat','files/farmingstar-storage.json'])),imported=JSON.parse(all['farmingstar.moss-ember.slot.2']);for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture'])assert.deepEqual(imported[key],exported[key]);record('ANDROID-SYSTEM-DOCUMENT-EXPORT-IMPORT',{picker:'Android DocumentsUI',semantics:'export to a real document; read it back and replace destination slot 2'});await page.locator('[data-loadslot="1"]').click();
+   const exported=nativeSave();await touch(page.locator('[data-act="close"]'));run(['shell','input','keyevent','KEYCODE_BACK']);await touch(page.getByRole('button',{name:'Save files & transfer',exact:true}));await touch(page.locator('[data-importslot="2"]'));await device.wait({pkg:'com.android.documentsui'},{timeout:30000});await device.tap({text:filename});await touch(page.getByRole('button',{name:'Replace & import',exact:true}));
+   const all=JSON.parse(run(['shell','run-as',pkg,'cat','files/farmingstar-storage.json'])),imported=JSON.parse(all['farmingstar.moss-ember.slot.2']);for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture'])assert.deepEqual(imported[key],exported[key]);record('ANDROID-SYSTEM-DOCUMENT-EXPORT-IMPORT',{picker:'Android DocumentsUI',semantics:'export to a real document; read it back and replace destination slot 2'});await touch(page.locator('[data-loadslot="1"]'));
   }
-  const saved=await snapshot(page);run(['shell','am','force-stop',pkg]);if(browser)await browser.close().catch(()=>{});else await page.context().close().catch(()=>{});browser=null;run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);({browser,page}=await connect());await page.getByRole('button',{name:'Continue your farm'}).click();const restored=await snapshot(page);
+  const saved=await snapshot(page);run(['shell','am','force-stop',pkg]);if(browser)await browser.close().catch(()=>{});else await page.context().close().catch(()=>{});browser=null;run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);({browser,page}=await connect());await touch(page.getByRole('button',{name:'Continue your farm'}));const restored=await snapshot(page);
   for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture'])assert.deepEqual(restored[key],saved[key]);record('ANDROID-FORCE-STOP-RELAUNCH',{savedFarm:restored.farmId,coins:restored.coins});
   assert.deepEqual(errors,[]);record('ANDROID-JS-ERRORS',{count:errors.length});write();
  }catch(e){write(e.stack||e.message);throw e}finally{if(browser)await browser.close().catch(()=>{});if(device)await device.close().catch(()=>{});clearTimeout(runtimeDeadline)}
