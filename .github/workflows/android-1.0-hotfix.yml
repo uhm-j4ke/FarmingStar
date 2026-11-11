@@ -16,6 +16,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       FARMINGSTAR_REQUIRE_SIGNING_CONTINUITY: '1'
+      FARMINGSTAR_ANDROID_BUILD_COMMIT: f9631e5b0c8870279678989c14144e8d8e1798f8
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -45,27 +46,17 @@ jobs:
           echo '::error::Existing Android signing key is unavailable. Stop before building an incompatible update.'
           exit 1
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Find Chromium
-        run: |
-          if [ -x /usr/bin/google-chrome ]; then
-            echo 'CHROMIUM_PATH=/usr/bin/google-chrome' >> "$GITHUB_ENV"
-          else
-            npx playwright install --with-deps chromium
-            node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
-          fi
-      - run: npm test
-      - run: node tests/android-hotfix.cjs
-      - run: node tests/tool-audio.cjs && node tests/tool-scale.cjs
-      - run: npm run test:packaging
-      - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
-      - run: npm run build:android:test
-      - run: node tools/verify_android.cjs
-      - name: Preserve the verified APK before emulator checks
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - name: Download the APK that already passed game, build, lint and signature gates
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: android-1.0-hotfix-apk
-          path: artifacts/FarmingStar-1.0.0-Android.apk
-          if-no-files-found: error
+          path: artifacts/
+          run-id: 43069874793
+          github-token: ${{ github.token }}
+      - run: node tools/prepare_web.cjs
+      - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - name: Recheck downloaded APK against the current game and installation identity
+        run: node tools/verify_android.cjs
       - name: Enable KVM for the isolated Android emulator
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -91,6 +82,12 @@ jobs:
           cp artifacts/FarmingStar-1.0.0-Android.apk artifacts/release-android/
           node tools/publish_android_hotfix.cjs
           FARMINGSTAR_ANDROID_HOTFIX=1 node tools/publish_android_beta.cjs
+      - name: Expose a native-test diagnostic if verification fails
+        if: failure()
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),file='release/evidence/android-runtime.json';if(fs.existsSync(file)){let text=fs.readFileSync(file,'utf8');for(const token of [process.env.GH_TOKEN,process.env.GITHUB_TOKEN].filter(Boolean))text=text.split(token).join('[REDACTED]');console.log('::notice title=Android native test result::'+text.replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'))}
+          NODE
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
