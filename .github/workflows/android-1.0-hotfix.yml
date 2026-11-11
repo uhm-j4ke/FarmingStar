@@ -1,0 +1,101 @@
+name: Android 1.0.0 camera and audio update
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/android-1.0-hotfix.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: farmingstar-android-1.0-hotfix
+  cancel-in-progress: false
+jobs:
+  android:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FARMINGSTAR_REQUIRE_SIGNING_CONTINUITY: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+      - name: Restore the installed 1.0.0 signing identity
+        id: signing
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .local-signing/
+          key: farmingstar-android-test-signing-v1
+      - name: Refuse to generate an incompatible replacement key
+        if: steps.signing.outputs.cache-hit != 'true'
+        run: |
+          echo '::error::Existing Android signing key is unavailable. Stop before building an incompatible update.'
+          exit 1
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Find Chromium
+        run: |
+          if [ -x /usr/bin/google-chrome ]; then
+            echo 'CHROMIUM_PATH=/usr/bin/google-chrome' >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+            node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
+          fi
+      - run: npm test
+      - run: node tests/android-hotfix.cjs
+      - run: node tests/tool-audio.cjs && node tests/tool-scale.cjs
+      - run: npm run test:packaging
+      - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - run: npm run build:android:test
+      - run: node tools/verify_android.cjs
+      - name: Preserve the verified APK before emulator checks
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: android-1.0-hotfix-apk
+          path: artifacts/FarmingStar-1.0.0-Android.apk
+          if-no-files-found: error
+      - name: Enable KVM for the isolated Android emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Test actual APK startup, saves, in-place upgrade, controls, audio and lifecycle
+        uses: ReactiveCircus/android-emulator-runner@4c44018e59b437e86cdfc41da381398f93ed8808
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          ram-size: 2048M
+          cores: 2
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          script: |
+            FARMINGSTAR_PREVIOUS_APK=betas/FarmingStar-1.0.0-Android-TEST.apk FARMINGSTAR_NEW_APK=artifacts/FarmingStar-1.0.0-Android.apk ANDROID_API=35 ANDROID_ACCELERATION=KVM node tools/android_runtime.cjs
+            cd android && ./gradlew --no-daemon :app:connectedDebugAndroidTest
+      - name: Replace only the Android release download
+        run: |
+          mkdir -p artifacts/release-android
+          cp artifacts/FarmingStar-1.0.0-Android.apk artifacts/release-android/
+          node tools/publish_android_hotfix.cjs
+          FARMINGSTAR_ANDROID_HOTFIX=1 node tools/publish_android_beta.cjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: android-1.0-hotfix-evidence
+          path: |
+            release/evidence/
+            tests/artifacts/1.0/android-hotfix.json
+            android/app/build/reports/androidTests/
