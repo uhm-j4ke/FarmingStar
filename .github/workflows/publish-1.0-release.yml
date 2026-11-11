@@ -26,7 +26,7 @@ jobs:
       - name: Verify completed native gates and disclose unavailable ARM execution
         run: |
           gh api repos/${{ github.repository }}/actions/runs/43054835406/jobs --paginate > "$RUNNER_TEMP/original-jobs.json"
-          node -e "const j=JSON.parse(require('fs').readFileSync(process.env.RUNNER_TEMP+'/original-jobs.json'));for(const n of ['shared','android','windows','macos'])if(!j.jobs.some(x=>x.name===n&&x.conclusion==='success'))throw Error('Required original gate did not pass: '+n);const arm=j.jobs.find(x=>x.name==='macos-arm');if(arm?.conclusion==='failure')throw Error('ARM has a real failure; do not publish');const passed=arm?.conclusion==='success';require('fs').appendFileSync(process.env.GITHUB_ENV,'FARMINGSTAR_ARM_RUNTIME='+(passed?'passed':'unavailable')+'\n');if(!passed)require('fs').appendFileSync('release/RELEASE_NOTES.md','\nApple Silicon execution could not be tested because both hosted ARM Mac runner pools remained queued. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution. Apple Silicon runtime is explicitly unverified.\n')"
+          node -e "const j=JSON.parse(require('fs').readFileSync(process.env.RUNNER_TEMP+'/original-jobs.json'));for(const n of ['shared','android','windows','macos'])if(!j.jobs.some(x=>x.name===n&&x.conclusion==='success'))throw Error('Required original gate did not pass: '+n);const arm=j.jobs.find(x=>x.name==='macos-arm');if(arm?.conclusion==='failure'&&(arm.steps||[]).length)throw Error('ARM execution failed; do not publish');const passed=arm?.conclusion==='success';require('fs').appendFileSync(process.env.GITHUB_ENV,'FARMINGSTAR_ARM_RUNTIME='+(passed?'passed':'unavailable')+'\n');if(!passed)require('fs').appendFileSync('release/RELEASE_NOTES.md','\nApple Silicon execution could not be tested because both hosted ARM Mac runner pools remained queued. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution. Apple Silicon runtime is explicitly unverified.\n')"
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           pattern: release-*
@@ -34,7 +34,20 @@ jobs:
           merge-multiple: true
           run-id: 43054835406
           github-token: ${{ github.token }}
-      - run: node tools/publish_release.cjs
+      - name: Publish verified assets with visible error diagnostics
+        run: |
+          node - <<'NODE'
+          const cp=require('node:child_process');
+          const r=cp.spawnSync(process.execPath,['tools/publish_release.cjs'],{encoding:'utf8',maxBuffer:16*1024*1024});
+          process.stdout.write(r.stdout||'');
+          if(r.status!==0){
+            let message=(r.stderr||r.error?.message||'Publisher failed without stderr').slice(-12000);
+            for(const value of [process.env.GH_TOKEN,process.env.GITHUB_TOKEN].filter(Boolean))message=message.split(value).join('[REDACTED]');
+            message=message.replace(/gh[pousr]_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/g,'[REDACTED]').replace(/https:\/\/[^\s/@]+:[^\s/@]+@/g,'https://[REDACTED]@');
+            console.log('::error title=Release publication failed::'+message.replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'));
+            process.exit(r.status||1);
+          }
+          NODE
       - name: Record public release and stop superseded queue entries
         run: |
           node tools/ci_status.cjs release success 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
