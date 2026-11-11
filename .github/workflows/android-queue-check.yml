@@ -1,0 +1,26 @@
+name: Check Android verification queue
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/android-queue-check.yml]
+  workflow_dispatch:
+permissions:
+  actions: write
+  contents: read
+jobs:
+  queue:
+    runs-on: windows-2022
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Cancel only the superseded queued run and inspect the final check
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const cp=require('node:child_process');
+          cp.spawnSync('gh',['run','cancel','43097532923'],{stdio:'inherit'});
+          const result=cp.execFileSync('gh',['run','view','43098136425','--json','status,conclusion,jobs,url'],{encoding:'utf8'});
+          console.log('::notice title=Final Android queue status::'+result.replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'));
+          NODE
