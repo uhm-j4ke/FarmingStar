@@ -1,0 +1,37 @@
+name: Diagnose Android 1.0.0 emulator checks
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/android-hotfix-diagnostics.yml]
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: android-1.0-hotfix-evidence
+          path: diagnostics/
+          run-id: 43069874793
+          github-token: ${{ github.token }}
+      - name: Show the native error and completed checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),cp=require('node:child_process');
+          const files=[];function scan(dir){for(const d of fs.readdirSync(dir,{withFileTypes:true})){const p=dir+'/'+d.name;if(d.isDirectory())scan(p);else files.push(p)}}scan('diagnostics');
+          const report=files.find(f=>f.endsWith('/android-runtime.json'));
+          let message=report?fs.readFileSync(report,'utf8'):'No Android runtime JSON';
+          const logs=cp.spawnSync('gh',['run','view','43069874793','--log-failed'],{encoding:'utf8',maxBuffer:10*1024*1024});
+          const lines=(logs.stdout||logs.stderr||'').split('\n');const indexes=lines.flatMap((s,i)=>/AssertionError|Error:|error:|FAIL|Exception|ANDROID-|timed out|MODULE_NOT_FOUND|Cannot find/.test(s)?[i]:[]);const kept=new Set();for(const i of indexes)for(let n=Math.max(0,i-2);n<=Math.min(lines.length-1,i+4);n++)kept.add(n);
+          message+='\n'+[...kept].sort((a,b)=>a-b).map(i=>lines[i]).join('\n').slice(-16000);
+          for(const token of [process.env.GH_TOKEN,process.env.GITHUB_TOKEN].filter(Boolean))message=message.split(token).join('[REDACTED]');
+          message=message.replace(/gh[pousr]_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/g,'[REDACTED]');
+          console.log('::notice title=Android emulator diagnostic::'+message.replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'));
+          NODE
