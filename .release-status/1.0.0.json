@@ -6,8 +6,8 @@
     "release": {
       "state": "success",
       "url": "https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0",
-      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43061837834",
-      "updatedAt": "2026-11-11T16:48:34.610Z"
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43062657805",
+      "updatedAt": "2026-11-11T16:53:14.862Z"
     },
     "macos-arm": {
       "state": "unavailable",
