@@ -1,0 +1,76 @@
+# A second hosted ARM pool verifies the same completed 1.0.0 artifacts; it does not rebuild them.
+name: Complete 1.0.0 Apple Silicon verification and release
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/finish-1.0-release.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: farmingstar-finish-1.0.0
+  cancel-in-progress: false
+jobs:
+  verify-and-publish:
+    runs-on: macos-26
+    timeout-minutes: 25
+    env:
+      FARMINGSTAR_BUILD_COMMIT: 580ed820abbc87b0992f05004d4493debf29ea97
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          architecture: arm64
+          cache: npm
+      - name: Check whether the original pool already completed publication
+        id: existing
+        run: |
+          if gh release view v1.0.0 --json isDraft --jq '.isDraft' | grep -qx false; then
+            echo 'published=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'published=false' >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.existing.outputs.published != 'true'
+        run: node tools/ci_status.cjs macos-arm running
+      - if: steps.existing.outputs.published != 'true'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - if: steps.existing.outputs.published != 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: release-*
+          path: artifacts/publish/
+          merge-multiple: true
+          run-id: 43054835406
+          github-token: ${{ github.token }}
+      - name: Verify the original build gates and execute the actual Universal DMG on ARM
+        if: steps.existing.outputs.published != 'true'
+        run: |
+          gh api repos/${{ github.repository }}/actions/runs/43054835406/jobs --paginate > "$RUNNER_TEMP/original-jobs.json"
+          node -e "const j=JSON.parse(require('fs').readFileSync(process.env.RUNNER_TEMP+'/original-jobs.json'));for(const n of ['shared','android','windows','macos'])if(!j.jobs.some(x=>x.name===n&&x.conclusion==='success'))throw Error('Original build gate did not pass: '+n)"
+          dmg=$(find artifacts/publish -name '*.dmg' -print -quit)
+          hdiutil verify "$dmg"
+          mkdir -p "$RUNNER_TEMP/farmingstar-mount"
+          hdiutil attach "$dmg" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/farmingstar-mount"
+          trap 'hdiutil detach "$RUNNER_TEMP/farmingstar-mount" || true' EXIT
+          node tools/verify_macos.cjs "$RUNNER_TEMP/farmingstar-mount/FarmingStar.app"
+          FARMINGSTAR_EXPECT_ARCH=arm64 FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
+      - if: steps.existing.outputs.published != 'true'
+        run: node tools/ci_status.cjs macos-arm success
+      - name: Stop the superseded queue after genuine ARM verification
+        if: steps.existing.outputs.published != 'true'
+        run: gh run cancel 43054835406 || true
+      - name: Publish the same four verified assets
+        if: steps.existing.outputs.published != 'true'
+        run: node tools/publish_release.cjs
+      - if: success()
+        run: node tools/ci_status.cjs release success 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
+      - if: failure()
+        run: node tools/ci_status.cjs macos-arm failure
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: apple-silicon-completion-evidence
+          path: release/evidence/
