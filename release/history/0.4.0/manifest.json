@@ -1,0 +1,103 @@
+{
+  "recordedAt": "2026-11-09T16:39:16.641Z",
+  "release": "Alpha 0.4.0",
+  "tag": "v0.4.0-alpha",
+  "channel": "Alpha",
+  "releaseReady": false,
+  "publication": "No GitHub release created or published",
+  "sources": {
+    "index.html": "5d7c34a68ba4427c8f5ee2e4f2cd5d41ba304bd56d67807cbdad4221146647a5",
+    "dist/web/index.html": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724",
+    "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
+    "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
+    "desktop/store.cjs": "aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074"
+  },
+  "artifacts": [
+    {
+      "relative": "artifacts/FarmingStar-Alpha-0.4.0-Android-TEST.apk",
+      "platform": "Android",
+      "architecture": "Java bytecode; no ABI-specific game libraries",
+      "signing": "test-signed; release signing unavailable",
+      "runtime": "PASS — user reports the unchanged GitHub beta functions perfectly on their phone; device/OS not supplied",
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 2558519,
+      "sha256": "4d9ba60843c76a9966283c38bfa8ae0a73f182a0a7794460dd655aa735e6ab38",
+      "build": "built locally"
+    },
+    {
+      "relative": "artifacts/desktop/FarmingStar-Alpha-0.4.0-Windows-x64.exe",
+      "platform": "Windows",
+      "architecture": "AMD64 game payload verified; x86 NSIS portable bootstrapper",
+      "signing": "unsigned (verified absent certificate table)",
+      "runtime": "Local cross-built EXE has not been executed on Windows; native CI candidate evidence is separate below",
+      "nativeCandidate": {
+        "build": "success",
+        "runtime": "PASS on native windows-2022 runner, including packaged x64 UI tests and actual portable launcher; Windows 10/11 manual checks not performed",
+        "architecture": "AMD64 game payload verified; x86 NSIS portable bootstrapper",
+        "signing": "unsigned (verified absent certificate table)",
+        "commit": "c922969d50ed962572712f2da0a77ef99e6c6872",
+        "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937",
+        "buildJob": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231",
+        "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/artifacts/13692316437",
+        "artifactZipSha256": "caab5191b131ddfa7881451d1ad35f5045d4ee38fda53799e609469b59810362",
+        "checksumScope": "GitHub artifact ZIP; EXE payload checksum is in the downloaded archive sidecar",
+        "runtimeJobs": {
+          "x64": {
+            "status": "success",
+            "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231"
+          }
+        }
+      },
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 111748902,
+      "sha256": "99b9550a09613953a2717ef3ca1e0614cf57fcf174170c221033ea4d22104921",
+      "build": "built locally"
+    },
+    {
+      "relative": "artifacts/desktop/FarmingStar-Alpha-0.4.0-macOS-Universal.dmg",
+      "platform": "macOS",
+      "architecture": "Universal 2: x86_64 and arm64 verified in all bundled Mach-O binaries",
+      "signing": "verified ad-hoc; Developer ID signing and notarisation unavailable",
+      "runtime": "PASS on Intel macOS 15; Apple Silicon runtime unverified (runner remained queued)",
+      "nativeCandidate": {
+        "build": "success",
+        "runtime": "PASS on Intel macOS 15; Apple Silicon runtime unverified (runner remained queued)",
+        "architecture": "Universal 2: x86_64 and arm64 verified in all bundled Mach-O binaries",
+        "signing": "verified ad-hoc; Developer ID signing and notarisation unavailable",
+        "commit": "c922969d50ed962572712f2da0a77ef99e6c6872",
+        "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937",
+        "buildJob": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293789999",
+        "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/artifacts/13693450045",
+        "artifactZipSha256": "85f3081c19e01c83fed98d4c3d345b48799f3313a5ebdefef71e9b6781a7415c",
+        "checksumScope": "GitHub artifact ZIP; DMG payload checksum is in the downloaded archive sidecar",
+        "runtimeJobs": {
+          "x64": {
+            "status": "success",
+            "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129295994720"
+          },
+          "arm64": {
+            "status": "unverified",
+            "reason": "Current matrix shows one of two jobs complete and the remaining Apple Silicon job queued; no native arm64 execution result is claimed"
+          }
+        }
+      },
+      "version": "0.4.0",
+      "exists": false,
+      "build": "built on native CI; not downloaded locally"
+    },
+    {
+      "relative": "artifacts/FarmingStar-Alpha-0.4.0.html",
+      "platform": "Standalone HTML",
+      "architecture": "browser",
+      "signing": "not applicable",
+      "runtime": "Production browser suite passed",
+      "version": "0.4.0",
+      "exists": true,
+      "bytes": 282657,
+      "sha256": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724",
+      "build": "built locally"
+    }
+  ]
+}
