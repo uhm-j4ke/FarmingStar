@@ -20,6 +20,8 @@ These issues belong to the new browser update. The original independent QA ledge
 | UI-14 | Phone furnishing placement labels remain 9px despite larger text | Redundant `.row` class matched an older, more-specific selector. Removed that class from the dedicated action grid. | Fixed: audit minimum control size/text bounds and touch furnishing tests |
 | UI-15 | Blueprint heading has poor contrast | Older header colour survived new panel styling. Blueprint header explicitly inherits its light theme ink. | Fixed: desktop blueprint screenshot and themed audit |
 
+| UI-16 | Hotbar icons occupy too little of their containers | Small display sizes compounded transparent sprite margins. Crop/fill hotbar artwork only; larger tool-only canvases preserve the count footer and bar footprint. | Fixed: before/after visible bounds, 186 UI/quantity cases and 14 A/C layouts pass |
+
 ## Fixed requested behavior
 
 Physical mirror access, draft Save/Cancel, a centred safe phone editor, expanded detail fields, controls below the atlas, clear waypoint, real TV forecasts, themed non-book menus, desktop minimap sizing, safe quantities and isolated developer commands are implemented and receive automated coverage. Native font data is unchanged.

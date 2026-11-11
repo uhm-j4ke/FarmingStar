@@ -329,7 +329,12 @@ body.mobile #sheet .menuActions button,body.mobile #sheet .menuCardActions butto
 body.mobile #sheet .editorStock button,body.mobile #sheet .editorCategories button{font-size:calc(11px * var(--ui,1))}
 body.mobile #hotbar{padding-top:0;padding-bottom:0}
 body.mobile #hotbar button{width:56px;height:48px;min-height:48px;padding-top:3px;padding-bottom:20px}
+#hotbar canvas.icon{width:34px;height:34px}
+#hotbar button:not(:has(.count)){padding:10px 6px 4px}
+#hotbar button:not(:has(.count)) canvas.icon{width:44px;height:44px}
 body.mobile #hotbar canvas.icon{width:24px;height:24px}
+body.mobile #hotbar button:not(:has(.count)){padding:4px 6px}
+body.mobile #hotbar button:not(:has(.count)) canvas.icon{width:40px;height:40px}
 body.mobile #sheet[data-surface=satchel] .bagGrid{grid-template-columns:repeat(5,minmax(56px,1fr));gap:6px}
 body.mobile #sheet .bagSlot small{display:none}
 body.mobile #sheet[data-surface=satchel] #bagDetails{max-height:132px}
@@ -935,7 +940,10 @@ function icon(c,id){c.save();c.setTransform(c.canvas.width/16,0,0,c.canvas.heigh
  else if(['bread','dough','flour'].includes(id)){r(5,8,1,2,'#f4d89e');r(8,8,1,2,'#f4d89e');r(11,8,.5,2,'#f4d89e');}
  c.restore()}
 
-function drawIcons(){document.querySelectorAll('canvas[data-icon]').forEach(el=>icon(el.getContext('2d'),el.dataset.icon))}
+// Hotbar artwork fills its display area instead of carrying each sprite's transparent margin.
+const hotbarIconCache=new Map();
+function drawHotbarIcon(canvas,id){const key=id+':'+g.tier;let art=hotbarIconCache.get(key);if(!art){const source=document.createElement('canvas');source.width=source.height=32;icon(source.getContext('2d'),id);const pixels=source.getContext('2d').getImageData(0,0,32,32).data;let left=32,top=32,right=-1,bottom=-1;for(let y=0;y<32;y++)for(let x=0;x<32;x++)if(pixels[(y*32+x)*4+3]){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}art=document.createElement('canvas');art.width=art.height=32;const c=art.getContext('2d');c.imageSmoothingEnabled=false;if(right>=left){const w=right-left+1,h=bottom-top+1,scale=30/Math.max(w,h),dw=Math.round(w*scale),dh=Math.round(h*scale);c.drawImage(source,left,top,w,h,Math.floor((32-dw)/2),Math.floor((32-dh)/2),dw,dh)}hotbarIconCache.set(key,art)}const c=canvas.getContext('2d');c.clearRect(0,0,canvas.width,canvas.height);c.imageSmoothingEnabled=false;c.drawImage(art,0,0,canvas.width,canvas.height)}
+function drawIcons(){document.querySelectorAll('canvas[data-icon]').forEach(el=>{if(el.closest('#hotbar'))drawHotbarIcon(el,el.dataset.icon);else icon(el.getContext('2d'),el.dataset.icon)})}
 function quantityLabel(n){return n>=1000000?Math.floor(n/1000000)+'m':n>=1000?Math.floor(n/1000)+'k':String(n)}
 function iconHTML(id){return `<canvas class="icon" width="32" height="32" data-icon="${id}" aria-hidden="true"></canvas>`}
 

@@ -164,3 +164,10 @@ Existing test expectations were updated only for intentional changes: non-workin
 - Relevant controller, furnishing, book/storage, animals, natural egg/cake/request/shipping, arcade/mine, seasonal, portable, compact phone/menu/service/HUD, tool/audio/scale and profile suites pass. In-memory production compile removes test hooks and disables developer access for LF and CRLF source.
 - [Review handoff](UI_PRECISION_REVIEW.md), [fixed/pending issue ledger](bug%20reports/UI_PRECISION_FIX_STATUS.md), [matrix evidence](bug%20reports/ui-precision/ui-audit.json) and [verification record](bug%20reports/ui-precision/verification.json) are ready for independent QA.
 - Source changes are available only on the browser feature branch. No platform payload, installer, beta, version or release is updated. Stop here and wait for the user's next instruction.
+
+## Hotbar icon follow-up
+
+- Fixed tiny hotbar artwork by fitting each sprite's non-transparent bounds into its icon canvas, cached by item/tool tier. Tool-only slots use larger artwork; stack slots keep their separate count footer. Other menu/bag icons are unchanged.
+- Before/after visible phone hoe height: 19.5 → 37.5px; starter seed packet: 18 → 22.5px. Desktop hoe: 22.75 → 41.25px; seed packet: 21 → 31.875px. Bar dimensions remain unchanged (phone height 52px; desktop 78px).
+- All 186 existing screen/quantity audit cases and 14 A/C phone/tablet layout cases passed after this change. Targeted before/after pixel-bound checks confirm increased artwork size and unchanged bar height; phone pictures were reviewed. No save fields, inventory rules, held-tool artwork or native packages change.
+- Waiting for the user's extensive bug-check findings; no further feature work is started.

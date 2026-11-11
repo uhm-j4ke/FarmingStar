@@ -2,6 +2,7 @@
 
 This work changes the shared `index.html`; native installers, package versions, beta downloads and releases remain unchanged. Latest design previews await feedback. See [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) and [UI_PRECISION_REVIEW.md](UI_PRECISION_REVIEW.md) for the verification ledger and independent recheck instructions.
 
+- Enlarged hotbar artwork without enlarging the bar: crop transparent sprite margins, use larger tool-only icons and keep counted items clear of their quantity labels. Phone hotbar stays 52px high; other inventory/menu icons are unchanged.
 - Added the farmhouse mirror and expanded appearance choices: six icon-labelled sections, left-hand rotating/walking preview, draft/compare/reset/randomise, explicit Save/Cancel, carved silver frame and a centred phone heading. Appearance editing after creation requires a nearby mirror.
 - Added richer directional face/hair/clothing details without changing the embedded font. Fixed accessory facing, ignored side-view trouser colours, identical eyebrow variants and inherited player features on villagers; retained slim profiles, mirrored feet and constant-size tools.
 - Increased quantity and interface text sizes, reserved a separate count area, added compact thousands with exact accessible quantities, and kept the complete phone hotbar within its 52px height.

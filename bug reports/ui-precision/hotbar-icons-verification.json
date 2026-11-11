@@ -1,0 +1,42 @@
+{
+  "scope": "hotbar icon size follow-up only",
+  "baseline": "3d3b933ce158dd57bb3420bdf7beb9343ffa664a",
+  "sourceHtmlSha256": "9cac55fc81e920920d32bd64be580d2cac38fac3ef291f1265c8738af49382f7",
+  "checks": {
+    "uiPrecisionAudit": {
+      "status": "passed",
+      "cases": 186
+    },
+    "phoneLayouts": {
+      "status": "passed",
+      "cases": 14
+    },
+    "beforeAfterVisibleBounds": "passed",
+    "manualPhonePreviews": "reviewed"
+  },
+  "visibleArtworkHeightCssPx": {
+    "phoneHoe": [
+      19.5,
+      37.5
+    ],
+    "phoneSeed": [
+      18,
+      22.5
+    ],
+    "desktopHoe": [
+      22.75,
+      41.25
+    ],
+    "desktopSeed": [
+      21,
+      31.875
+    ]
+  },
+  "unchangedBarHeightCssPx": {
+    "phone": 52,
+    "desktop": 78
+  },
+  "saveChanges": false,
+  "nativeOutputsUpdated": false,
+  "pending": "User extensive QA findings"
+}

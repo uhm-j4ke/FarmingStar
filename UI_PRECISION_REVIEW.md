@@ -2,6 +2,10 @@
 
 This update is on `feature/1.0-world-expansion`. The playable deliverable is the self-contained `index.html`. Native apps, beta binaries, main, release/package versions and GitHub Releases are unchanged. App packaging waits for the user's next instruction.
 
+## Subsequent hotbar icon fix
+
+Hotbar artwork now fills more of its existing slots; tool icons are larger and transparent sprite margins are cropped. Quantity labels remain separate, and the complete phone bar stays 52px high. All 186 UI/quantity cases and 14 phone-layout variants pass after this focused change. The full eight-suite result below describes the earlier precision checkpoint; [the follow-up verification](bug%20reports/ui-precision/hotbar-icons-verification.json) identifies the new HTML hash and targeted checks. No save or gameplay mechanics change.
+
 ## Changes to verify
 
 - **Appearance:** Start a new farmer, or approach the wooden mirror in the farmhouse and interact. The farmer preview is on the left with rotation arrows underneath. Six icon-labelled categories on the right are Eyes, Mouth, Hair, Body, Clothes and Facial features. Rotate, walk/stand, compare, randomise, reset, Save and Cancel work. The carved silver frame includes a top-right glint; the phone heading is centred and controls sit inside its safe padding.
