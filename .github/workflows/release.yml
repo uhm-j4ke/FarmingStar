@@ -1,0 +1,266 @@
+name: FarmingStar release
+on:
+  push:
+    branches: [main]
+    paths: [index.html, package.json, package-lock.json, electron-builder.cjs, 'desktop/**', 'android/**', 'assets/**', 'tools/**', 'tests/**', release/release-config.json, .github/workflows/release.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: farmingstar-release
+  cancel-in-progress: false
+jobs:
+  shared:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: node tools/ci_status.cjs shared running
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Find Chromium
+        run: |
+          if [ -x /usr/bin/google-chrome ]; then
+            printf 'CHROMIUM_PATH=/usr/bin/google-chrome\n' >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+            node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
+          fi
+      - run: npm test
+      - run: node tests/qa-resource-renewal.cjs && node tests/qa-housing.cjs && node tests/qa-hen-routing.cjs && node tests/qa-arcade-back.cjs
+      - run: npm run test:portable
+      - run: npm run test:packaging
+      - run: npm run test:desktop-store
+      - run: npm run desktop:install
+      - run: npm run test:desktop
+      - run: node tools/stage_html_release.cjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-html
+          path: artifacts/release-html/
+          if-no-files-found: error
+      - if: always()
+        run: node tools/ci_status.cjs shared '${{ job.status }}'
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: shared-evidence
+          path: release/evidence/
+
+  android:
+    needs: shared
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+      - name: Retain the test signing identity between builds
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .local-signing/
+          key: farmingstar-android-test-signing-v1
+      - run: node tools/ci_status.cjs android running
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - run: npm run build:android:test
+      - run: node tools/verify_android.cjs
+      - name: Stage APK and integrity evidence
+        run: |
+          mkdir -p artifacts/release-android
+          cp artifacts/FarmingStar-*-Android-TEST.apk artifacts/release-android/
+          cp release/evidence/android-integrity.json artifacts/release-android/Android-integrity.json
+          apk=$(find artifacts/release-android -name '*.apk' -print -quit)
+          node tools/checksum_artifact.cjs "$apk"
+      - name: Publish the phone test download while desktop builds continue
+        run: node tools/publish_android_beta.cjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-android
+          path: artifacts/release-android/
+          if-no-files-found: error
+      - if: always()
+        run: node tools/ci_status.cjs android '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/tree/main/betas'
+
+  windows:
+    needs: shared
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: node tools/ci_status.cjs windows running
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run desktop:install
+      - run: npm run build:windows
+      - run: node tests/windows-archive.cjs
+      - run: node tools/verify_windows.cjs
+      - run: npm run test:desktop-store
+      - run: npm run test:desktop
+        env:
+          FARMINGSTAR_DESKTOP_EXE: artifacts/desktop/win-unpacked/FarmingStar.exe
+          FARMINGSTAR_EXPECT_ARCH: x64
+      - name: Launch the actual portable executable and stage it
+        shell: pwsh
+        run: |
+          $version = (Get-Content release/release-config.json | ConvertFrom-Json).version
+          $exe = Resolve-Path "artifacts/desktop/FarmingStar-$version-Windows-x64.exe"
+          if ((Get-Item $exe).VersionInfo.ProductVersion -notlike "$version*") { throw 'Wrong EXE version' }
+          $env:FARMINGSTAR_E2E = '1'
+          $env:FARMINGSTAR_QA_DATA = Join-Path $env:RUNNER_TEMP 'farmingstar-portable-smoke'
+          $process = Start-Process $exe -PassThru
+          $found = $false
+          for ($i=0; $i -lt 45; $i++) {
+            Start-Sleep -Seconds 1
+            $game = Get-Process FarmingStar -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like '*FarmingStar*' }
+            if ($game) { $found = $true; $game | ForEach-Object { $_.CloseMainWindow() | Out-Null }; break }
+          }
+          if (-not $found) { throw 'Portable launcher did not open the game' }
+          New-Item -ItemType Directory -Force artifacts/release-windows | Out-Null
+          Copy-Item $exe artifacts/release-windows/
+          node tools/checksum_artifact.cjs "artifacts/release-windows/FarmingStar-$version-Windows-x64.exe"
+          Copy-Item release/evidence/windows-integrity.json artifacts/release-windows/Windows-integrity.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-windows
+          path: artifacts/release-windows/
+          if-no-files-found: error
+      - if: always()
+        run: node tools/ci_status.cjs windows '${{ job.status }}'
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: windows-evidence
+          path: release/evidence/
+
+  macos:
+    needs: shared
+    runs-on: macos-15-intel
+    permissions:
+      contents: write
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: node tools/ci_status.cjs macos running
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run desktop:install
+      - run: npm run build:macos
+      - run: node tools/verify_macos.cjs
+      - name: Verify and run the actual Universal DMG on Intel
+        run: |
+          dmg=$(find artifacts/desktop -name '*.dmg' -print -quit)
+          hdiutil verify "$dmg"
+          mkdir -p "$RUNNER_TEMP/farmingstar-mount"
+          hdiutil attach "$dmg" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/farmingstar-mount"
+          trap 'hdiutil detach "$RUNNER_TEMP/farmingstar-mount" || true' EXIT
+          FARMINGSTAR_EXPECT_ARCH=x64 FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
+          mkdir -p artifacts/release-macos
+          cp "$dmg" artifacts/release-macos/
+          staged=$(find artifacts/release-macos -name '*.dmg' -print -quit)
+          node tools/checksum_artifact.cjs "$staged"
+          cp release/evidence/macos-binaries.json artifacts/release-macos/macOS-integrity.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-macos
+          path: artifacts/release-macos/
+          if-no-files-found: error
+      - if: always()
+        run: node tools/ci_status.cjs macos '${{ job.status }}'
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: macos-intel-evidence
+          path: release/evidence/
+
+  macos-arm:
+    needs: macos
+    runs-on: macos-15
+    permissions:
+      contents: write
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          architecture: arm64
+          cache: npm
+      - run: node tools/ci_status.cjs macos-arm running
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: release-macos
+          path: downloaded/
+      - name: Run the shared Universal DMG on Apple Silicon
+        run: |
+          dmg=$(find downloaded -name '*.dmg' -print -quit)
+          hdiutil verify "$dmg"
+          mkdir -p "$RUNNER_TEMP/farmingstar-mount"
+          hdiutil attach "$dmg" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/farmingstar-mount"
+          trap 'hdiutil detach "$RUNNER_TEMP/farmingstar-mount" || true' EXIT
+          node tools/verify_macos.cjs "$RUNNER_TEMP/farmingstar-mount/FarmingStar.app"
+          FARMINGSTAR_EXPECT_ARCH=arm64 FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
+      - if: always()
+        run: node tools/ci_status.cjs macos-arm '${{ job.status }}'
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: macos-arm-evidence
+          path: release/evidence/
+
+  publish:
+    needs: [shared, android, windows, macos, macos-arm]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: release-*
+          path: artifacts/publish/
+          merge-multiple: true
+      - name: Publish all four tested downloads as the actual GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node tools/publish_release.cjs
+      - if: always()
+        run: node tools/ci_status.cjs release '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'

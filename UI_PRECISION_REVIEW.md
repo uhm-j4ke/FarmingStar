@@ -79,4 +79,4 @@ All eight established `npm test` suites passed, including the independent QA rep
 - Managed Chromium blocks file URLs. Offline behavior is tested over local HTTP with no external game dependencies; direct file launch remains a manual unrestricted-browser check.
 - No new confirmed save-corruption, duplication, crash or progression blocker remains from this pass. This is a regression-tested candidate for independent QA, not a claim that the game has no bugs.
 
-Latest screenshots are on the separate [`review/1.0-menu-previews` branch](https://github.com/uhm-j4ke/FarmingStar/tree/review/1.0-menu-previews/previews). The [running issue ledger](bug%20reports/UI_PRECISION_FIX_STATUS.md) distinguishes fixed issues from remaining review.
+Latest screenshots are on the separate [`review/1.0-menu-previews` branch](https://github.com/uhm-j4ke/FarmingStar/tree/archive/menu-previews-2026-11-11/previews). The [running issue ledger](bug%20reports/UI_PRECISION_FIX_STATUS.md) distinguishes fixed issues from remaining review.

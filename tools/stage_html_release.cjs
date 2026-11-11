@@ -1,0 +1,2 @@
+const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),{prepareWeb}=require('./prepare_web.cjs');
+prepareWeb();const out=path.join(__dirname,'../artifacts/release-html');fs.mkdirSync(out,{recursive:true});const file=path.join(out,'index.html');fs.copyFileSync(path.join(__dirname,'../dist/web/index.html'),file);cp.execFileSync(process.execPath,[path.join(__dirname,'checksum_artifact.cjs'),file],{stdio:'inherit'});

@@ -16,7 +16,7 @@ function prepareWeb(){
 const original=fs.readFileSync(path.join(root,'index.html')),html=prepareHTML(original.toString('utf8'));
 for(const rel of (process.argv.includes('--desktop-only')?['dist/web']:['dist/web','android/app/src/main/assets/web'])){
  const out=path.join(root,rel);fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'index.html'),html);
- fs.writeFileSync(path.join(out,'release.json'),JSON.stringify({version:cfg.version,channel:'Alpha',sourceHtmlSha256:crypto.createHash('sha256').update(original).digest('hex')},null,2)+'\n');
+ fs.writeFileSync(path.join(out,'release.json'),JSON.stringify({version:cfg.version,channel:cfg.prerelease?'Prerelease':'Release',sourceHtmlSha256:crypto.createHash('sha256').update(original).digest('hex')},null,2)+'\n');
 }
 console.log('Production HTML prepared: offline assets, hashed script policy, no diagnostic state API.');
 }
