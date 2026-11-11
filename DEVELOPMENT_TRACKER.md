@@ -1,6 +1,6 @@
 # FarmingStar 1.0 — development tracker
 
-**Current state: browser precision candidate implemented and automated checks passed; latest visual feedback remains pending. This is not a native release.**
+**Current state: 1.0.0 native packaging and GitHub release are authorised and building.**
 
 Playable changes are confined to `index.html`; tests, review documents and the existing production compiler flag are updated alongside it. Android, Windows and macOS installers, package metadata, existing beta downloads and releases remain unchanged until the user authorises platform rollout.
 
@@ -179,3 +179,9 @@ Existing test expectations were updated only for intentional changes: non-workin
 - All four reported P2 issues are fixed; none is left unresolved. New acceptance suites cover real keyboard/touch renewal, 72 housing combinations and legacy saves, multiple-hen detours/sealed replanning, and 24 arcade completion/input combinations with protected cooking/rest controls.
 - Full eight-suite `npm test` pass and related animal/furnishing/egg/cooking/arcade/controller/portable/developer/production checks pass. [Detailed handoff](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md), [running status](bug%20reports/QA_REPAIR_STATUS_2026-11-11.md), [verification evidence](bug%20reports/verification/2026-11-11/verification.json).
 - Browser source only. Save schema, native builds, package versions, beta downloads and releases are unchanged; physical native Back awaits a future authorised package/device check.
+
+## 1.0.0 platform rollout
+
+The user authorised Windows, macOS, Android test APK and standalone HTML packaging, public GitHub Release 1.0.0, and repository branch cleanup. The earlier packaging hold is superseded. Current build status and limitations are in [RELEASE_TEST_REPORT.md](RELEASE_TEST_REPORT.md); the GitHub release workflow publishes only after the shared and native gates pass.
+
+Remote branches now retain only `main` and `website`. Full feature/release histories are ancestors of main; preview and alpha tips are preserved under `archive/menu-previews-2026-11-11` and `archive/alpha-0.4.0` tags. No game features or save fields changed for packaging.

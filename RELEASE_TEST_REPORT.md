@@ -1,33 +1,19 @@
-# Alpha 0.4.0 test report — work in progress
+# FarmingStar 1.0.0 — verification status
 
-Source branch: `release/v0.4.0-alpha`, based on `98baeace979ae0bb8dce0012efde1e780585ae49`. This report separates browser checks, native storage instrumentation and packaged game execution. A successful build is not a runtime pass.
+Release run: https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406
 
-| Check | Result | Evidence / limits |
-|---|---|---|
-| Eight existing browser suites | PASS | 36 reported assertion groups, including 29 stability checks; retained run after portable-save changes |
-| Portable-save browser suite | PASS | Nine groups, including cancellation of delayed reads, replacement/backup, malformed files, rollback, interruption recovery, native contract and HTML-label safety |
-| Production HTML suite | PASS | No diagnostic state API, hashed script policy, offline assets, save/reload, lifecycle acknowledgement, failed writes, actual portable download/import |
-| Reproducible Android build command | PASS | Gradle wrapper, assembled APK and lint; test-signed output only |
-| Android lint | PASS with warnings | 0 errors, 8 warnings, including orientation recommendations and intentional JavaScript support |
-| Original native store instrumentation, API 35 | PASS | Four tests; these do not open the game |
-| Extended native import instrumentation | PASS, isolated | Seven cases on API 36 including batch commit, invalid member rejection and filesystem failure; first concurrent run was killed by a startup ANR before tests |
-| Packaged game on API 35 / WebView 124 | BLOCKED | Native renderer SIGTRAP reproduced in an independent minimal WebView app |
-| Packaged game on API 36 / WebView 133 | BLOCKED | Independent control also terminates with native SIGTRAP, including isolated retry; exact engine cause unknown |
-| Physical Android device | PASS — user reported | User reports the GitHub beta functions perfectly; device/OS details not supplied. Android is checked off and further work is paused |
-| Desktop store tests | PASS | Five groups, including whole-batch rejection, simulated rename failure, damaged-store preservation and unrelated export sibling preservation |
-| Electron source and packaged Linux QA app | PASS | Eleven scenario groups in each mode: exact embedded source/version, isolation, controls, bag/hotbar, WebAudio synthesis, viewport resizing, real file I/O, transfer, restart, errors and repeated-close acknowledgement |
-| Windows portable executable cross-build | PASS | Actual PE, AMD64 payload, correct icon/version, unsigned certificate status, exact production source |
-| Native Windows build / execution | PASS | [Windows job 129293790231](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129293790231): build, archive-path regression, PE/icon/version/source integrity, payload checksum, store faults, packaged x64 UI and actual portable launcher all passed on windows-2022. Windows 10/11 manual testing remains separate |
-| macOS Universal/DMG build | PASS on native Intel Mac | Run [42655400937](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937): all bundled Mach-O files contain both architectures; ad-hoc signature, icon/version and DMG integrity verified |
-| macOS Intel execution | PASS | [Native Intel job 129295994720](https://github.com/uhm-j4ke/FarmingStar/actions/runs/42655400937/job/129295994720) mounted the actual Universal DMG and passed embedded source/CPU checks, isolated offline startup, controls, WebAudio synthesis, fullscreen, resizing, real file transfer, restart and repeated close |
-| macOS Apple Silicon execution | UNVERIFIED | Both architectures are present in every bundled Mach-O binary, but the ARM runner remained queued. Fresh verification retains an actual arm64 process assertion |
-| Release signing / Apple notarisation | BLOCKED | No configured signing credentials |
-| GitHub release API | BLOCKED | Explicit destination denial; two-domain environment-settings draft saved, not applied |
+The user authorised all platform packages and actual GitHub Release publication. The previous packaging hold is superseded. This document records current results; the release is published only after the workflow gates pass.
 
-The emulator uses software CPU/GPU and no audio device. WebAudio state/synthesis checks cannot establish audible output. No FPS or battery claims are made from this environment.
+| Check | Status |
+| --- | --- |
+| Shared game / independent QA | Eight browser suites and four targeted repair suites passed before packaging; repeated in release CI |
+| Production HTML | Local PASS: offline/CSP, no developer/test API, creation, controls, saves, native lifecycle/back, portable transfer and failed writes |
+| Desktop save store | Local PASS: persistence, atomic replacement, malformed data and related-record rollback |
+| Linux Electron wrapper | Local PASS: 1.0.0/source hashes, isolated offline startup, movement/bag/hotbar/audio synthesis, resize, native file transfer, force-stop/relaunch and save-before-close |
+| Windows EXE | Native CI pending |
+| macOS Universal DMG / Intel runtime | Native CI pending |
+| macOS Apple Silicon runtime | Native CI pending |
+| Android test APK | Build/signature/source/lint verification pending; physical phone testing is assigned to the user |
+| Public release assets | Pending all gates |
 
-Native desktop dialog return paths are controlled in automation, while storage and portable file I/O are real. OS dialog interaction and audible playback remain manual/native checks. Linux QA uses a headless backend with `--no-sandbox` because of execution restrictions; the production wrapper requests renderer sandboxing, and the Mac/Windows tests use normal native launch flags.
-
-Publication remains gated. The Android APK has been committed to the user-requested `betas/` folder on GitHub main; this is separate from a GitHub Release. No release/tag has been created or published, and untested desktop execution is not represented as complete.
-
-Current native candidate links and artifact ZIP digests are retained in `release/native-candidates.json`. Public job step conclusions are captured in `release/evidence/native-ci-summary.json`; the downloadable archives contain the native test evidence and payload checksum sidecars. Local cross-build hashes are kept separate from the independently built native candidates.
+No claims of physical-phone, audible-output or real-controller certification are made. Earlier 0.4.0 device feedback is historical and does not verify the new build. See `release/history/0.4.0/` for the earlier packaging records.
