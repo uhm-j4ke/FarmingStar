@@ -8,10 +8,10 @@ permissions:
   contents: write
 concurrency:
   group: farmingstar-android-1.0-hotfix
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   android:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
       GH_TOKEN: ${{ github.token }}
