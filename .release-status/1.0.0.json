@@ -9,9 +9,9 @@
       "updatedAt": "2026-11-11T16:09:55.346Z"
     },
     "android": {
-      "state": "running",
-      "url": "",
-      "updatedAt": "2026-11-11T16:10:13.918Z"
+      "state": "success",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/tree/main/betas",
+      "updatedAt": "2026-11-11T16:11:44.025Z"
     },
     "windows": {
       "state": "running",
