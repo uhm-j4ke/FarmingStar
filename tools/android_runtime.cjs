@@ -1,12 +1,12 @@
 // Real installed APK checks. No game-state mutation hooks are used.
-const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),http=require('node:http'),assert=require('node:assert/strict'),{_android,chromium}=require('playwright');
+const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),http=require('node:http'),assert=require('node:assert/strict'),{_android}=require('playwright');
 const root=path.join(__dirname,'..'),adb=process.env.ADB||(process.env.ANDROID_HOME?path.join(process.env.ANDROID_HOME,'platform-tools',process.platform==='win32'?'adb.exe':'adb'):'adb'),pkg=process.env.ANDROID_PACKAGE||'io.github.uhmj4ke.farmingstar.test',rows=[],out=path.join(root,'release/evidence');fs.mkdirSync(out,{recursive:true});
 function run(args,timeout=25000){return cp.execFileSync(adb,args,{encoding:'utf8',timeout,env:process.env}).trim()}
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 function record(id,details){rows.push({id,status:'PASS',details});console.log('PASS:',id,JSON.stringify(details||{}))}
-function write(error){fs.writeFileSync(path.join(out,'android-runtime.json'),JSON.stringify({recordedAt:new Date().toISOString(),testScriptCommit:process.env.GITHUB_SHA,apkBuildCommit:process.env.FARMINGSTAR_ANDROID_BUILD_COMMIT||process.env.GITHUB_SHA,package:pkg,environment:`Android emulator, API ${process.env.ANDROID_API||'unspecified'}, x86_64, CPU acceleration: ${process.env.ANDROID_ACCELERATION||'unspecified'}; not a physical device`,audio:'WebAudio synthesis/context checks attempted; emulator uses no-audio, audible speaker output unverified',rows,error:error||null},null,2)+'\n')}
+function write(error){let nativeErrors=[];if(error)try{const logs=run(['logcat','-d','-t','1500'],10000);fs.writeFileSync(path.join(out,'android-hotfix-logcat.txt'),logs);nativeErrors=logs.split('\n').filter(line=>/FarmingStar|AndroidRuntime|chromium|Fatal|SIGSEGV|SIGABRT/.test(line)).slice(-70)}catch{}fs.writeFileSync(path.join(out,'android-runtime.json'),JSON.stringify({recordedAt:new Date().toISOString(),testScriptCommit:process.env.GITHUB_SHA,apkBuildCommit:process.env.FARMINGSTAR_ANDROID_BUILD_COMMIT||process.env.GITHUB_SHA,package:pkg,environment:`Android emulator, API ${process.env.ANDROID_API||'unspecified'}, x86_64, CPU acceleration: ${process.env.ANDROID_ACCELERATION||'unspecified'}; not a physical device`,audio:'WebAudio synthesis/context checks attempted; emulator uses no-audio, audible speaker output unverified',rows,nativeErrors,error:error||null},null,2)+'\n')}
 const runtimeDeadline=setTimeout(()=>{write('BLOCKED: native runtime verification exceeded eight minutes; no missing checks are marked passed.');process.exit(1)},8*60*1000);
-let device;const forwardPorts=[];
+let device;
 async function waitForDocument(){
  let port;
  try{
@@ -24,15 +24,12 @@ async function waitForDocument(){
 async function connect(){
  const pid=await waitForDocument();
  if(!device){const devices=await _android.devices({host:'127.0.0.1',port:5037});device=devices.find(d=>!process.env.ANDROID_SERIAL||d.serial()===process.env.ANDROID_SERIAL);if(!device)throw Error('Requested Android device is not connected')}
- // AndroidWebView.page() caches an undefined page if target attachment races context creation.
- // Use the public CDP connection API and wait for the real target instead of polling that cache.
- const port=run(['forward','tcp:0','localabstract:webview_devtools_remote_'+pid]);forwardPorts.push(port);
- const browser=await chromium.connectOverCDP('http://127.0.0.1:'+port,{timeout:120000});
- const context=browser.contexts()[0];if(!context)throw Error('Android CDP has no browser context');
- let page=context.pages().find(p=>p.url().includes('appassets.androidplatform.net'));
- if(!page)page=await context.waitForEvent('page',{timeout:120000});
+ // prepare_android_driver.cjs makes the pinned Android helper await target readiness.
+ // Android mode preserves WebView capabilities instead of issuing desktop-only download commands.
+ const view=await device.webView({socketName:'webview_devtools_remote_'+pid},{timeout:120000});
+ const page=await view.page();if(!page)throw Error('Android target was not attached after readiness wait');
  await page.waitForURL('https://appassets.androidplatform.net/index.html',{timeout:120000});
- page.setDefaultTimeout(90000);return {browser,page};
+ page.setDefaultTimeout(90000);return {browser:page.context().browser(),page};
 }
 
 function nativeSave(){const all=JSON.parse(run(['shell','run-as',pkg,'cat','files/farmingstar-storage.json']));return JSON.parse(all['farmingstar.moss-ember.slot.1'])}
@@ -84,5 +81,5 @@ async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycl
   const saved=await snapshot(page);run(['shell','am','force-stop',pkg]);if(browser)await browser.close().catch(()=>{});else await page.context().close().catch(()=>{});browser=null;run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);({browser,page}=await connect());await page.getByRole('button',{name:'Continue your farm'}).click();const restored=await snapshot(page);
   for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture'])assert.deepEqual(restored[key],saved[key]);record('ANDROID-FORCE-STOP-RELAUNCH',{savedFarm:restored.farmId,coins:restored.coins});
   assert.deepEqual(errors,[]);record('ANDROID-JS-ERRORS',{count:errors.length});write();
- }catch(e){write(e.stack||e.message);throw e}finally{if(browser)await browser.close().catch(()=>{});if(device)await device.close().catch(()=>{});for(const port of forwardPorts)try{run(['forward','--remove','tcp:'+port])}catch{}clearTimeout(runtimeDeadline)}
+ }catch(e){write(e.stack||e.message);throw e}finally{if(browser)await browser.close().catch(()=>{});if(device)await device.close().catch(()=>{});clearTimeout(runtimeDeadline)}
 })().catch(e=>{console.error(e);process.exitCode=1});
