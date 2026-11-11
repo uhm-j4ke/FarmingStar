@@ -39,3 +39,9 @@ Windows is unsigned; macOS uses an ad-hoc signature without Developer ID notaris
 Remote branches are exactly `main` and `website`; old preview/release histories remain archived in main and tags. No game source or save schema changed during packaging.
 
 At the user’s request, the 1.0.0 release attachments were reduced to the APK, EXE, DMG and `index.html`. Metadata/checksum/integrity attachments were removed; verification records remain in this repository. The cleanup checked that all four game assets retained their original identities and sizes, and the public asset list was independently verified. [Cleanup run](https://github.com/uhm-j4ke/FarmingStar/actions/runs/43065724462). GitHub’s automatic source archives remain.
+
+## Android-only build 10001
+
+The prior build 10000 was reported working by the user. This updated APK passed signature continuity, version/label/permissions/source checks, eight browser suites and targeted camera/multi-touch/audio regressions. API 35 emulator startup, in-place upgrade from build 10000, saved-farm preservation, landscape, inventory and two-finger controls passed. The final asynchronous audio resume assertion and remaining native Back/background/relaunch/storage checks are still pending; the last audio probe sampled a suspended state before waiting for resume. These are not claimed as passes. Real speaker output and this new build on the user’s physical phone remain pending. Only the Android release attachment changed; the original EXE, DMG and HTML asset identities were verified unchanged.
+
+[Android-only workflow](https://github.com/uhm-j4ke/FarmingStar/actions/runs/43102962271).

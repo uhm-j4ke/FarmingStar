@@ -1,4 +1,4 @@
 550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a  index.html
-77d856a11f6b078d487383b47e56932f51a440eb3161752e21fd8f2d72870c11  FarmingStar-1.0.0-Android-TEST.apk
+c66c59bcadc56eb6e6ddf10a2108c55275559c14a98d9b3e5a3ba57ef3f555bf  FarmingStar-1.0.0-Android.apk
 b1f89d2b90be42018de1b7c68d39c08b46525415c5a3d86a3fbf64de6453f776  FarmingStar-1.0.0-Windows-x64.exe
 79d4279a3ca29391c1648d35d9bbd97be7eced010d8dcc075c58206f81559f10  FarmingStar-1.0.0-macOS-Universal.dmg

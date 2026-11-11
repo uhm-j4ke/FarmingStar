@@ -1,0 +1,76 @@
+{
+  "recordedAt": "2026-11-11T18:03:04.782Z",
+  "testScriptCommit": "1590e6e04658fa9ec1f69fc5be0d09960d7a8646",
+  "apkBuildCommit": "f9631e5b0c8870279678989c14144e8d8e1798f8",
+  "package": "io.github.uhmj4ke.farmingstar.test",
+  "environment": "Android emulator, API 35, x86_64, CPU acceleration: KVM; not a physical device",
+  "audio": "WebAudio synthesis/context checks attempted; emulator uses no-audio, audible speaker output unverified",
+  "rows": [
+    {
+      "id": "ANDROID-OFFLINE-CONFIG",
+      "status": "PASS",
+      "details": {
+        "wifi": "disabled",
+        "mobileData": "disabled"
+      }
+    },
+    {
+      "id": "ANDROID-STARTUP",
+      "status": "PASS",
+      "details": {
+        "title": "FarmingStar · Moss & Ember",
+        "diagnostics": "absent",
+        "url": "https://appassets.androidplatform.net/index.html"
+      }
+    },
+    {
+      "id": "ANDROID-NATIVE-SAVE",
+      "status": "PASS",
+      "details": {
+        "farmId": "6a4ebfdb-ce1c-494f-89c0-0258390a9fd7",
+        "coins": 120,
+        "bagSlots": 10,
+        "storage": "files/farmingstar-storage.json"
+      }
+    },
+    {
+      "id": "ANDROID-IN-PLACE-UPGRADE",
+      "status": "PASS",
+      "details": {
+        "fromVersionCode": 10000,
+        "toVersionCode": 10001,
+        "farmId": "6a4ebfdb-ce1c-494f-89c0-0258390a9fd7",
+        "identity": "same package and signing certificate; existing farm preserved"
+      }
+    },
+    {
+      "id": "ANDROID-LANDSCAPE",
+      "status": "PASS",
+      "details": {
+        "width": 732,
+        "height": 412,
+        "mobile": true
+      }
+    },
+    {
+      "id": "ANDROID-BAG-HOTBAR",
+      "status": "PASS"
+    },
+    {
+      "id": "ANDROID-MULTITOUCH-MOVE-TOOL",
+      "status": "PASS",
+      "details": {
+        "before": [
+          204,
+          228
+        ],
+        "after": [
+          246.83490793650748,
+          228
+        ]
+      }
+    }
+  ],
+  "nativeErrors": [],
+  "error": "AssertionError [ERR_ASSERTION]: Audio activation after real input: {\"states\":[\"suspended\"],\"sources\":93}\n    at /home/runner/work/FarmingStar/FarmingStar/tools/android_runtime.cjs:75:118"
+}

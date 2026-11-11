@@ -10,7 +10,7 @@ The [1.0.0 GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/
 | --- | --- |
 | Windows x64 | [Portable EXE](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Windows-x64.exe) |
 | macOS, Intel and Apple Silicon | [Universal DMG](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-macOS-Universal.dmg) |
-| Android phone testing | [Test APK](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Android-TEST.apk) |
+| Android phone testing | [Android APK](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Android.apk) |
 | Any modern browser | [Standalone index.html](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/index.html) |
 
 [Published release verification](RELEASE_TEST_REPORT.md) · [What's new](release/RELEASE_NOTES.md) · [QA repairs](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md)
