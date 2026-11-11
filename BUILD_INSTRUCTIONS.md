@@ -27,7 +27,7 @@ npm run build:android:test
 node tools/verify_android.cjs
 ```
 
-Output: `artifacts/FarmingStar-1.0.0-Android-TEST.apk`. It uses package `io.github.uhmj4ke.farmingstar.test`, app-private atomic saves, landscape controls, native Back and document save transfer, with no Internet permission. The test key is ignored by Git and cached privately by the Android workflow. Cache loss/older independently generated keys can change the test certificate: export the old app's save before uninstalling if Android rejects an update.
+Output: `artifacts/FarmingStar-1.0.0-Android.apk`, installed as **FarmingStar**. Android build 10001 retains version name 1.0.0 and the existing signing identity. It uses package `io.github.uhmj4ke.farmingstar.test`, app-private atomic saves, landscape controls, native Back and document save transfer, with no Internet permission. The test key is ignored by Git and cached privately by the Android workflow. Cache loss/older independently generated keys can change the test certificate: export the old app's save before uninstalling if Android rejects an update.
 
 Release signing remains a separate option: securely configure `FARMINGSTAR_KEYSTORE`, `FARMINGSTAR_STORE_PASSWORD`, `FARMINGSTAR_KEY_ALIAS` and `FARMINGSTAR_KEY_PASSWORD`, then `npm run build:android:release`. Never commit signing keys or passwords. Public 1.0.0's Android asset is explicitly the requested **test** APK; user device verification follows distribution.
 
@@ -72,3 +72,11 @@ This stages the production `index.html` and checksums. Root source retains devel
 Automatic pushes skip an already tagged version to avoid duplicate builds; manually dispatch to resume an unpublished tag. A `[release maintenance]` commit cancels obsolete builds and skips new ones. The publisher verifies an existing tag and omits a target override; the normal publish job creates the tag through Git after build gates pass.
 
 Use a fresh version/tag for each public update; published versions are not silently replaced. Keep `main` for source and `website` for production HTML. Preview and alpha history remains under archive tags. Physical phones/controllers, audible output and extended hardware performance remain separate checks.
+
+## Android-only 1.0.0 refresh
+
+`.github/workflows/android-1.0-hotfix.yml` resumes native verification of the APK built in run `43069874793`. That original job passed all eight game suites, targeted camera/multi-touch/audio regressions, production packaging, Android compilation/lint and certificate continuity. Reused APKs are verified against the exact current production HTML before native testing. Build and verification commits are recorded separately.
+
+The native checks install the previous build 10000, create a real native save, install build 10001 in place and check preservation. WebView testing connects over the public CDP API and waits for its target; it avoids the cached-empty-page race in Playwright's Android WebView helper. The hosted API 35 emulator also checks controls, generated audio, Back/lifecycle, relaunch and native storage. Physical speaker output and phone performance still need user testing.
+
+Only `FarmingStar-1.0.0-Android.apk` is uploaded by the dedicated hotfix publisher. It verifies the other three release asset identities, removes the previous TEST-named APK only after the new upload succeeds, and leaves four game downloads. It does not rebuild or update the desktop apps, standalone release HTML or website.

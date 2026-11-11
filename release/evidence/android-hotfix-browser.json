@@ -1,0 +1,288 @@
+{
+  "camera": [
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "dpr": 2.75,
+      "playerScreenRange": 0.5195599299349851,
+      "duplicateResizeJump": 0,
+      "backingPixels": 1233036,
+      "viewportPixels": 329160,
+      "camera": {
+        "x": 386.33148202995307,
+        "y": 318,
+        "scale": 3.6363636363636362,
+        "vw": 233,
+        "vh": 108,
+        "density": 7,
+        "drawX": 386.2857142857143,
+        "drawY": 318
+      }
+    },
+    {
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "dpr": 3,
+      "playerScreenRange": 0.5238896178889831,
+      "duplicateResizeJump": 0,
+      "backingPixels": 1384250,
+      "viewportPixels": 376980,
+      "camera": {
+        "x": 377.83148202995307,
+        "y": 315.5,
+        "scale": 3.6666666666666665,
+        "vw": 250,
+        "vh": 113,
+        "density": 7,
+        "drawX": 377.85714285714283,
+        "drawY": 315.57142857142856
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dpr": 2,
+      "playerScreenRange": 6.102025508880615e-05,
+      "duplicateResizeJump": 0,
+      "backingPixels": 1318200,
+      "viewportPixels": 329160,
+      "camera": {
+        "x": 424.83148202995307,
+        "y": 203,
+        "scale": 2.5,
+        "vw": 156,
+        "vh": 338,
+        "density": 5,
+        "drawX": 424.8,
+        "drawY": 203
+      }
+    }
+  ],
+  "audio": {
+    "choices": [
+      {
+        "id": "0:day:farm",
+        "season": 0,
+        "period": "day",
+        "place": "farm",
+        "notes": [
+          60,
+          64,
+          67,
+          72,
+          71,
+          67,
+          65,
+          64,
+          62,
+          65,
+          69,
+          74,
+          72,
+          69,
+          67,
+          64
+        ],
+        "beat": 0.5
+      },
+      {
+        "id": "0:night:farm",
+        "season": 0,
+        "period": "night",
+        "place": "farm",
+        "notes": [
+          69,
+          72,
+          76,
+          74,
+          72,
+          69,
+          67,
+          64,
+          65,
+          69,
+          72,
+          71,
+          67,
+          65,
+          64,
+          60
+        ],
+        "beat": 0.72
+      },
+      {
+        "id": "1:day:farm",
+        "season": 1,
+        "period": "day",
+        "place": "farm",
+        "notes": [
+          67,
+          69,
+          71,
+          74,
+          76,
+          74,
+          71,
+          69,
+          72,
+          76,
+          79,
+          77,
+          76,
+          72,
+          71,
+          67
+        ],
+        "beat": 0.44
+      },
+      {
+        "id": "1:night:farm",
+        "season": 1,
+        "period": "night",
+        "place": "farm",
+        "notes": [
+          64,
+          67,
+          71,
+          74,
+          72,
+          71,
+          67,
+          64,
+          62,
+          65,
+          69,
+          72,
+          71,
+          69,
+          65,
+          62
+        ],
+        "beat": 0.65
+      },
+      {
+        "id": "2:day:farm",
+        "season": 2,
+        "period": "day",
+        "place": "farm",
+        "notes": [
+          57,
+          60,
+          64,
+          67,
+          69,
+          67,
+          64,
+          60,
+          62,
+          65,
+          69,
+          67,
+          65,
+          62,
+          60,
+          57
+        ],
+        "beat": 0.57
+      },
+      {
+        "id": "2:night:farm",
+        "season": 2,
+        "period": "night",
+        "place": "farm",
+        "notes": [
+          57,
+          64,
+          67,
+          71,
+          69,
+          67,
+          64,
+          60,
+          55,
+          62,
+          65,
+          69,
+          67,
+          64,
+          60,
+          57
+        ],
+        "beat": 0.78
+      },
+      {
+        "id": "3:day:farm",
+        "season": 3,
+        "period": "day",
+        "place": "farm",
+        "notes": [
+          62,
+          65,
+          69,
+          74,
+          72,
+          69,
+          65,
+          64,
+          60,
+          64,
+          67,
+          72,
+          69,
+          67,
+          65,
+          62
+        ],
+        "beat": 0.64
+      },
+      {
+        "id": "3:night:farm",
+        "season": 3,
+        "period": "night",
+        "place": "farm",
+        "notes": [
+          62,
+          69,
+          74,
+          77,
+          76,
+          74,
+          69,
+          65,
+          60,
+          67,
+          72,
+          76,
+          74,
+          69,
+          65,
+          62
+        ],
+        "beat": 0.84
+      }
+    ],
+    "boostAtSavedMaster": 1.7999999999999998,
+    "muteLevel": 0,
+    "styles": [
+      "soft",
+      "chip",
+      "plucked"
+    ],
+    "limited": true,
+    "saved": {
+      "master": 0.35,
+      "music": 0.2,
+      "sfx": 0.15
+    }
+  },
+  "recordedAt": "2026-11-11T17:51:26.161661+00:00",
+  "sourceHtmlSha256": "70121b71cc32157f9c941fcf14859737d6cf9124a46a0983672ac4c01c6025c9",
+  "environment": "Cloud Chromium with real CDP multi-touch; device-sized viewports, not physical-phone performance certification",
+  "sameSourceCIRun": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43069874793"
+}

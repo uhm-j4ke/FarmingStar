@@ -200,3 +200,9 @@ Remote branches now retain only `main` and `website`. Full feature/release histo
 - Louder limited output, saved/muted volume choices, explicit music styles and eight distinct day/night/seasonal scores pass targeted browser tests. All eight game suites plus tool/audio, constant tool scale and production packaging checks pass locally.
 - Android display name is FarmingStar. Version code 10001 preserves version name 1.0.0, the existing package ID and cached signing key. CI refuses publication if signing continuity fails. Native upgrade/runtime verification and publication status are recorded after the Android-only job completes.
 - The user’s separate cloud emulator is not exposed through this workspace’s tools/adb ports. An isolated hosted Android emulator is configured for the build's native checks; no unavailable emulator or physical-phone check is claimed as passed.
+
+### Native Android verification follow-up
+
+- The first Android-only CI build passed the eight game suites, targeted camera/audio/multi-touch checks, production packaging, Gradle build/lint, app-label/version/source checks and certificate continuity. The verified APK is retained as an immutable CI artifact.
+- Its first emulator run exposed a test-harness race: the live WebView target was found, but Playwright's AndroidWebView.page() cached an undefined initial page. Replaced that attachment path with public CDP connection plus explicit page readiness. No app failure is inferred from that harness result; native checks are being rerun on the same APK.
+- Independently reproduced the previous second-finger joystick reversal on the original source. The corrected source passes the equivalent real multi-touch case.
