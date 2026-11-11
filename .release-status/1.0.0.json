@@ -32,6 +32,12 @@
       "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130643996630",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43062657805",
       "updatedAt": "2026-11-11T16:53:10.750Z"
+    },
+    "macos": {
+      "state": "success",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130643996464",
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43062657805",
+      "updatedAt": "2026-11-11T16:53:12.145Z"
     }
   }
 }
