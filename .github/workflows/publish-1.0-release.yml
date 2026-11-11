@@ -10,10 +10,10 @@ permissions:
   actions: write
 concurrency:
   group: farmingstar-publication-1.0.0
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   publish:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     env:
       FARMINGSTAR_BUILD_COMMIT: 580ed820abbc87b0992f05004d4493debf29ea97
@@ -43,7 +43,7 @@ jobs:
         run: |
           node - <<'NODE'
           const cp=require('node:child_process');
-          const r=cp.spawnSync(process.execPath,['tools/publish_release.cjs'],{encoding:'utf8',maxBuffer:16*1024*1024});
+          const r=cp.spawnSync(process.execPath,['tools/publish_release.cjs'],{encoding:'utf8',maxBuffer:16*1024*1024,env:{...process.env,GH_DEBUG:'api'}});
           process.stdout.write(r.stdout||'');
           if(r.status!==0){
             let message=(r.stderr||r.error?.message||'Publisher failed without stderr').slice(-12000);
