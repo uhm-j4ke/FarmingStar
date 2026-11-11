@@ -4,10 +4,10 @@
   "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43059212731",
   "platforms": {
     "shared": {
-      "state": "running",
+      "state": "success",
       "url": "",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43059212731",
-      "updatedAt": "2026-11-11T16:38:19.989Z"
+      "updatedAt": "2026-11-11T16:41:05.847Z"
     }
   }
 }
