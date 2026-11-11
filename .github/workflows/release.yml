@@ -8,9 +8,10 @@ permissions:
   contents: read
 concurrency:
   group: farmingstar-release
-  cancel-in-progress: false
+  cancel-in-progress: ${{ contains(github.event.head_commit.message, '[release maintenance]') }}
 jobs:
   version:
+    if: ${{ !contains(github.event.head_commit.message, '[release maintenance]') }}
     runs-on: ubuntu-24.04
     outputs:
       build: ${{ steps.check.outputs.build }}
@@ -281,6 +282,12 @@ jobs:
       - name: Publish all four tested downloads as the actual GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node tools/publish_release.cjs
+        run: |
+          tag=$(node -p "require('./release/release-config.json').tag")
+          if ! git ls-remote --exit-code origin "refs/tags/$tag" >/dev/null; then
+            git tag "$tag" "$GITHUB_SHA"
+            git push origin "refs/tags/$tag"
+          fi
+          node tools/publish_release.cjs
       - if: always()
         run: node tools/ci_status.cjs release '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
