@@ -1,5 +1,5 @@
 {
   "version": "1.0.0",
-  "channel": "Release",
-  "sourceHtmlSha256": "c8a808c8798d56470ec79d8dc112034432086b1498a099821926f61b8952ede2"
+  "commit": "580ed820abbc87b0992f05004d4493debf29ea97",
+  "htmlSha256": "550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a"
 }
