@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-11-11T20:58:57.619483+00:00",
+  "version": "1.0.0",
+  "androidVersionCode": 10001,
+  "appName": "FarmingStar",
+  "apkName": "FarmingStar-1.0.0-Android.apk",
+  "apkBuildCommit": "f9631e5b0c8870279678989c14144e8d8e1798f8",
+  "artifactDownload": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43069874793/artifacts/13878975051",
+  "artifactScope": "GitHub Actions ZIP containing the APK; sign-in required",
+  "artifactZipSha256": "b8d88315d2445c9493024c4df12eb7d4425a50813a217a6a4c93cdf5aa8b749a",
+  "passed": [
+    "Eight existing browser suites",
+    "Camera/resize and real multi-touch regressions",
+    "Eight distinct seasonal day/night scores, volume/mute persistence",
+    "Production HTML and tool/audio/scale checks",
+    "Android build/lint, app label/version/source/permissions checks",
+    "Signing continuity with installed 1.0.0",
+    "API 35 emulator in-place upgrade and saved-farm preservation",
+    "API 35 emulator startup, landscape, bag/hotbar and two-finger movement/tool input"
+  ],
+  "pending": [
+    "Final native audio resume assertion after waiting for its asynchronous transition",
+    "Remaining native Back/background/relaunch and storage instrumentation checks",
+    "Physical-phone camera, speaker and performance review"
+  ],
+  "publication": {
+    "state": "Queued; new APK not yet attached to release",
+    "workflow": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43098136425",
+    "queueDiagnostic": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43098725839",
+    "requestedScope": "Replace only the Android APK in existing v1.0.0; preserve EXE, DMG, standalone HTML and website"
+  }
+}

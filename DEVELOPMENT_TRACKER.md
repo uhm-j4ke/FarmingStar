@@ -206,3 +206,9 @@ Remote branches now retain only `main` and `website`. Full feature/release histo
 - The first Android-only CI build passed the eight game suites, targeted camera/audio/multi-touch checks, production packaging, Gradle build/lint, app-label/version/source checks and certificate continuity. The verified APK is retained as an immutable CI artifact.
 - Its first emulator run exposed a test-harness race: the live WebView target was found, but Playwright's AndroidWebView.page() cached an undefined initial page. Replaced that attachment path with public CDP connection plus explicit page readiness. No app failure is inferred from that harness result; native checks are being rerun on the same APK.
 - Independently reproduced the previous second-finger joystick reversal on the original source. The corrected source passes the equivalent real multi-touch case.
+
+### Android handoff while the final hosted check is queued
+
+- API 35 emulator verification now confirms the actual build 10000 → 10001 in-place install, saved farm, offline startup, landscape layout, inventory and two-finger controls. The final audio assertion sampled immediately after asynchronous resume; the corrected test waits for completion. An independent local check reproduced the transient `suspended` → `running` state.
+- The final workflow is queued on Ubuntu 24.04 after an Ubuntu 22.04 attempt remained queued. A separate Windows queue diagnostic is also queued; no publishing step has started. The release still contains its previous APK at this checkpoint. No pending check is recorded as passed.
+- The already-built APK is downloadable as the signed-in GitHub Actions artifact linked in [the current handoff](release/evidence/android-hotfix-handoff.json). The queued workflow will replace only the APK if all remaining native gates pass. Windows/macOS/standalone release HTML/website remain on their original payloads.
