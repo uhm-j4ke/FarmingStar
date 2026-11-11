@@ -5,11 +5,12 @@ if(!fs.existsSync(apk))throw Error('Verified APK missing');
 const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'farmingstar-beta-')),env={...process.env,GIT_INDEX_FILE:path.join(temporary,'index'),GIT_AUTHOR_NAME:'FarmingStar releases',GIT_AUTHOR_EMAIL:'actions@users.noreply.github.com',GIT_COMMITTER_NAME:'FarmingStar releases',GIT_COMMITTER_EMAIL:'actions@users.noreply.github.com'},git=(args,input)=>cp.execFileSync('git',args,{encoding:'utf8',input,env}).trim();
 try{git(['fetch','origin','refs/heads/main']);const base=git(['rev-parse','FETCH_HEAD']);if(git(['show',base+':index.html'])!==fs.readFileSync('index.html','utf8').trim())throw Error('Main game changed during packaging; do not attach stale beta');git(['read-tree',base]);const add=(target,data,isFile=false)=>{const blob=isFile?git(['hash-object','-w',data]):git(['hash-object','-w','--stdin'],data);git(['update-index','--add','--cacheinfo','100644',blob,target])};add('betas/'+name,apk,true);add('betas/'+name+'.sha256',integrity.apkSha256+'  '+name+'\n');
 if(process.env.FARMINGSTAR_ANDROID_HOTFIX==='1'){
+ const buildCommit=process.env.FARMINGSTAR_ANDROID_BUILD_COMMIT||process.env.GITHUB_SHA;
  const manifest=JSON.parse(git(['show',base+':release/published-manifest.json']));
  const old=manifest.artifacts.find(a=>a.name.endsWith('.apk'));
  if(old.name.includes('-TEST'))add('release/history/1.0.0-initial/published-manifest.json',JSON.stringify(manifest,null,2)+'\n');
- manifest.artifacts=manifest.artifacts.map(a=>a.name.endsWith('.apk')?{name,bytes:fs.statSync(apk).size,sha256:integrity.apkSha256,buildCommit:process.env.GITHUB_SHA,versionCode:integrity.versionCode}:a);
- manifest.androidUpdate={versionCode:integrity.versionCode,commit:process.env.GITHUB_SHA,run:`https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,sameSigningCertificate:true};
+ manifest.artifacts=manifest.artifacts.map(a=>a.name.endsWith('.apk')?{name,bytes:fs.statSync(apk).size,sha256:integrity.apkSha256,buildCommit,versionCode:integrity.versionCode}:a);
+ manifest.androidUpdate={versionCode:integrity.versionCode,commit:buildCommit,verificationCommit:process.env.GITHUB_SHA,run:`https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,sameSigningCertificate:true};
  manifest.nativeChecks.android='Build/lint/signature/source and emulator in-place upgrade/runtime passed; phone check pending';
  add('release/published-manifest.json',JSON.stringify(manifest,null,2)+'\n');
  const read=name=>git(['show',base+':'+name]);
