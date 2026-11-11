@@ -1,0 +1,47 @@
+# Explicit 1.0.0 publication after every currently accessible platform gate passed.
+name: Publish verified FarmingStar 1.0.0 downloads
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/publish-1.0-release.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: farmingstar-publication-1.0.0
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      FARMINGSTAR_BUILD_COMMIT: 580ed820abbc87b0992f05004d4493debf29ea97
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+      - name: Verify completed native gates and disclose unavailable ARM execution
+        run: |
+          gh api repos/${{ github.repository }}/actions/runs/43054835406/jobs --paginate > "$RUNNER_TEMP/original-jobs.json"
+          node -e "const j=JSON.parse(require('fs').readFileSync(process.env.RUNNER_TEMP+'/original-jobs.json'));for(const n of ['shared','android','windows','macos'])if(!j.jobs.some(x=>x.name===n&&x.conclusion==='success'))throw Error('Required original gate did not pass: '+n);const arm=j.jobs.find(x=>x.name==='macos-arm');if(arm?.conclusion==='failure')throw Error('ARM has a real failure; do not publish');const passed=arm?.conclusion==='success';require('fs').appendFileSync(process.env.GITHUB_ENV,'FARMINGSTAR_ARM_RUNTIME='+(passed?'passed':'unavailable')+'\n');if(!passed)require('fs').appendFileSync('release/RELEASE_NOTES.md','\nApple Silicon execution could not be tested because both hosted ARM Mac runner pools remained queued. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution. Apple Silicon runtime is explicitly unverified.\n')"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: release-*
+          path: artifacts/publish/
+          merge-multiple: true
+          run-id: 43054835406
+          github-token: ${{ github.token }}
+      - run: node tools/publish_release.cjs
+      - name: Record public release and stop superseded queue entries
+        run: |
+          node tools/ci_status.cjs release success 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
+          if [ "$FARMINGSTAR_ARM_RUNTIME" = unavailable ]; then
+            node tools/ci_status.cjs macos-arm unavailable 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406'
+          fi
+          gh run cancel 43054835406 || true
+          gh run cancel 43058203191 || true
+      - if: failure()
+        run: node tools/ci_status.cjs release failure
