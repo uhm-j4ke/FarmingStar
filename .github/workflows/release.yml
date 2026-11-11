@@ -113,7 +113,7 @@ jobs:
       - name: Stage APK and integrity evidence
         run: |
           mkdir -p artifacts/release-android
-          cp artifacts/FarmingStar-*-Android-TEST.apk artifacts/release-android/
+          cp artifacts/FarmingStar-*-Android.apk artifacts/release-android/
           cp release/evidence/android-integrity.json artifacts/release-android/Android-integrity.json
           apk=$(find artifacts/release-android -name '*.apk' -print -quit)
           node tools/checksum_artifact.cjs "$apk"

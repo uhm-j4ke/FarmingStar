@@ -16,4 +16,4 @@ const tasks=release?[':app:assembleRelease',':app:lintRelease']:[':app:assembleD
 if(process.platform==='win32')run('cmd.exe',['/d','/s','/c','gradlew.bat','--no-daemon',...tasks],path.join(root,'android'));
 else run('./gradlew',['--no-daemon',...tasks],path.join(root,'android'));
 const source=path.join(root,'android/app/build/outputs/apk',release?'release/app-release.apk':'debug/app-debug.apk'),out=path.join(root,'artifacts');fs.mkdirSync(out,{recursive:true});
-const target=path.join(out,`FarmingStar-${cfg.version}-Android${release?'':'-TEST'}.apk`);fs.copyFileSync(source,target);console.log('Built '+target+'; runtime verification is a separate required check.');
+const target=path.join(out,`FarmingStar-${cfg.version}-Android.apk`);fs.copyFileSync(source,target);console.log('Built '+target+'; runtime verification is a separate required check.');

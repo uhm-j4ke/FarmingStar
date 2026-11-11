@@ -11,3 +11,9 @@ The Android APK is test-signed and ready for your device testing. If Android ref
 Windows is unsigned; macOS uses an ad-hoc signature and is not Apple-notarised. Device-specific sound, performance and physical-controller checks remain separate from automated build/runtime verification.
 
 Apple Silicon execution remains unverified: hosted ARM runners could not be allocated. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution.
+
+## Android-only refresh — build 10001
+
+The Android app is now named **FarmingStar**, with smoother camera tracking, reliable multi-touch joystick control, fuller sound with adjustable volume, and separate day/night music for each season. This APK retains the previous 1.0.0 package and signing identity for an in-place update with existing saves.
+
+Only the Android APK is updated in this refresh. The Windows, macOS and standalone HTML downloads remain the original 1.0.0 build.

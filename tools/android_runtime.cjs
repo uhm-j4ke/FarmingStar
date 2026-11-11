@@ -36,6 +36,18 @@ async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycl
  try{
   console.log('Waiting for Android package service and boot');
   for(let i=0;i<100;i++){try{if(run(['shell','getprop','sys.boot_completed'],10000)==='1')break}catch{}if(i===99)throw Error('Emulator boot not complete');if(i%10===0)console.log('Emulator still booting');await delay(3000)}
+  let upgradeState=null;
+  if(process.env.FARMINGSTAR_PREVIOUS_APK){
+   run(['install','-r','-d',process.env.FARMINGSTAR_PREVIOUS_APK],120000);
+   run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);
+   ({browser,page}=await connect());
+   if(await page.getByRole('button',{name:'Continue your farm'}).count())await page.getByRole('button',{name:'Continue your farm'}).tap();
+   else{await page.getByRole('button',{name:'Begin your story'}).tap();await page.getByRole('button',{name:'Make this place home'}).tap()}
+   upgradeState=await snapshot(page);run(['shell','am','force-stop',pkg]);
+   if(browser)await browser.close().catch(()=>{});browser=null;if(device){await device.close().catch(()=>{});device=null}
+   assert.ok(process.env.FARMINGSTAR_NEW_APK,'Updated APK required for upgrade check');
+   run(['install','-r',process.env.FARMINGSTAR_NEW_APK],120000);
+  }
   run(['shell','svc','wifi','disable']);let mobileData='disabled';try{run(['shell','svc','data','disable'])}catch(e){if(String(e.stderr).includes("Can't find service: phone"))mobileData='not present in this emulator image';else throw e}record('ANDROID-OFFLINE-CONFIG',{wifi:'disabled',mobileData});
   run(['shell','am','start','-n',pkg+'/io.github.uhmj4ke.farmingstar.MainActivity']);({browser,page}=await connect());
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -45,13 +57,14 @@ async function snapshot(page){await page.evaluate(()=>window.FarmingStarLifecycl
   if(await page.getByRole('button',{name:'Continue your farm'}).count())await page.getByRole('button',{name:'Continue your farm'}).tap();
   else{await page.getByRole('button',{name:'Begin your story'}).tap();await page.getByRole('button',{name:'Make this place home'}).tap()}
   await page.waitForFunction(()=>document.querySelector('#modal').classList.contains('hidden'));
-  const first=await snapshot(page);assert.equal(first.version,4);record('ANDROID-NATIVE-SAVE',{farmId:first.farmId,coins:first.coins,bagSlots:first.bagSlots.length,storage:'files/farmingstar-storage.json'});
+  const first=await snapshot(page);assert.equal(first.version,5);record('ANDROID-NATIVE-SAVE',{farmId:first.farmId,coins:first.coins,bagSlots:first.bagSlots.length,storage:'files/farmingstar-storage.json'});
+  if(upgradeState){for(const key of ['farmId','coins','bagSlots','plots','containerSlots','skills','friends','furniture','profile'])assert.deepEqual(first[key],upgradeState[key]);record('ANDROID-IN-PLACE-UPGRADE',{fromVersionCode:10000,toVersionCode:10001,farmId:first.farmId,identity:'same package and signing certificate; existing farm preserved'})}
   const viewport=await page.evaluate(()=>({width:innerWidth,height:innerHeight,mobile:document.body.classList.contains('mobile')}));assert.ok(viewport.width>viewport.height);assert.ok(viewport.mobile);record('ANDROID-LANDSCAPE',viewport);
   await device.screenshot({path:path.join(out,'android-game.png')});
   await page.locator('[data-ui="inventory"]').tap();assert.ok(await page.locator('[data-bagindex]').count()>=10);await page.locator('[data-bagindex="0"]').tap();assert.ok(await page.locator('#bagDetails').isVisible());await page.locator('[data-act="close"]').tap();record('ANDROID-BAG-HOTBAR');
   const joy=await page.locator('#joy').boundingBox(),use=await page.locator('#use').boundingBox(),cdp=await page.context().newCDPSession(page);assert.ok(joy&&use);
   const a={id:1,x:joy.x+joy.width/2,y:joy.y+joy.height/2},b={id:2,x:use.x+use.width/2,y:use.y+use.height/2};
-  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a]});a.x+=25;await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[a]});await delay(1800);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a,b]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[a]});await delay(1200);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a]});a.x+=25;await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[a]});await delay(1800);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a,b]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[b]});await delay(1200);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   const moved=await snapshot(page);assert.ok(moved.x!==first.x||moved.y!==first.y);record('ANDROID-MULTITOUCH-MOVE-TOOL',{before:[first.x,first.y],after:[moved.x,moved.y]});
   const audio=await page.evaluate(()=>({states:window.__qaAudio.map(a=>a.state),sources:window.__qaSources}));assert.ok(audio.states.includes('running'));assert.ok(audio.sources>0);record('ANDROID-WEBAUDIO',audio);
   run(['shell','input','keyevent','KEYCODE_BACK']);await page.getByRole('button',{name:'Return to the valley'}).waitFor();run(['shell','input','keyevent','KEYCODE_BACK']);await page.waitForFunction(()=>document.querySelector('#modal').classList.contains('hidden'));record('ANDROID-BACK');

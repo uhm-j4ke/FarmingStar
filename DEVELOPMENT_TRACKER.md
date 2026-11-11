@@ -192,3 +192,11 @@ Remote branches now retain only `main` and `website`. Full feature/release histo
 - Shared browser/QA regressions, native Windows execution, native Intel Mac execution/Universal architecture verification, and Android build/lint/signature/source checks pass. Hosted ARM Mac runners were not allocated; Apple Silicon execution is explicitly unverified. Android 1.0.0 phone testing is assigned to the user.
 - All four public downloads were independently checked for size and SHA-256. Website and standalone/APK HTML are identical. Android release and `betas` APKs are identical; export the old farm before uninstalling because the test certificate changed.
 - Main and website are the only remote branches; older work remains in history/archive tags. Packaging did not change game code or save fields. Further device findings will be handled before the next versioned app release.
+
+## Android-only 1.0.0 refresh
+
+- User confirmed the original 1.0.0 APK works on their phone. The requested refresh changes only the distributed Android app; Windows/macOS/standalone release HTML and website stay on their original builds.
+- Reproduced old steady-motion jitter: 3.64 CSS-pixel farmer oscillation and 4.25 CSS-pixel snap from a duplicate resize in the 844×390 / DPR 2.75 case. The corrected renderer measures 0.52 CSS-pixel oscillation and zero duplicate-resize snap, without changing art scale. Three phone sizes and real two-finger ownership/release tests pass.
+- Louder limited output, saved/muted volume choices, explicit music styles and eight distinct day/night/seasonal scores pass targeted browser tests. All eight game suites plus tool/audio, constant tool scale and production packaging checks pass locally.
+- Android display name is FarmingStar. Version code 10001 preserves version name 1.0.0, the existing package ID and cached signing key. CI refuses publication if signing continuity fails. Native upgrade/runtime verification and publication status are recorded after the Android-only job completes.
+- The user’s separate cloud emulator is not exposed through this workspace’s tools/adb ports. An isolated hosted Android emulator is configured for the build's native checks; no unavailable emulator or physical-phone check is claimed as passed.

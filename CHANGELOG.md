@@ -1,3 +1,14 @@
+# 1.0.0 — Android-only refresh (build 10001)
+
+- Removed “Test” from the installed app name and current APK filename. Retained the package and signing identity; increased Android version code for an in-place update.
+- Fixed mobile camera/actor motion snapping to large world pixels. Rendering now moves on a finer backing grid while preserving artwork size, nearest-neighbour pixel art and bounded mobile buffer density. Duplicate resize events no longer reset the follow camera; small viewport changes retain smooth following.
+- Made joystick ownership exclusive to its initiating pointer, with a centre dead zone and proper release on menus/backgrounding. A second touch cannot reverse the stick or release another finger's movement.
+- Added a calibrated louder output bus and dynamics limiter, retaining master/music/effects sliders and saved/muted choices. New games have a fuller default mix; existing volume preferences are preserved.
+- Added eight original scores covering four seasons and day/night, smooth score handoffs, location responses and retained music-style options.
+- Android-only distribution: the EXE, DMG, standalone release HTML and website are not rebuilt or replaced. The existing 1.0.0 release receives the updated APK only.
+
+---
+
 # 1.0.0 — Moss & Ember
 
 The completed browser expansion and independent QA repairs are packaged for Windows x64, Universal macOS, Android testing and standalone offline HTML. See [release notes](release/RELEASE_NOTES.md), [native verification](RELEASE_TEST_REPORT.md) and the detailed changes below. Compatible saves are preserved.
