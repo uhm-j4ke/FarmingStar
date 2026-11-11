@@ -1,33 +1,13 @@
 {
   "version": "1.0.0",
-  "commit": "580ed820abbc87b0992f05004d4493debf29ea97",
-  "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406",
+  "commit": "32d1e1ae03f6a2e8bf65b4d8f402273d87f98912",
+  "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43059212731",
   "platforms": {
     "shared": {
-      "state": "success",
+      "state": "running",
       "url": "",
-      "updatedAt": "2026-11-11T16:09:55.346Z"
-    },
-    "android": {
-      "state": "success",
-      "url": "https://github.com/uhm-j4ke/FarmingStar/tree/main/betas",
-      "updatedAt": "2026-11-11T16:11:44.025Z"
-    },
-    "windows": {
-      "state": "success",
-      "url": "",
-      "updatedAt": "2026-11-11T16:13:06.934Z"
-    },
-    "macos": {
-      "state": "success",
-      "url": "",
-      "updatedAt": "2026-11-11T16:17:20.071Z"
-    },
-    "release": {
-      "state": "failure",
-      "url": "",
-      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43060177104",
-      "updatedAt": "2026-11-11T16:38:01.968Z"
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43059212731",
+      "updatedAt": "2026-11-11T16:38:19.989Z"
     }
   }
 }
