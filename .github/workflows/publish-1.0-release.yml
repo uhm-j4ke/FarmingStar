@@ -1,4 +1,4 @@
-# Explicit 1.0.0 publication after every currently accessible platform gate passed.
+# Publish the existing verified v1.0.0 tag after all accessible platform gates passed.
 name: Publish verified FarmingStar 1.0.0 downloads
 on:
   push:
@@ -56,5 +56,6 @@ jobs:
           fi
           gh run cancel 43054835406 || true
           gh run cancel 43058203191 || true
+          gh run cancel 43059212731 || true
       - if: failure()
         run: node tools/ci_status.cjs release failure
