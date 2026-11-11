@@ -53,6 +53,8 @@ jobs:
           path: artifacts/
           run-id: 43069874793
           github-token: ${{ github.token }}
+      - name: Prepare the pinned Android WebView test driver
+        run: node tools/prepare_android_driver.cjs
       - run: node tools/prepare_web.cjs
       - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
       - name: Recheck downloaded APK against the current game and installation identity
