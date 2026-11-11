@@ -22,6 +22,12 @@
       "state": "success",
       "url": "",
       "updatedAt": "2026-11-11T16:17:20.071Z"
+    },
+    "release": {
+      "state": "failure",
+      "url": "",
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43059212616",
+      "updatedAt": "2026-11-11T16:32:26.621Z"
     }
   }
 }
