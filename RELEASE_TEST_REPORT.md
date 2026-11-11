@@ -10,10 +10,10 @@ The user authorised all platform packages and actual GitHub Release publication.
 | Production HTML | Local PASS: offline/CSP, no developer/test API, creation, controls, saves, native lifecycle/back, portable transfer and failed writes |
 | Desktop save store | Local PASS: persistence, atomic replacement, malformed data and related-record rollback |
 | Linux Electron wrapper | Local PASS: 1.0.0/source hashes, isolated offline startup, movement/bag/hotbar/audio synthesis, resize, native file transfer, force-stop/relaunch and save-before-close |
-| Windows EXE | Native CI pending |
-| macOS Universal DMG / Intel runtime | Native CI pending |
-| macOS Apple Silicon runtime | Native CI pending |
-| Android test APK | Build/signature/source/lint verification pending; physical phone testing is assigned to the user |
+| Windows EXE | Native CI running / queued |
+| macOS Universal DMG / Intel runtime | Native CI running / queued |
+| macOS Apple Silicon runtime | Native CI running / queued |
+| Android test APK | Build/signature/source/lint verification running; physical phone testing is assigned to the user |
 | Public release assets | Pending all gates |
 
 No claims of physical-phone, audible-output or real-controller certification are made. Earlier 0.4.0 device feedback is historical and does not verify the new build. See `release/history/0.4.0/` for the earlier packaging records.

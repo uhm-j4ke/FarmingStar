@@ -1,18 +1,18 @@
 {
-  "recordedAt": "2026-11-09T16:07:05.983Z",
+  "recordedAt": "2026-11-11T16:06:53.048Z",
   "commit": null,
   "platform": "linux",
   "arch": "x64",
-  "packaged": true,
+  "packaged": false,
   "embedded": {
-    "version": "0.4.0",
-    "packaged": true,
+    "version": "1.0.0",
+    "packaged": false,
     "arch": "x64",
     "hashes": {
       "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
       "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
       "desktop/store.cjs": "aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074",
-      "dist/web/index.html": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724"
+      "dist/web/index.html": "550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a"
     }
   },
   "rows": [
@@ -20,14 +20,14 @@
       "id": "DESKTOP-EMBEDDED-SOURCE-VERSION",
       "status": "PASS",
       "details": {
-        "version": "0.4.0",
-        "packaged": true,
+        "version": "1.0.0",
+        "packaged": false,
         "arch": "x64",
         "hashes": {
           "desktop/main.cjs": "70a70a3a263dc9c17accd180aa34286cb2c682f875415c235422753cedb504ee",
           "desktop/preload.cjs": "6ac36f63d4aad668180bf3ff1b6bdf605316efd2d7b2b01875d106dc355b178d",
           "desktop/store.cjs": "aae53da18a411f25c6754de475f79989f25dfa4ef7a1e14babb0ed94aec69074",
-          "dist/web/index.html": "f0774459831ad760be9e85288e66221040e67ea0b9ec61c89f28f6534c614724"
+          "dist/web/index.html": "550be231aa125b70db01f9307a59376ee7818ca1958bb29ccd377ca30c1b421a"
         }
       }
     },
@@ -47,8 +47,8 @@
       "status": "PASS",
       "details": {
         "beforeX": 204,
-        "afterX": 230.96880000000004,
-        "farmId": "328738fd-747d-47a1-b4bd-45ed1ea66793"
+        "afterX": 231.37680000010135,
+        "farmId": "85df1587-33cc-4a02-b5d4-cea7acf024b9"
       }
     },
     {
@@ -102,7 +102,7 @@
       "id": "DESKTOP-FORCED-EXIT-RELAUNCH",
       "status": "PASS",
       "details": {
-        "farmId": "328738fd-747d-47a1-b4bd-45ed1ea66793",
+        "farmId": "85df1587-33cc-4a02-b5d4-cea7acf024b9",
         "coins": 444
       }
     },
