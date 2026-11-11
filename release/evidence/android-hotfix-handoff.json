@@ -24,9 +24,14 @@
     "Physical-phone camera, speaker and performance review"
   ],
   "publication": {
-    "state": "Queued; new APK not yet attached to release",
-    "workflow": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43098136425",
-    "queueDiagnostic": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43098725839",
-    "requestedScope": "Replace only the Android APK in existing v1.0.0; preserve EXE, DMG, standalone HTML and website"
-  }
+    "state": "Published and public download verified",
+    "release": "https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0",
+    "apk": "https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Android.apk",
+    "workflow": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43102962271",
+    "otherReleasePayloads": "Original EXE, DMG and HTML unchanged",
+    "remainingNativeVerification": "Final native audio/lifecycle/storage and physical phone review remain pending"
+  },
+  "apkSha256": "c66c59bcadc56eb6e6ddf10a2108c55275559c14a98d9b3e5a3ba57ef3f555bf",
+  "apkBytes": 2544384,
+  "verifiedPublicDownloadAt": "2026-11-11T21:28:08.440475+00:00"
 }

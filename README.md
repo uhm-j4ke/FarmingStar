@@ -15,7 +15,7 @@ The [1.0.0 GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/
 
 [Published release verification](RELEASE_TEST_REPORT.md) · [What's new](release/RELEASE_NOTES.md) · [QA repairs](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md)
 
-The Android APK is test-signed for device testing. If updating an old beta is rejected because its certificate differs, **export your save before uninstalling the old app**, then install and import. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Windows and Intel Mac execution passed native tests. Apple Silicon binaries are included and verified, but execution is unverified because hosted ARM runners were unavailable. Checksums and integrity records are preserved in the repository.
+The Android refresh (build 10001) installs over the original 1.0.0 app and preserves its saves. It retains the same test-signing identity. When upgrading from the older 0.4.0 beta, export your save before uninstalling if its different certificate blocks installation. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Windows and Intel Mac execution passed native tests. Apple Silicon binaries are included and verified, but execution is unverified because hosted ARM runners were unavailable. Checksums and integrity records are preserved in the repository.
 
 ## Play
 

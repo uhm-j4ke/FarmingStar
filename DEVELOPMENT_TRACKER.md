@@ -214,3 +214,8 @@ Remote branches now retain only `main` and `website`. Full feature/release histo
 - The already-built APK is downloadable as the signed-in GitHub Actions artifact linked in [the current handoff](release/evidence/android-hotfix-handoff.json). The queued workflow will replace only the APK if all remaining native gates pass. Windows/macOS/standalone release HTML/website remain on their original payloads.
 
 Android build 10001 passed the shared/build/signature/source gates and emulator upgrade/save/inventory/touch checks; final native audio/lifecycle/storage verification remains pending, then replaced only the APK in release 1.0.0. APK display name is FarmingStar; the current download has no TEST suffix. Waiting for the user’s physical-phone camera/speaker check. Other app/website/HTML packages are unchanged. Workflow: https://github.com/uhm-j4ke/FarmingStar/actions/runs/43102962271
+
+
+### Android 1.0.0 refresh published
+
+The available Windows runner published the already-built, hash-verified Android APK in [release 1.0.0](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0). The original Test-named release APK was replaced; exactly four uploaded game downloads remain. Public download size/SHA-256, exact intended production HTML, beta/release equality, app name/version/signing continuity and unchanged non-Android payload records were independently verified. [Publication run](https://github.com/uhm-j4ke/FarmingStar/actions/runs/43102962271). The remaining native audio-resume/lifecycle/storage and physical-phone checks are explicitly pending in the release notes and manifest; no missing check is marked passed.
