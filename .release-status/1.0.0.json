@@ -8,6 +8,12 @@
       "url": "https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43061837834",
       "updatedAt": "2026-11-11T16:48:34.610Z"
+    },
+    "macos-arm": {
+      "state": "unavailable",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406",
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43061837834",
+      "updatedAt": "2026-11-11T16:48:36.233Z"
     }
   }
 }
