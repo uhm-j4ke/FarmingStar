@@ -1,0 +1,89 @@
+name: Publish Android 1.0.0 phone update
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/publish-android-1.0.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: farmingstar-android-asset-update
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FARMINGSTAR_ANDROID_BUILD_COMMIT: f9631e5b0c8870279678989c14144e8d8e1798f8
+      FARMINGSTAR_ANDROID_HOTFIX: '1'
+      FARMINGSTAR_NATIVE_VERIFICATION: partial
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: android-1.0-hotfix-apk
+          path: artifacts/release-android/
+          run-id: 43069874793
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: android-1.0-hotfix-evidence
+          path: original-validation/
+          run-id: 43069874793
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: android-1.0-hotfix-evidence
+          path: native-validation/
+          run-id: 43073357382
+          github-token: ${{ github.token }}
+      - name: Verify immutable APK hash, original signing checks and actual native passes
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+          function find(dir,name){for(const d of fs.readdirSync(dir,{withFileTypes:true})){const p=dir+'/'+d.name;if(d.isFile()&&d.name===name)return p;if(d.isDirectory()){const r=find(p,name);if(r)return r}}}
+          const proof=JSON.parse(fs.readFileSync(find('original-validation','android-integrity.json'))),native=JSON.parse(fs.readFileSync(find('native-validation','android-runtime.json'))),file='artifacts/release-android/FarmingStar-1.0.0-Android.apk';
+          assert.equal(proof.appName,'FarmingStar');assert.equal(proof.versionCode,10001);assert.equal(proof.canUpdatePreviousBeta,true);assert.equal(proof.certificateSha256,proof.previousCertificateSha256);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'),proof.apkSha256);
+          assert.equal(native.apkBuildCommit,process.env.FARMINGSTAR_ANDROID_BUILD_COMMIT);
+          for(const id of ['ANDROID-STARTUP','ANDROID-IN-PLACE-UPGRADE','ANDROID-NATIVE-SAVE','ANDROID-LANDSCAPE','ANDROID-BAG-HOTBAR','ANDROID-MULTITOUCH-MOVE-TOOL'])assert.ok(native.rows.some(r=>r.id===id&&r.status==='PASS'),'Missing original emulator pass: '+id);
+          assert.ok(native.error.includes('Audio activation after real input'),'Unexpected native failure; investigate before publication');assert.ok(!native.nativeErrors.some(x=>/FATAL EXCEPTION|SIGSEGV|SIGABRT/.test(x)),'Native crash found');
+          fs.mkdirSync('release/evidence',{recursive:true});fs.writeFileSync('release/evidence/android-integrity.json',JSON.stringify(proof,null,2)+'\n');fs.writeFileSync('release/evidence/android-runtime.json',JSON.stringify(native,null,2)+'\n');
+          console.log('Verified built APK and native upgrade/save/input results; final native audio/lifecycle checks remain pending.');
+          NODE
+      - run: node tools/prepare_web.cjs --desktop-only
+      - name: Extract embedded game from the actual APK
+        shell: pwsh
+        run: |
+          $apkPath = (Resolve-Path artifacts/release-android/FarmingStar-1.0.0-Android.apk).Path
+          $zip = [System.IO.Compression.ZipFile]::OpenRead($apkPath)
+          try {
+            $stream = $zip.GetEntry('assets/web/index.html').Open()
+            $destination = [System.IO.File]::Create((Join-Path $PWD 'artifacts/apk-index.html'))
+            try { $stream.CopyTo($destination) } finally { $stream.Dispose(); $destination.Dispose() }
+          } finally { $zip.Dispose() }
+      - name: Confirm the APK contains the exact intended production game
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+          const actual=fs.readFileSync('artifacts/apk-index.html'),expected=fs.readFileSync('dist/web/index.html'),proof=JSON.parse(fs.readFileSync('release/evidence/android-integrity.json'));
+          assert.ok(actual.equals(expected),'APK contains a different game');assert.equal(crypto.createHash('sha256').update(actual).digest('hex'),proof.htmlSha256);assert.ok(actual.includes(Buffer.from('developerTools:false')));assert.ok(!actual.includes(Buffer.from('__FARMINGSTAR_TEST__')));
+          fs.appendFileSync('release/RELEASE_NOTES.md','\nAndroid verification: build/signature/source and shared browser checks passed, as did emulator upgrade/save/inventory/multi-touch checks. Final automated native audio-resume/lifecycle checks and physical-phone review remain pending.\n');
+          NODE
+      - name: Publish only the updated Android APK and its repository handoff
+        shell: bash
+        run: |
+          node tools/publish_android_hotfix.cjs
+          node tools/publish_android_beta.cjs
+      - name: Report a publication error without exposing secrets
+        if: failure()
+        shell: bash
+        run: |
+          echo '::error::Android-only publication did not complete. The three non-Android release assets are protected by identity checks.'
