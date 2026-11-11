@@ -1,8 +1,8 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. This branch contains the **unreleased browser expansion** in `index.html`. It adds the expanded valley, chicken care, furnishing editor, controller controls and paper menus. The latest candidate adds the silver-framed farmhouse mirror, readable quantities, themed menus, a reorganised atlas, TV presenter and isolated developer tools. Latest design previews await visual feedback. See [the development tracker](../DEVELOPMENT_TRACKER.md) for verification and remaining review.
+An original, offline, top-down farming and kitchen game. Version **1.0.0** packages the shared game for browser, Windows, macOS and Android phone testing. The full source remains in `index.html`. It adds the expanded valley, chicken care, furnishing editor, controller controls and paper menus. The current game includes the silver-framed farmhouse mirror, readable quantities, themed menus, a reorganised atlas, TV presenter and isolated developer tools. Latest design previews await visual feedback. See [the development tracker](../DEVELOPMENT_TRACKER.md) for verification and remaining review.
 
-Existing Android, Windows and macOS packages still use Alpha 0.4.0. Native builds, package metadata, beta downloads and GitHub Releases are on hold until the user authorises rollout. Prior independent QA repairs remain covered by the [issue ledger](../bug%20reports/FIX_STATUS.md).
+The current platform rollout is recorded in [release verification](../RELEASE_TEST_REPORT.md); the GitHub release contains separate app and standalone HTML downloads. Prior independent QA repairs remain covered by the [issue ledger](../bug%20reports/FIX_STATUS.md).
 
 ## Latest independent QA repairs
 
