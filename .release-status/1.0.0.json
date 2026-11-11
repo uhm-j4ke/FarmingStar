@@ -14,9 +14,9 @@
       "updatedAt": "2026-11-11T16:11:44.025Z"
     },
     "windows": {
-      "state": "running",
+      "state": "success",
       "url": "",
-      "updatedAt": "2026-11-11T16:10:18.600Z"
+      "updatedAt": "2026-11-11T16:13:06.934Z"
     },
     "macos": {
       "state": "running",
