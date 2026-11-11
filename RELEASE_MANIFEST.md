@@ -1,6 +1,6 @@
 # FarmingStar 1.0.0 downloads
 
-Published as the latest non-prerelease [GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0), with a brief description, all four payloads, SHA-256 sidecars, metadata and platform integrity records.
+Published as the latest non-prerelease [GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0), with a brief description and the four game downloads. SHA-256 checksums, metadata and platform integrity records are preserved in this repository.
 
 | Download | Bytes | SHA-256 |
 | --- | ---: | --- |

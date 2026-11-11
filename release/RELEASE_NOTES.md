@@ -8,6 +8,6 @@ Downloads: **Windows x64 EXE**, **macOS Universal DMG** (Intel and Apple Silicon
 
 The Android APK is test-signed and ready for your device testing. If Android refuses to update an older beta because its signing certificate differs, export your farm using **Save files & transfer** before uninstalling the old beta, then install this APK and import the save. Never uninstall your only saved copy first.
 
-Windows is unsigned; macOS uses an ad-hoc signature and is not Apple-notarised. Device-specific sound, performance and physical-controller checks remain separate from automated build/runtime verification. SHA-256 checksums accompany the downloads.
+Windows is unsigned; macOS uses an ad-hoc signature and is not Apple-notarised. Device-specific sound, performance and physical-controller checks remain separate from automated build/runtime verification.
 
 Apple Silicon execution remains unverified: hosted ARM runners could not be allocated. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution.

@@ -1,5 +1,5 @@
-# Final documentation sync for the already published, immutable 1.0.0 payloads.
-name: Finalize FarmingStar 1.0.0 release notes
+# Keep the four published game payloads; verification records remain in the repository.
+name: Clean FarmingStar 1.0.0 release downloads
 on:
   push:
     branches: [main]
@@ -28,11 +28,26 @@ jobs:
           node -e "const r=require(process.env.RUNNER_TEMP+'/public-release.json');if(r.tagName!=='v1.0.0'||r.isDraft||r.isPrerelease)throw Error('Expected the published 1.0.0 release');if(require('./release/release-config.json').version!=='1.0.0')throw Error('One-time 1.0.0 workflow only')"
       - name: Sync the concise release description without replacing any assets
         run: gh release edit v1.0.0 --notes-file release/RELEASE_NOTES.md
-      - name: Record the completed original build gates
+      - name: Keep only the four game downloads on release 1.0.0
         run: |
-          node tools/ci_status.cjs shared success 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130641379827'
-          node tools/ci_status.cjs android success 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130643996558'
-          node tools/ci_status.cjs windows success 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130643996630'
-          node tools/ci_status.cjs macos success 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130643996464'
-          node tools/ci_status.cjs macos-arm unavailable 'https://github.com/uhm-j4ke/FarmingStar/actions/runs/43054835406/job/130648556167'
-          node tools/ci_status.cjs release success 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
+          node - <<'NODE'
+          const cp=require('node:child_process'),assert=require('node:assert/strict');
+          const manifest=require('./release/published-manifest.json');
+          assert.equal(manifest.version,'1.0.0');
+          const tag='v1.0.0',required=new Map(manifest.artifacts.map(a=>[a.name,a]));
+          assert.equal(required.size,4);
+          const metadata=new Set(['Android-integrity.json','Windows-integrity.json','macOS-integrity.json','release-manifest.json','SHA256SUMS.txt']);
+          for(const name of required.keys()){metadata.add(name+'.sha256');metadata.add(name+'.metadata.json')}
+          const read=()=>JSON.parse(cp.execFileSync('gh',['release','view',tag,'--json','tagName,isDraft,isPrerelease,assets'],{encoding:'utf8'}));
+          const before=read();assert.equal(before.tagName,tag);assert.equal(before.isDraft,false);assert.equal(before.isPrerelease,false);
+          for(const [name,expected]of required){const a=before.assets.find(a=>a.name===name);assert.ok(a,'Missing game download: '+name);assert.equal(a.size,expected.bytes,'Wrong game download size: '+name)}
+          for(const a of before.assets)assert.ok(required.has(a.name)||metadata.has(a.name),'Unexpected attachment: '+a.name);
+          const identity=a=>({name:a.name,id:a.id,size:a.size}),order=(a,b)=>a.name.localeCompare(b.name);
+          const kept=before.assets.filter(a=>required.has(a.name)).map(identity).sort(order);
+          for(const a of before.assets.filter(a=>metadata.has(a.name))){
+            cp.execFileSync('gh',['release','delete-asset',tag,a.name,'--yes'],{stdio:'inherit'});
+            console.log('Removed metadata attachment: '+a.name);
+          }
+          const after=read();assert.equal(after.assets.length,4);assert.deepEqual(after.assets.map(identity).sort(order),kept);
+          console.log('Verified: only APK, EXE, DMG and index.html remain; original game assets are unchanged.');
+          NODE
