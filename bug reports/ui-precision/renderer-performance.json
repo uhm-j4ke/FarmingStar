@@ -1,0 +1,49 @@
+{
+  "environment": "Headless Chromium on cloud Linux, 1280x800, warm caches, update + draw CPU submission cost only; excludes audio/compositor/device certification.",
+  "rows": [
+    {
+      "area": "farm",
+      "x": 10,
+      "y": 15,
+      "time": 600,
+      "weather": "Clear",
+      "frames": 240,
+      "medianMs": 3.9,
+      "p95Ms": 16.8,
+      "p99Ms": 21.9
+    },
+    {
+      "area": "town",
+      "x": 24,
+      "y": 27,
+      "time": 600,
+      "weather": "Rain",
+      "frames": 240,
+      "medianMs": 5.9,
+      "p95Ms": 21.9,
+      "p99Ms": 33.3
+    },
+    {
+      "area": "forest",
+      "x": 20,
+      "y": 18,
+      "time": 1200,
+      "weather": "Clear",
+      "frames": 240,
+      "medianMs": 3.8,
+      "p95Ms": 18.4,
+      "p99Ms": 43.3
+    },
+    {
+      "area": "home",
+      "x": 10,
+      "y": 10,
+      "time": 1260,
+      "weather": "Clear",
+      "frames": 240,
+      "medianMs": 2.1,
+      "p95Ms": 16.5,
+      "p99Ms": 32.6
+    }
+  ]
+}

@@ -1,0 +1,936 @@
+{
+  "fontSha256": "2a6ba6132153190db4600dbefa918f5352628d8fa43f1e414d2434e14b2144ad",
+  "screenCount": 186,
+  "rows": [
+    {
+      "viewport": "1920x1080",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "1920x1080",
+      "name": "quantity-fixtures",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "1366x768",
+      "name": "quantity-fixtures",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "915x412",
+      "name": "quantity-fixtures",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "740x360",
+      "name": "quantity-fixtures",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "1024x768",
+      "name": "quantity-fixtures",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "title",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "saves",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "pause",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "settings",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "bag",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "chest",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "grocery",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "smith",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "estate",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "parcel",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "crafting",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "recipes",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "cooking",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "build",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "editor",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "journal",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "map",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "dialogue",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "animalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "animalCare",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "seasonalShop",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "arcade",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "fishingHut",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "fishing",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "skills",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "projects",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "collections",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "television",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "appearance",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "developer",
+      "findings": []
+    },
+    {
+      "viewport": "1366x1024",
+      "name": "quantity-fixtures",
+      "findings": []
+    }
+  ]
+}

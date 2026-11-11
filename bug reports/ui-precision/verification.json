@@ -1,0 +1,69 @@
+{
+  "scope": "unreleased browser-only precision update",
+  "sourceHtmlSha256": "cf8ad944e857ea60ed85a967be4e717d9dda92280fdc7d2229e2cec925b28f9e",
+  "baseline": "327c9f9126fa1d73ec6261678c4a9b2d8f0211da",
+  "npmTest": {
+    "status": "passed",
+    "suites": [
+      "immersion",
+      "systems",
+      "smoke",
+      "update",
+      "expansion",
+      "compatibility",
+      "bedtime",
+      "stability"
+    ]
+  },
+  "uiMatrix": {
+    "status": "passed",
+    "cases": 186,
+    "viewports": [
+      "1920x1080",
+      "1366x768",
+      "915x412 mobile",
+      "740x360 mobile",
+      "1024x768",
+      "1366x1024"
+    ],
+    "includes": "30 screen types per viewport plus selected bag/hotbar quantity fixtures; footer and folio bounds"
+  },
+  "additionalPassed": [
+    "appearance",
+    "character-details",
+    "accessories",
+    "developer-tools",
+    "map-television",
+    "production-html",
+    "controller",
+    "furnishing",
+    "book-storage",
+    "animals",
+    "chicken-loop",
+    "activities",
+    "seasonal",
+    "portable",
+    "phone-controller",
+    "phone-compact",
+    "menu-layout",
+    "town-services",
+    "phone-layouts",
+    "tool-audio",
+    "profile",
+    "tool-scale"
+  ],
+  "nativeOutputsUpdated": false,
+  "releaseCreated": false,
+  "fontChanged": false,
+  "pending": [
+    "map and TV visual feedback",
+    "physical devices and controller hardware",
+    "audible-output review",
+    "platform rollout only after user instruction"
+  ],
+  "methodLimits": [
+    "fresh disposable Chromium origins",
+    "local HTTP: managed Chromium blocks file URLs",
+    "CPU renderer samples exclude compositor/audio/presented device frames"
+  ]
+}

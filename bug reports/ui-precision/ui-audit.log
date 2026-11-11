@@ -1,0 +1,11 @@
+PASS: 186 screen/quantity cases across six sizes; unchanged native font, safe badges, button text bounds and menu viewport bounds
+Journal navigation: {
+  placement: 'page',
+  pages: [
+    { height: 516, children: [Array] },
+    { height: 622, children: [Array] }
+  ]
+}
+PASS: satchel, journal/recipe page turns, chapter/recipe index and actual menu screenshots
+PASS: two real slot grids, drag transfer both ways, stack split and item conservation
+PASS: no browser exceptions

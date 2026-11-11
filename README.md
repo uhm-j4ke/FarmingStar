@@ -1,6 +1,6 @@
 # FarmingStar — Moss & Ember
 
-An original, offline, top-down farming and kitchen game. This branch contains the **unreleased browser expansion** in `index.html`. It adds the expanded valley, chicken care, furnishing editor, controller controls and paper menus. The latest right-side menu layout awaits visual feedback. See [the development tracker](DEVELOPMENT_TRACKER.md) for verification and remaining review.
+An original, offline, top-down farming and kitchen game. This branch contains the **unreleased browser expansion** in `index.html`. It adds the expanded valley, chicken care, furnishing editor, controller controls and paper menus. The latest candidate adds the silver-framed farmhouse mirror, readable quantities, themed menus, a reorganised atlas, TV presenter and isolated developer tools. Latest design previews await visual feedback. See [the development tracker](DEVELOPMENT_TRACKER.md) for verification and remaining review.
 
 Existing Android, Windows and macOS packages still use Alpha 0.4.0. Native builds, package metadata, beta downloads and GitHub Releases are on hold until the user authorises rollout. Prior independent QA repairs remain covered by the [issue ledger](bug%20reports/FIX_STATUS.md).
 
@@ -15,6 +15,12 @@ python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
 Open the local server in your browser. File and HTTP origins have separate saves. This project's managed Chromium policy blocks file URLs, so automated browser checks use a local HTTP server. Direct file launch on an unrestricted browser remains a manual check.
+
+## Browser development tools
+
+This branch's `index.html` deliberately enables `BUILD_FLAGS.developerTools`. In Settings, expand Developer section and enter **0000** to create a marked disposable copy of the current farm. It has its own `.developer.` local-storage namespace. Use the Developer badge to reopen tools; **Leave test farm** restores the ordinary farm. Resources obey normal stack/capacity rules; crop clearing asks for confirmation. This is a testing convenience, not a security feature.
+
+The existing production HTML compiler forces this flag off and removes the unrestricted test API. It has been tested in memory; **no updated native installer or release has been generated**. See [UI_PRECISION_REVIEW.md](UI_PRECISION_REVIEW.md) for the audit and reproducible checks.
 
 ## First harvest
 
@@ -46,7 +52,7 @@ The latest art refresh adds carved menu frames, seasonal background leaves, deta
 ## Implemented
 
 - Connected expanded farm and town, furnished shop/home interiors, farmhouse and pantry, solid buildings, doors and equipment; clamped camera and depth-sorted original pixel characters.
-- Custom name, skin/hair/eye/clothing colours, hairstyles, two outfits and accessories; appearance can be edited later.
+- Expanded face, eyes, mouth, hair, body, clothing and directional accessories. Initial creation remains available; later changes require the physical farmhouse mirror. Mirror edits are drafts until Save, and Cancel preserves your previous appearance.
 - Ten seasonal crop definitions, single and repeat harvests, watering capacity/refill, rain, four tool tiers, wood/stone gathering.
 - Inventory, equipment hotbar, chest transfers, seasonal seed shop, ingredient shop, direct sales and validated transactions.
 - Nine physical placeable station types and twenty recipes; three-action timing activities, gentle mode, quality and craft bonuses. Interrupted cooking resumes its saved ingredient reservation.

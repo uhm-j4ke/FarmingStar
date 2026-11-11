@@ -2,7 +2,7 @@
 
 ## Current browser expansion — unreleased
 
-Chicken farming and controller controls are implemented in the shared `index.html`; see [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for verification. The current right-side menu layout awaits user feedback. Existing app packages remain unchanged.
+Chicken farming and controller controls are implemented in the shared `index.html`; see [DEVELOPMENT_TRACKER.md](DEVELOPMENT_TRACKER.md) for verification. The current precision update includes expanded mirror customisation, themed menus, map controls, TV forecasts and isolated developer tools; latest visual previews await feedback. Existing app packages remain unchanged.
 
 ## Next milestones
 

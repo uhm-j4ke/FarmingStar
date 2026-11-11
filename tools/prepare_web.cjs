@@ -4,6 +4,7 @@ const root=path.join(__dirname,'..'),cfg=require('../release/release-config.json
 function prepareHTML(input){
 // HTML parsers normalise CRLF before CSP hashes are checked. Compile canonical LF on every host.
 let html=input.replace(/\r\n?/g,'\n');
+html=html.replace('const BUILD_FLAGS=Object.freeze({developerTools:true});','const BUILD_FLAGS=Object.freeze({developerTools:false});');
 html=html.replace(/\/\/ BEGIN TEST HOOKS[\s\S]*?\/\/ END TEST HOOKS/g,'// Test instrumentation omitted from production.');
 if(/window\.FarmingStar\s*=|__FARMINGSTAR_TEST__/.test(html))throw Error('Unrestricted test hooks remain in release HTML');
 const source=html.match(/<script>([\s\S]*?)<\/script>/)[1],hash=crypto.createHash('sha256').update(source).digest('base64');

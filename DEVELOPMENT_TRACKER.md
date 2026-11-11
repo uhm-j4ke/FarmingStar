@@ -1,15 +1,19 @@
 # FarmingStar 1.0 — development tracker
 
-**Current state: development in progress. This update is not complete or released.**
+**Current state: browser precision candidate implemented and automated checks passed; latest visual feedback remains pending. This is not a native release.**
 
-Game changes are confined to `index.html`. This tracker is documentation requested during development. Android, Windows and macOS installers, package metadata, existing beta downloads and releases remain unchanged until the user authorises platform rollout.
+Playable changes are confined to `index.html`; tests, review documents and the existing production compiler flag are updated alongside it. Android, Windows and macOS installers, package metadata, existing beta downloads and releases remain unchanged until the user authorises platform rollout.
 
 ## Current work
 
-- Tab/button treatment and tool poses are approved. The requested final refinements are implemented: the journal button panel starts below the top-right button; side profiles are slimmer, with a smaller nose and forward-facing mirrored feet. Targeted checks pass.
-- The yellow-paper, centre-crease, leather-outline and stepped-corner design is now shared across the menus; retain the satchel handle and obtain feedback on the latest pictures.
-- Furnishing layout A is selected. Menu action buttons now use the right side, including the editor palette and placement controls. Book/journal navigation remains as approved. New title, pause, settings, backpack and phone pictures await visual feedback. Controller, furnishing transactions/touch and responsive menu checks pass.
-- Latest requested fixes: carried tools now use separate sprites at 5/8 size, preserving working poses. Phone menus hide routine instructions, use short headings and keep action controls reachable while content scrolls; longer instructions are in Settings → Help & controls. The user approved the compact phone menus and carried size. The remaining animation size jump is fixed as recorded below.
+The latest requested browser update is implemented. See [UI_PRECISION_REVIEW.md](UI_PRECISION_REVIEW.md) for current results and [the issue ledger](bug%20reports/UI_PRECISION_FIX_STATUS.md) for fixes and remaining checks. The older checkpoints below remain historical.
+
+- Six-section silver mirror editor: left rotating/walking preview, right icon/label categories, centred phone heading, safe frame padding, persistent drafts/Save/Cancel and moved-mirror interaction.
+- Expanded directional character details and accessories. Villagers retain independent appearances. Embedded Ember font glyphs/density remain byte-identical to the previous checkpoint.
+- Readable quantities and shared spacing, themed menus, larger desktop minimap, controls below the atlas, waypoint row, locations on the right, original TV presenter/graph and real forecast speech panel.
+- Development flag, code `0000`, validated commands on a separate marked test farm, diagnostics/logging and exact restoration of ordinary save state/bytes. Production compiler disables developer access; no native output was rebuilt.
+- Journal footer/folio, phone hotbar, controller hints, legend toggle, side trouser colour and eyebrow defects discovered in this pass are repaired and receive dedicated regression coverage.
+- Latest map/TV pictures await feedback; further refinements to those specific designs are held. Native builds/publication wait for the user's next instruction.
 
 ## Feature status
 
@@ -151,3 +155,12 @@ Existing test expectations were updated only for intentional changes: non-workin
 - Both paths now share one scale constant and the same raster pipeline. Working frames use a reusable scratch canvas; idle frames keep their bounded cache. Overhead motion, tipped watering, hand anchors, action timing and targeting are preserved. Water and fishing-line effects remain in world coordinates, starting from the scaled spout/rod tip.
 - New `tests/tool-scale.cjs` fails on the original source and passes after the fix: 48 tool/tier/facing cases, pixel-identical start/recovery for five hand tools, and constant compact tool rendering through seven animation phases including the fishing rod. Its screenshot shows carry, raise/tip, contact, recovery and carry again.
 - Relevant tool/audio, approved phone menu/carried-sprite and UI/journal/map/save regressions pass. Save schema, inventory, platform packages and release metadata are unchanged.
+
+## UI precision final verification
+
+- All eight `npm test` suites passed against the completed candidate, including the retained independent QA save-corruption, duplication, crash-prevention, cooking reservation and progression regressions.
+- All 186 screen/quantity matrix cases pass at the six requested sizes. Selected bag/hotbar quantities, exact accessible counts, attached-tab bounds, book footer/folio separation, control text and unchanged font data are covered.
+- New appearance/accessory/map/TV/developer suites pass: 45 distinct appearance variants, independent nine-villager looks, four-way accessory art, legacy/moved/occupied-tile mirror migration, draft/cancel/save, real next-day forecast and exact ordinary-state/storage restoration after developer commands.
+- Relevant controller, furnishing, book/storage, animals, natural egg/cake/request/shipping, arcade/mine, seasonal, portable, compact phone/menu/service/HUD, tool/audio/scale and profile suites pass. In-memory production compile removes test hooks and disables developer access for LF and CRLF source.
+- [Review handoff](UI_PRECISION_REVIEW.md), [fixed/pending issue ledger](bug%20reports/UI_PRECISION_FIX_STATUS.md), [matrix evidence](bug%20reports/ui-precision/ui-audit.json) and [verification record](bug%20reports/ui-precision/verification.json) are ready for independent QA.
+- Source changes are available only on the browser feature branch. No platform payload, installer, beta, version or release is updated. Stop here and wait for the user's next instruction.

@@ -12,7 +12,7 @@ const path = require('node:path');
  await page.addInitScript(()=>{window.testUse=(x,y)=>{const f=FarmingStar,g=f.state;if(f.placement){f.placeStation(x,y);return}g.x=x*24+12;g.y=(y-1)*24+12;g.dir=2;f.use();f.stepAction(.6);if(f.activity?.type==='fishwait')f.update(5)}});
  await page.goto('http://127.0.0.1:'+server.address().port);
  await page.getByRole('button',{name:'Begin your story'}).click();
- await page.locator('#name').fill('Fern');await page.locator('#accessory').selectOption('hat');
+ await page.locator('#name').fill('Fern');await page.locator('[data-appearance-section=hair]').click();await page.locator('#accessory').selectOption('hat');
  await page.getByRole('button',{name:'Make this place home'}).click();
  await page.waitForTimeout(100);
  assert.equal(await page.evaluate(()=>FarmingStar.state.profile.name),'Fern');
