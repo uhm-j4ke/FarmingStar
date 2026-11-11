@@ -7,7 +7,7 @@ const manifest=require('../release/published-manifest.json'),read=()=>JSON.parse
 const preserved=manifest.artifacts.filter(a=>!a.name.endsWith('.apk'));assert.equal(preserved.length,3);const names=new Set([...preserved.map(a=>a.name),oldName,newName]);for(const a of before.assets)assert.ok(names.has(a.name),'Unexpected release attachment: '+a.name);
 for(const a of preserved){const asset=before.assets.find(v=>v.name===a.name);assert.ok(asset,'Missing original '+a.name);assert.equal(asset.size,a.bytes);if(asset.digest)assert.equal(asset.digest,'sha256:'+a.sha256)}
 const identity=a=>({name:a.name,id:a.id,size:a.size}),order=(a,b)=>a.name.localeCompare(b.name),original=before.assets.filter(a=>preserved.some(p=>p.name===a.name)).map(identity).sort(order);
-run(['release','upload',tag,file,'--clobber']);
+const already=before.assets.find(a=>a.name===newName);if(!already||already.digest!=='sha256:'+integrity.apkSha256||already.size!==fs.statSync(file).size)run(['release','upload',tag,file,'--clobber']);
 const uploaded=read().assets.find(a=>a.name===newName);assert.ok(uploaded);assert.equal(uploaded.size,fs.statSync(file).size);if(uploaded.digest)assert.equal(uploaded.digest,'sha256:'+integrity.apkSha256);
 if(before.assets.some(a=>a.name===oldName))run(['release','delete-asset',tag,oldName,'--yes']);
 const after=read();assert.equal(after.assets.length,4);assert.deepEqual(after.assets.filter(a=>a.name!==newName).map(identity).sort(order),original,'A non-Android asset changed');
