@@ -8,6 +8,12 @@
       "url": "",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
       "updatedAt": "2026-11-12T11:24:20.117Z"
+    },
+    "macos": {
+      "state": "running",
+      "url": "",
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
+      "updatedAt": "2026-11-12T11:24:37.622Z"
     }
   }
 }
