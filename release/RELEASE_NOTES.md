@@ -1,19 +1,13 @@
-# FarmingStar 1.0.0 — Moss & Ember
+# FarmingStar 1.0.1 — Arcade & Menu Repairs
 
-An original, cosy offline farming and cooking game with an expanded valley, furnished town shops, chicken care, fishing, arcade games, controller support and a furnishing editor.
+Repairs all three arcade games and makes phone menus easier to use.
 
-This release adds the silver farmhouse mirror and expanded appearance choices, readable themed menus, larger hotbar icons, a reorganised map and TV forecast presenter. It also includes the independent QA fixes for resource renewal, coop entrances, hen navigation and arcade Back. Existing compatible saves are preserved.
+- **Harvest Pairs:** card artwork stays inside each tile; scaled touch selection and matching results work correctly.
+- **Lantern Lanes:** a fresh procedural maze each round, a following camera, reliable held controls and an explained score.
+- **Firefly Rhythm:** taps register on press, sound and visual cues agree, early taps can be retried, and results show each hit grade.
+- **Local leaderboards:** each cabinet keeps its own top 10 with three-letter initials, saved with the farm. Previous personal bests are retained.
+- **Android-first interface repairs:** buttons stay within menu and scrolling boundaries, book footers remain accessible, and Settings Save has its own row.
 
-Downloads: **Windows x64 EXE**, **macOS Universal DMG** (Intel and Apple Silicon), **Android test APK**, and a standalone **index.html** that runs offline without installation. The original forest/farmer icon is included across the apps.
+Downloads: Android APK, Windows x64 EXE, macOS Universal DMG and standalone offline index.html. Existing compatible saves are preserved. Android build 10002 retains the previous package and signing certificate for an in-place update.
 
-The Android APK is test-signed and ready for your device testing. If Android refuses to update an older beta because its signing certificate differs, export your farm using **Save files & transfer** before uninstalling the old beta, then install this APK and import the save. Never uninstall your only saved copy first.
-
-Windows is unsigned; macOS uses an ad-hoc signature and is not Apple-notarised. Device-specific sound, performance and physical-controller checks remain separate from automated build/runtime verification.
-
-Apple Silicon execution remains unverified: hosted ARM runners could not be allocated. The DMG contains verified Intel and ARM64 binaries and passed native Intel execution.
-
-## Android-only refresh — build 10001
-
-The Android app is now named **FarmingStar**, with smoother camera tracking, reliable multi-touch joystick control, fuller sound with adjustable volume, and separate day/night music for each season. This APK retains the previous 1.0.0 package and signing identity for an in-place update with existing saves.
-
-Only the Android APK is updated in this refresh. The Windows, macOS and standalone HTML downloads remain the original 1.0.0 build.
+Windows and Intel Mac packaged runtime checks are part of the release gates. Apple Silicon execution and this APK’s native/physical-phone testing remain pending. Android is test-signed, Windows is unsigned, and macOS is ad-hoc signed without notarisation.

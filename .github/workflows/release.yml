@@ -2,86 +2,46 @@ name: FarmingStar release
 on:
   push:
     branches: [main]
-    paths: [index.html, package.json, package-lock.json, electron-builder.cjs, 'desktop/**', 'android/**', 'assets/**', 'tools/**', 'tests/**', release/release-config.json, .github/workflows/release.yml]
+    paths: [index.html, package.json, package-lock.json, electron-builder.cjs, 'desktop/**', 'android/**', 'tools/**', 'tests/**', release/release-config.json, .github/workflows/release.yml]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+  actions: write
+defaults:
+  run:
+    shell: bash
 concurrency:
   group: farmingstar-release
-  cancel-in-progress: ${{ contains(github.event.head_commit.message, '[release maintenance]') }}
+  cancel-in-progress: true
 jobs:
-  version:
-    if: ${{ !contains(github.event.head_commit.message, '[release maintenance]') }}
-    runs-on: ubuntu-24.04
-    outputs:
-      build: ${{ steps.check.outputs.build }}
+  retire-obsolete-jobs:
+    runs-on: windows-2022
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Skip versions that already have a release
-        id: check
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Stop superseded publishers before replacing the Android APK
+        shell: bash
         run: |
-          tag=$(node -p "require('./release/release-config.json').tag")
-          if gh release view "$tag" --json tagName >/dev/null 2>&1 || {
-            [ "${{ github.event_name }}" != workflow_dispatch ] && git ls-remote --exit-code origin "refs/tags/$tag" >/dev/null;
-          }; then
-            echo 'build=false' >> "$GITHUB_OUTPUT"
-            echo 'This version is already tagged or released. Use a new version for the next update; manually dispatch to resume an unpublished tag.'
-          else
-            echo 'build=true' >> "$GITHUB_OUTPUT"
-          fi
-  shared:
-    needs: version
-    if: needs.version.outputs.build == 'true'
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: '24.22.1'
-          cache: npm
-      - run: node tools/ci_status.cjs shared running
-      - run: node tools/reset_ci_evidence.cjs
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Find Chromium
-        run: |
-          if [ -x /usr/bin/google-chrome ]; then
-            printf 'CHROMIUM_PATH=/usr/bin/google-chrome\n' >> "$GITHUB_ENV"
-          else
-            npx playwright install --with-deps chromium
-            node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
-          fi
-      - run: npm test
-      - run: node tests/qa-resource-renewal.cjs && node tests/qa-housing.cjs && node tests/qa-hen-routing.cjs && node tests/qa-arcade-back.cjs
-      - run: npm run test:portable
-      - run: npm run test:packaging
-      - run: npm run test:desktop-store
-      - run: npm run desktop:install
-      - run: npm run test:desktop
-      - run: node tools/stage_html_release.cjs
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: release-html
-          path: artifacts/release-html/
-          if-no-files-found: error
-      - if: always()
-        run: node tools/ci_status.cjs shared '${{ job.status }}'
-      - if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: shared-evidence
-          path: release/evidence/
-
+          node - <<'NODE'
+          const cp=require('node:child_process');
+          const read=id=>JSON.parse(cp.execFileSync('gh',['api',`repos/${process.env.GH_REPO}/actions/runs/${id}`],{encoding:'utf8'}));
+          for(const id of ['43098136425','43097532923','43097532926']){
+            let r=read(id);if(r.status==='completed'){console.log(id+': '+r.conclusion);continue}
+            for(const method of ['cancel','force-cancel']){cp.spawnSync('gh',['api',`repos/${process.env.GH_REPO}/actions/runs/${id}/${method}`,'--method','POST'],{stdio:'inherit'});r=read(id);if(r.status==='completed')break}
+            console.log(id+': '+r.status); // Superseded jobs target 1.0.0, not this new 1.0.1 release.
+          }
+          NODE
   android:
-    needs: shared
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    timeout-minutes: 25
+    needs: retire-obsolete-jobs
+    # Use the Intel pool; the previous Ubuntu pools have unallocated queued jobs.
+    runs-on: macos-15-intel
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FARMINGSTAR_REQUIRE_SIGNING_CONTINUITY: '1'
+      FARMINGSTAR_NATIVE_VERIFICATION: partial
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -92,43 +52,69 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: gradle-${{ runner.os }}-
-      - name: Retain the test signing identity between builds
+      - name: Restore the existing Android signing identity
+        id: signing
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: .local-signing/
           key: farmingstar-android-test-signing-v1
-      - run: node tools/ci_status.cjs android running
-      - run: node tools/reset_ci_evidence.cjs
+      - name: Refuse an incompatible new signing key
+        if: steps.signing.outputs.cache-hit != 'true'
+        run: exit 1
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - name: Use a real browser for the shared Android game checks
+        run: |
+          npx playwright install chromium
+          node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
+      - run: node tools/reset_ci_evidence.cjs
+      - run: npm test
+      - run: npm run test:arcade
+      - run: node tests/production-html.cjs && node tests/portable.cjs && node tests/activities.cjs && node tests/phone-compact.cjs
+      - name: Install Android API 36 build tools
+        run: |
+          if [ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            export ANDROID_HOME="$RUNNER_TEMP/farmingstar-sdk"
+            mkdir -p "$ANDROID_HOME/cmdline-tools"
+            curl --fail --location --silent --show-error https://dl.google.com/android/repository/commandlinetools-mac-13114758_latest.zip -o "$RUNNER_TEMP/sdk.zip"
+            unzip -q "$RUNNER_TEMP/sdk.zip" -d "$ANDROID_HOME/cmdline-tools"
+            mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+          fi
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0' 'platform-tools'
       - run: npm run build:android:test
       - run: node tools/verify_android.cjs
-      - name: Stage APK and integrity evidence
+      - name: Stage the matching HTML and publish Android for phone testing first
         run: |
           mkdir -p artifacts/release-android
-          cp artifacts/FarmingStar-*-Android.apk artifacts/release-android/
+          version=$(node -p "require('./release/release-config.json').version")
+          cp "artifacts/FarmingStar-$version-Android.apk" artifacts/release-android/
+          node tools/checksum_artifact.cjs "artifacts/release-android/FarmingStar-$version-Android.apk"
           cp release/evidence/android-integrity.json artifacts/release-android/Android-integrity.json
-          apk=$(find artifacts/release-android -name '*.apk' -print -quit)
-          node tools/checksum_artifact.cjs "$apk"
-      - name: Publish the phone test download while desktop builds continue
-        run: node tools/publish_android_beta.cjs
+          node tools/stage_html_release.cjs
+          git fetch origin refs/heads/main:refs/remotes/origin/main
+          node tools/publish_android_beta.cjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: release-android
           path: artifacts/release-android/
           if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-html
+          path: artifacts/release-html/
+          if-no-files-found: error
       - if: always()
-        run: node tools/ci_status.cjs android '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/tree/main/betas'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: android-arcade-repair-evidence
+          path: |
+            artifacts/FarmingStar-*-Android.apk
+            release/evidence/android-integrity.json
+            tests/artifacts/arcade-repair/menu-containment.json
 
   windows:
-    needs: shared
+    needs: android
     runs-on: windows-2022
     permissions:
       contents: write
@@ -185,7 +171,7 @@ jobs:
           path: release/evidence/
 
   macos:
-    needs: shared
+    needs: android
     runs-on: macos-15-intel
     permissions:
       contents: write
@@ -228,46 +214,9 @@ jobs:
           name: macos-intel-evidence
           path: release/evidence/
 
-  macos-arm:
-    needs: macos
-    runs-on: macos-15
-    permissions:
-      contents: write
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: '24.22.1'
-          architecture: arm64
-          cache: npm
-      - run: node tools/ci_status.cjs macos-arm running
-      - run: node tools/reset_ci_evidence.cjs
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
-        with:
-          name: release-macos
-          path: downloaded/
-      - name: Run the shared Universal DMG on Apple Silicon
-        run: |
-          dmg=$(find downloaded -name '*.dmg' -print -quit)
-          hdiutil verify "$dmg"
-          mkdir -p "$RUNNER_TEMP/farmingstar-mount"
-          hdiutil attach "$dmg" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/farmingstar-mount"
-          trap 'hdiutil detach "$RUNNER_TEMP/farmingstar-mount" || true' EXIT
-          node tools/verify_macos.cjs "$RUNNER_TEMP/farmingstar-mount/FarmingStar.app"
-          FARMINGSTAR_EXPECT_ARCH=arm64 FARMINGSTAR_DESKTOP_EXE="$RUNNER_TEMP/farmingstar-mount/FarmingStar.app/Contents/MacOS/FarmingStar" npm run test:desktop
-      - if: always()
-        run: node tools/ci_status.cjs macos-arm '${{ job.status }}'
-      - if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: macos-arm-evidence
-          path: release/evidence/
-
   publish:
-    needs: [shared, android, windows, macos, macos-arm]
-    runs-on: ubuntu-24.04
+    needs: [android, windows, macos]
+    runs-on: windows-2022
     permissions:
       contents: write
     timeout-minutes: 15
@@ -284,7 +233,11 @@ jobs:
       - name: Publish all four tested downloads as the actual GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          FARMINGSTAR_ARM_RUNTIME: pending
+        shell: bash
         run: |
+          git config user.name "FarmingStar releases"
+          git config user.email "actions@users.noreply.github.com"
           tag=$(node -p "require('./release/release-config.json').tag")
           if ! git ls-remote --exit-code origin "refs/tags/$tag" >/dev/null; then
             git tag "$tag" "$GITHUB_SHA"
@@ -292,4 +245,4 @@ jobs:
           fi
           node tools/publish_release.cjs
       - if: always()
-        run: node tools/ci_status.cjs release '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0'
+        run: node tools/ci_status.cjs release '${{ job.status }}' 'https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1'

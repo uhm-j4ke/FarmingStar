@@ -1,6 +1,6 @@
 {
   "name": "farmingstar-moss-and-ember",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "An offline pixel-art farming, cooking and village-life game.",
   "scripts": {
@@ -19,7 +19,8 @@
     "build:macos": "npm run prepare:web && electron-builder --config electron-builder.cjs --mac --universal --publish never",
     "build:windows": "npm run prepare:web && electron-builder --config electron-builder.cjs --win --x64 --publish never",
     "build:desktop:test": "npm run prepare:web && electron-builder --config electron-builder.cjs --linux dir --publish never",
-    "test:desktop": "npm run prepare:web && node tests/desktop.cjs"
+    "test:desktop": "npm run prepare:web && node tests/desktop.cjs",
+    "test:arcade": "node tests/arcade-repair.cjs && node tests/qa-arcade-back.cjs && node tests/menu-containment.cjs"
   },
   "devDependencies": {
     "electron": "45.2.3",
