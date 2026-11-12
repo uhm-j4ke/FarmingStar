@@ -67,7 +67,13 @@ jobs:
           npx playwright install chromium
           node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
       - run: node tools/reset_ci_evidence.cjs
-      - run: npm test 2>&1 | tee release/evidence/shared-browser.log
+      - name: Validate a completed shared gate against identical source and tests
+        id: sharedProof
+        env:
+          FARMINGSTAR_SHARED_PROOF_RUN: '43205994127'
+        run: node tools/reuse_shared_checks.cjs
+      - if: steps.sharedProof.outputs.reused != 'true'
+        run: npm test 2>&1 | tee release/evidence/shared-browser.log
       - run: npm run test:arcade 2>&1 | tee release/evidence/arcade-browser.log
       - run: node tests/production-html.cjs && node tests/portable.cjs && node tests/activities.cjs && node tests/phone-compact.cjs
       - name: Install Android API 36 build tools
@@ -91,6 +97,7 @@ jobs:
           cp "artifacts/FarmingStar-$version-Android.apk" artifacts/release-android/
           node tools/checksum_artifact.cjs "artifacts/release-android/FarmingStar-$version-Android.apk"
           cp release/evidence/android-integrity.json artifacts/release-android/Android-integrity.json
+          if [ -f release/evidence/shared-browser-proof.json ]; then cp release/evidence/shared-browser-proof.json artifacts/release-android/Shared-browser-proof.json; fi
           node tools/stage_html_release.cjs
           git fetch origin refs/heads/main:refs/remotes/origin/main
           node tools/publish_android_beta.cjs
