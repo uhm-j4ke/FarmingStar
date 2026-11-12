@@ -19,3 +19,7 @@ Completed shared suites can be reused only after all game, test, dependency and 
 No physical-speaker, physical-controller or long-session Android performance pass is claimed. The APK is test-signed with the same certificate and package as 1.0.0. Windows remains unsigned; macOS is ad-hoc signed, without Apple notarisation.
 
 Earlier release reports are archived in release/history/. [Repair changelog](bug%20reports/ARCADE_MENU_REPAIRS_2026-11-12.md).
+
+## Public download verification
+
+All four 1.0.1 downloads were retrieved from the public release and matched their recorded sizes and SHA-256 digests. The APK also matches the beta download; its embedded HTML matches the standalone release HTML and website branch. The release is public/latest with exactly four uploaded game assets. Only main and website branches remain. [Verification record](release/evidence/1.0.1-public-downloads.json).

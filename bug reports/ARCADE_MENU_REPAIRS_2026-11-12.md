@@ -1,6 +1,6 @@
 # Arcade and menu repair tracker — 12 November 2026
 
-Shared source: index.html. Release target: 1.0.1, Android build 10002. Save schema remains 5; no farm reset is required.
+Shared source: index.html. Published release: [1.0.1](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1), Android build 10002. Save schema remains 5; no farm reset is required.
 
 ## Fixed and reproduced in browser regression tests
 
@@ -34,7 +34,7 @@ Shared source: index.html. Release target: 1.0.1, Android build 10002. Save sche
 - This release’s native Android emulator and physical-phone checks remain pending; previous APK feedback is not counted as verification of this build.
 - Actual speaker output, physical controllers and prolonged device performance require device testing.
 - Apple Silicon execution remains pending; the Universal DMG includes both architectures and has an Intel runtime gate.
-- Shared source is repaired for every platform. Installer delivery is tracked separately in the release workflow; do not claim an installer passed until its build and runtime gates succeed.
+- Android build/lint/signature/source gates, Windows packaged/portable runtime, and Intel Mac DMG/runtime gates passed. All four release downloads were independently downloaded and matched their recorded sizes and SHA-256 checksums. The APK, beta, standalone HTML and website source match. [Public verification](../release/evidence/1.0.1-public-downloads.json).
 
 The first Mac-hosted browser run exposed a test assumption: Home/End move the caret differently on macOS. The text-input regression now uses the native Command+Left/Right shortcuts on Mac and Home/End elsewhere; its input-editing assertion is retained. A later seasonal-leaf check used a fixed 100ms paint delay; it now waits for the actual expected canvas pixels, retaining the exact colour assertion. The tool-target test similarly waits for the actual paid tool impact and completed action instead of assuming completion after 250ms; it retains its real pointer and plot assertions. Sleep completion and reduced-motion clearing also wait for their observed states. The bedtime suite passed with deliberate 4× CPU throttling. Precision input fixtures align their clock at the actual captured key/pointer event, so automation transport latency cannot turn the intended Perfect into a legitimate Good hit. The separate production-page test continues to use unmodified real time. It checks actual press timestamps and displayed per-press grades against final totals, rather than incorrectly requiring a cloud automation robot to deliver all sixteen gestures on time. All near-line gestures must register; deliberate or transport-late misses remain legitimate game results.
 

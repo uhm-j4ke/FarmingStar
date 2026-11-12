@@ -1,0 +1,39 @@
+{
+  "version": "1.0.1",
+  "verifiedAt": "2026-11-12T11:31:59.166167+00:00",
+  "latestRelease": "https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1",
+  "uploadedAssets": 4,
+  "artifacts": [
+    {
+      "name": "index.html",
+      "bytes": 552488,
+      "sha256": "b4c16eaa23bbfd99d1cb930c43f6196bc1d1ac41346c85cf54d1317071adb3a9"
+    },
+    {
+      "name": "FarmingStar-1.0.1-Android.apk",
+      "bytes": 2551100,
+      "sha256": "31155e2d7faf3056a1d5d4824b6fe3cfa8ec01bac30b4abdb81aa7c9175621e6"
+    },
+    {
+      "name": "FarmingStar-1.0.1-Windows-x64.exe",
+      "bytes": 112155329,
+      "sha256": "0f83921e38477da7eb7031acbe173f85b443836f4ec910c6fe594c411ba8ca27"
+    },
+    {
+      "name": "FarmingStar-1.0.1-macOS-Universal.dmg",
+      "bytes": 231352636,
+      "sha256": "641d5bfc3e6b0535acef1f37173bfb6573c65030a34d4985aecc2bd1df053f11"
+    }
+  ],
+  "allFourPublicDownloadsMatch": true,
+  "apkMatchesBeta": true,
+  "apkHtmlMatchesStandaloneAndWebsite": true,
+  "branches": [
+    "main",
+    "website"
+  ],
+  "nativeLimits": {
+    "android": "User physical-phone review pending",
+    "appleSilicon": "Execution pending; Universal binaries and Intel runtime passed"
+  }
+}
