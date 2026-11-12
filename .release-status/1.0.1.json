@@ -14,6 +14,12 @@
       "url": "",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
       "updatedAt": "2026-11-12T11:28:57.159Z"
+    },
+    "release": {
+      "state": "success",
+      "url": "https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1",
+      "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
+      "updatedAt": "2026-11-12T11:29:52.149Z"
     }
   }
 }
