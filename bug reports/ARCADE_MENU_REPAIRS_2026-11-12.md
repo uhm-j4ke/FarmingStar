@@ -16,8 +16,11 @@ Shared source: index.html. Release target: 1.0.1, Android build 10002. Save sche
 | UI-003 | Settings sticky Save overlaps scrolling controls. | Save occupies its own row; action settings have a separate inner scrollport. Phone tests verify Save remains on-screen and settings persist. |
 | UI-004 | Appearance category tabs clip at the ends. | Remove conflicting scroll snapping and provide end spacing. Included in 152-screen containment audit at 115% UI scale. |
 
+| ARC-006 | Space fails on focused cabinet buttons because the global movement handler cancels its native activation before arcade handling. | Route arcade keys before global movement cancellation; the real production UI test reproduces the failure before the fix and verifies New round/Exit with Space afterward. |
+
 ## Regression evidence
 
+- `node tests/arcade-production.cjs`: play memory and rhythm through actual touch controls and frame timing, save initials under production CSP, and activate New round/Exit with keyboard; no mutation hooks.
 - `npm test`: all eight existing gameplay/save suites passed.
 - `node tests/arcade-repair.cjs`: reported arcade reproductions, camera, touch/timing/scoring, initials persistence, full-storage rollback and legacy scores passed.
 - `node tests/qa-arcade-back.cjs`: 24 active/completed/native/Escape/controller/touch exits passed, repeated Back conserves farm items/coins/time; cooking and sleep guards preserved.
@@ -31,6 +34,8 @@ Shared source: index.html. Release target: 1.0.1, Android build 10002. Save sche
 - Actual speaker output, physical controllers and prolonged device performance require device testing.
 - Apple Silicon execution remains pending; the Universal DMG includes both architectures and has an Intel runtime gate.
 - Shared source is repaired for every platform. Installer delivery is tracked separately in the release workflow; do not claim an installer passed until its build and runtime gates succeed.
+
+The first Mac-hosted browser run exposed a test assumption: Home/End move the caret differently on macOS. The text-input regression now uses the native Command+Left/Right shortcuts on Mac and Home/End elsewhere; its input-editing assertion is retained.
 
 ## Compatibility and scope
 

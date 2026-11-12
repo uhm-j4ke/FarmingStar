@@ -20,7 +20,7 @@
     "build:windows": "npm run prepare:web && electron-builder --config electron-builder.cjs --win --x64 --publish never",
     "build:desktop:test": "npm run prepare:web && electron-builder --config electron-builder.cjs --linux dir --publish never",
     "test:desktop": "npm run prepare:web && node tests/desktop.cjs",
-    "test:arcade": "node tests/arcade-repair.cjs && node tests/qa-arcade-back.cjs && node tests/menu-containment.cjs"
+    "test:arcade": "node tests/arcade-repair.cjs && node tests/qa-arcade-back.cjs && node tests/menu-containment.cjs && node tests/arcade-production.cjs"
   },
   "devDependencies": {
     "electron": "45.2.3",

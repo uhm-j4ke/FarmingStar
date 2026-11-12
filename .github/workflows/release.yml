@@ -67,8 +67,8 @@ jobs:
           npx playwright install chromium
           node -e "require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('playwright').chromium.executablePath()+'\n')"
       - run: node tools/reset_ci_evidence.cjs
-      - run: npm test
-      - run: npm run test:arcade
+      - run: npm test 2>&1 | tee release/evidence/shared-browser.log
+      - run: npm run test:arcade 2>&1 | tee release/evidence/arcade-browser.log
       - run: node tests/production-html.cjs && node tests/portable.cjs && node tests/activities.cjs && node tests/phone-compact.cjs
       - name: Install Android API 36 build tools
         run: |
@@ -82,7 +82,7 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0' 'platform-tools'
-      - run: npm run build:android:test
+      - run: npm run build:android:test 2>&1 | tee release/evidence/android-build.log
       - run: node tools/verify_android.cjs
       - name: Stage the matching HTML and publish Android for phone testing first
         run: |
@@ -104,13 +104,19 @@ jobs:
           name: release-html
           path: artifacts/release-html/
           if-no-files-found: error
+      - name: Expose a failed assertion without private environment data
+        if: failure()
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs');for(const name of ['shared-browser.log','arcade-browser.log','android-build.log']){const file='release/evidence/'+name;if(!fs.existsSync(file))continue;let text=fs.readFileSync(file,'utf8').split('\n').slice(-70).join('\n');for(const token of [process.env.GH_TOKEN,process.env.GITHUB_TOKEN].filter(Boolean))text=text.split(token).join('[REDACTED]');console.log('::notice title='+name+'::'+text.replace(/%/g,'%25').replace(/\r/g,'%0D').replace(/\n/g,'%0A'))}
+          NODE
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: android-arcade-repair-evidence
           path: |
             artifacts/FarmingStar-*-Android.apk
-            release/evidence/android-integrity.json
+            release/evidence/
             tests/artifacts/arcade-repair/menu-containment.json
 
   windows:
