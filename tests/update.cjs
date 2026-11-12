@@ -17,7 +17,7 @@ const {chromium}=require('./browser.cjs');const assert=require('node:assert/stri
  for(const zoom of [3,4,5]){
   await page.evaluate(z=>{const f=FarmingStar;f.state.settings.zoom=z;window.dispatchEvent(new Event('resize'));f.travel('farm',8,11);f.state.selected='hoe';delete f.state.plots['8,12']},zoom);await page.waitForTimeout(650);
   const pos=await page.evaluate(()=>{const f=FarmingStar,c=f.camera;return {x:(8*24+12-Math.floor(c.x))/c.vw*innerWidth,y:(12*24+12-Math.floor(c.y))/c.vh*innerHeight}});
-  await page.mouse.click(pos.x,pos.y);await page.waitForTimeout(250);assert.ok(await page.evaluate(()=>!!FarmingStar.state.plots['8,12']),`pointer target at ${zoom}x`);
+  await page.waitForFunction(()=>!FarmingStar.action);await page.mouse.click(pos.x,pos.y);await page.waitForFunction(()=>!!FarmingStar.state.plots['8,12'],null,{timeout:10000});assert.ok(await page.evaluate(()=>!!FarmingStar.state.plots['8,12']),`pointer target at ${zoom}x`);await page.waitForFunction(()=>!FarmingStar.action);
  }
  // Journal rewards once, and merely opening the book never completes tasks.
  await page.evaluate(()=>{FarmingStar.state.settings.zoom=4;window.dispatchEvent(new Event('resize'));FarmingStar.save(true)});
