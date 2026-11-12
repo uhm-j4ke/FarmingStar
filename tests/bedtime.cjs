@@ -29,8 +29,9 @@ const {chromium}=require('./browser.cjs'),assert=require('node:assert/strict'),f
   const leaves=await page.evaluate(()=>{const c=document.querySelector('#menuAmbience'),sheet=document.querySelector('#sheet');return {painted:c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0),pointer:getComputedStyle(c).pointerEvents,behind:+getComputedStyle(c).zIndex<+getComputedStyle(sheet).zIndex}});
   assert.deepEqual(leaves,{painted:true,pointer:'none',behind:true});
   for(const [day,color]of [[1,[184,216,138]],[15,[129,172,102]],[29,[228,178,99]],[43,[213,228,216]]]){
-   await page.evaluate(day=>FarmingStar.state.day=day,day);await page.waitForTimeout(100);
-   assert.ok(await page.evaluate(color=>{const c=document.querySelector('#menuAmbience'),d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;for(let i=0;i<d.length;i+=4)if(d[i]===color[0]&&d[i+1]===color[1]&&d[i+2]===color[2]&&d[i+3]===255)return true;return false},color),'seasonal leaf palette '+day);
+   await page.evaluate(day=>FarmingStar.state.day=day,day);
+   // Wait for an observed frame instead of assuming every host paints within 100ms.
+   await page.waitForFunction(color=>{const c=document.querySelector('#menuAmbience'),d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;for(let i=0;i<d.length;i+=4)if(d[i]===color[0]&&d[i+1]===color[1]&&d[i+2]===color[2]&&d[i+3]===255)return true;return false},color,{polling:'raf',timeout:10000});
   }
   await page.evaluate(()=>FarmingStar.state.day=31);await page.waitForTimeout(100);
   await page.screenshot({path:path.join(__dirname,'seasonal-menu.png')});
