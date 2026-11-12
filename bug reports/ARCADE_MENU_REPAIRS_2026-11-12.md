@@ -35,7 +35,7 @@ Shared source: index.html. Release target: 1.0.1, Android build 10002. Save sche
 - Apple Silicon execution remains pending; the Universal DMG includes both architectures and has an Intel runtime gate.
 - Shared source is repaired for every platform. Installer delivery is tracked separately in the release workflow; do not claim an installer passed until its build and runtime gates succeed.
 
-The first Mac-hosted browser run exposed a test assumption: Home/End move the caret differently on macOS. The text-input regression now uses the native Command+Left/Right shortcuts on Mac and Home/End elsewhere; its input-editing assertion is retained. A later seasonal-leaf check used a fixed 100ms paint delay; it now waits for the actual expected canvas pixels, retaining the exact colour assertion. The tool-target test similarly waits for the actual paid tool impact and completed action instead of assuming completion after 250ms; it retains its real pointer and plot assertions.
+The first Mac-hosted browser run exposed a test assumption: Home/End move the caret differently on macOS. The text-input regression now uses the native Command+Left/Right shortcuts on Mac and Home/End elsewhere; its input-editing assertion is retained. A later seasonal-leaf check used a fixed 100ms paint delay; it now waits for the actual expected canvas pixels, retaining the exact colour assertion. The tool-target test similarly waits for the actual paid tool impact and completed action instead of assuming completion after 250ms; it retains its real pointer and plot assertions. Sleep completion and reduced-motion clearing also wait for their observed states. The bedtime suite passed with deliberate 4× CPU throttling.
 
 ## Compatibility and scope
 

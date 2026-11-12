@@ -13,7 +13,7 @@ const {chromium}=require('./browser.cjs'),assert=require('node:assert/strict'),f
   const first=await page.evaluate(()=>{const f=FarmingStar,g=f.state;return {day:g.day,time:g.time,energy:g.energy,age:g.plots['10,17'].age,sleep:g.events.sleep,repeat:f.sleepInBed()}});
   assert.deepEqual(first,{day:30,time:480,energy:100,age:1,sleep:1,repeat:false});
   await page.keyboard.press('Escape');assert.ok(await page.locator('#sleepArt').isVisible());
-  await page.screenshot({path:path.join(__dirname,'bedtime.png')});await page.waitForTimeout(1800);
+  await page.screenshot({path:path.join(__dirname,'bedtime.png')});await page.waitForFunction(()=>FarmingStar.resting===null,null,{timeout:10000});
   assert.equal(await page.evaluate(()=>FarmingStar.resting),null);
   await page.reload();await page.getByRole('button',{name:'Continue your farm'}).click();
   assert.equal(await page.evaluate(()=>FarmingStar.state.day),30);
@@ -21,7 +21,7 @@ const {chromium}=require('./browser.cjs'),assert=require('node:assert/strict'),f
   await page.evaluate(()=>{const f=FarmingStar,g=f.state;f.travel('farm',10,16);g.plots['10,17'].water=true;g.forecast[31]='Sunny';g.time=1439.9;f.update(.3);if(g.day!==31||g.plots['10,17'].age!==2)throw Error('midnight failed');f.travel('home',5,5);g.dir=3;g.time=60;g.energy=8;f.interact()});
   await page.getByRole('button',{name:'Sleep until morning & save'}).click();
   assert.deepEqual(await page.evaluate(()=>{const g=FarmingStar.state;return {day:g.day,time:g.time,age:g.plots['10,17'].age,energy:g.energy,sleep:g.events.sleep}}),{day:31,time:480,age:2,energy:100,sleep:2});
-  await page.waitForTimeout(1800);
+  await page.waitForFunction(()=>FarmingStar.resting===null,null,{timeout:10000});
   // Sleep is physically tied to a bed, not a remote menu action.
   assert.equal(await page.evaluate(()=>{FarmingStar.travel('town',12,11);return FarmingStar.sleepInBed()}),false);
   // Continuous leaves are behind the sheet, seasonal, non-interactive and disabled by reduced motion.
@@ -35,7 +35,7 @@ const {chromium}=require('./browser.cjs'),assert=require('node:assert/strict'),f
   }
   await page.evaluate(()=>FarmingStar.state.day=31);await page.waitForTimeout(100);
   await page.screenshot({path:path.join(__dirname,'seasonal-menu.png')});
-  await page.evaluate(()=>FarmingStar.state.settings.reduced=true);await page.waitForTimeout(120);
+  await page.evaluate(()=>FarmingStar.state.settings.reduced=true);await page.waitForFunction(()=>{const c=document.querySelector('#menuAmbience');return !c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0)},null,{polling:'raf',timeout:10000});
   assert.equal(await page.evaluate(()=>{const c=document.querySelector('#menuAmbience');return c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0)}),false);
   await page.evaluate(()=>{const f=FarmingStar;f.close();f.state.settings.reduced=false;f.travel('home',7,6);f.state.dir=2});await page.waitForTimeout(500);
   await page.screenshot({path:path.join(__dirname,'art-home.png')});
