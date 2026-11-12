@@ -4,10 +4,10 @@
   "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
   "platforms": {
     "windows": {
-      "state": "running",
+      "state": "success",
       "url": "",
       "run": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43207908131",
-      "updatedAt": "2026-11-12T11:24:20.117Z"
+      "updatedAt": "2026-11-12T11:28:08.235Z"
     },
     "macos": {
       "state": "running",
