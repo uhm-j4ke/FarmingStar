@@ -1,0 +1,23 @@
+{
+  "status": "PASS: reused only after identical game/test/dependency blobs were verified",
+  "previousRun": "43205994127",
+  "previousCommit": "7c652450be26463ba0a4bafb88daa2679b21fd08",
+  "previousJob": 131141369743,
+  "currentCommit": "784569142e715229520d3c374fb6a7be214c9e73",
+  "runUrl": "https://github.com/uhm-j4ke/FarmingStar/actions/runs/43205994127",
+  "blobs": {
+    "index.html": "1b170e5852ed6d015b0cf759a0219839485e2ee7",
+    "package.json": "a63ca4c73decde24d4db5ceeedd3118946201052",
+    "package-lock.json": "d5fd5d169d3e31d4dd8373e260ed57e078c3cc59",
+    "release/release-config.json": "97f9ff081be18a580c65500c02bc062120398f56",
+    "tests/browser.cjs": "afa8a2d7af991f42dc44f371236f20a84f8b4c54",
+    "tests/immersion.cjs": "25215cd17fcb4865847ce4b171144cb973f97699",
+    "tests/systems.cjs": "d4dcf19c7430c43c41e39a8d030b98a090fe9962",
+    "tests/smoke.cjs": "b1863a093dd27dee986738b73efe3b7a32de8760",
+    "tests/update.cjs": "c8583407b9c533eccfbce2b6838b65cb6df5fe85",
+    "tests/expansion.cjs": "5e75e56c38cba7bdc6c05fd4323fe2ded7a321e9",
+    "tests/compatibility.cjs": "b23bd5e6300faaf4a7c0ae982515811007f95e20",
+    "tests/bedtime.cjs": "6ab332856f5fb78837119154f7ce9793bb8812dc",
+    "tests/stability.cjs": "f00dba9959c26aa3d74d4d3ee45aba4c0f9d6adc"
+  }
+}

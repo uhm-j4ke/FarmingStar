@@ -1,0 +1,106 @@
+{
+  "recordedAt": "2026-11-12T11:28:18.721Z",
+  "version": "1.0.1",
+  "rows": [
+    {
+      "file": "Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/app_shim_loader",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/FarmingStar Helper (GPU).app/Contents/MacOS/FarmingStar Helper (GPU)",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/FarmingStar Helper (Plugin).app/Contents/MacOS/FarmingStar Helper (Plugin)",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/FarmingStar Helper (Renderer).app/Contents/MacOS/FarmingStar Helper (Renderer)",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/FarmingStar Helper.app/Contents/MacOS/FarmingStar Helper",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Mantle.framework/Versions/A/Mantle",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/ReactiveObjC.framework/Versions/A/ReactiveObjC",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/Frameworks/Squirrel.framework/Versions/A/Squirrel",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    },
+    {
+      "file": "Contents/MacOS/FarmingStar",
+      "archs": [
+        "x86_64",
+        "arm64"
+      ]
+    }
+  ],
+  "signature": "verified ad-hoc; not Developer ID signed or notarised",
+  "runtime": "PASS: native Intel runtime; Apple Silicon: Not tested in this update; Universal 2 binaries verified and Intel execution passed"
+}

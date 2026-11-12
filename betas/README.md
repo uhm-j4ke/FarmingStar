@@ -1,7 +1,5 @@
 # Android phone testing
 
-[Download FarmingStar 1.0.1](https://github.com/uhm-j4ke/FarmingStar/raw/main/betas/FarmingStar-1.0.1-Android.apk). This is the new offline, test-signed APK; please report device test findings.
+[Download FarmingStar 1.0.1 APK](https://github.com/uhm-j4ke/FarmingStar/raw/main/betas/FarmingStar-1.0.1-Android.apk) · [All platform downloads](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1)
 
-Use the in-game save export before any installation change.
-
-This APK is named FarmingStar and retains the previous 1.0.0 signing identity for an in-place update. Android is provided first for phone testing; the matching Windows, macOS and standalone HTML downloads will follow in release 1.0.1. Older betas remain archived here.
+This test-signed APK retains the installed 1.0.0 package and certificate for an in-place update. Use Save files & transfer to export a backup before updating. Native/device verification of this build remains pending. Older APKs remain archived here.

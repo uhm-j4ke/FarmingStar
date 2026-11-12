@@ -2,20 +2,20 @@
 
 A cosy, original pixel-art farming and cooking game. Grow crops, explore the valley, cook meals, care for chickens, fish, meet neighbours and furnish your farmhouse. The game works offline and includes keyboard, touch and controller controls.
 
-## Version 1.0.0
+## Version 1.0.1
 
-The [1.0.0 GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.0) is available with all four downloads:
+The [1.0.1 GitHub Release](https://github.com/uhm-j4ke/FarmingStar/releases/tag/v1.0.1) is available with all four downloads:
 
 | Platform | Download |
 | --- | --- |
-| Windows x64 | [Portable EXE](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Windows-x64.exe) |
-| macOS, Intel and Apple Silicon | [Universal DMG](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-macOS-Universal.dmg) |
-| Android phone testing | [Android APK](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/FarmingStar-1.0.0-Android.apk) |
-| Any modern browser | [Standalone index.html](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.0/index.html) |
+| Windows x64 | [Portable EXE](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.1/FarmingStar-1.0.1-Windows-x64.exe) |
+| macOS, Intel and Apple Silicon | [Universal DMG](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.1/FarmingStar-1.0.1-macOS-Universal.dmg) |
+| Android phone testing | [Android APK](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.1/FarmingStar-1.0.1-Android.apk) |
+| Any modern browser | [Standalone index.html](https://github.com/uhm-j4ke/FarmingStar/releases/download/v1.0.1/index.html) |
 
 [Published release verification](RELEASE_TEST_REPORT.md) · [What's new](release/RELEASE_NOTES.md) · [QA repairs](bug%20reports/QA_REPAIR_CHANGELOG_2026-11-11.md)
 
-The Android refresh (build 10001) installs over the original 1.0.0 app and preserves its saves. It retains the same test-signing identity. When upgrading from the older 0.4.0 beta, export your save before uninstalling if its different certificate blocks installation. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Windows and Intel Mac execution passed native tests. Apple Silicon binaries are included and verified, but execution is unverified because hosted ARM runners were unavailable. Checksums and integrity records are preserved in the repository.
+Android build 10002 installs over the original 1.0.0 app and preserves its saves. It retains the same test-signing identity. When upgrading from the older 0.4.0 beta, export your save before uninstalling if its different certificate blocks installation. Windows is unsigned; the Mac build is ad-hoc signed and not Apple-notarised. Windows and Intel Mac execution passed native tests. Apple Silicon binaries are included and verified; execution remains pending. The new Android build is ready for the user’s phone test. Checksums and integrity records are preserved in the repository.
 
 ## Play
 
